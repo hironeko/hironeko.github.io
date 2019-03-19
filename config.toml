@@ -1,0 +1,5 @@
+baseURL = "http://hironeko.github.io"
+languageCode = "ja"
+title = "hironeko desu"
+theme = "zen"
+publishDir = "docs"
