@@ -8,7 +8,7 @@ draft: true
 
 #### Web アプリケーション開発
 
-- PHP5.5 ~ 7.2, Ruby2.4, JavaScript あわせて 4 年
+- PHP5.5 ~ 7.2, Ruby2.4, JavaScript あわせて 4 年(下記教育含む)
   - 主に PHP の開発を中心に従事
   - 直近の職場では、PHPUnit の導入、Docker を用いての開発、コードレビュー、コーディングルールを取り入れました。
 
