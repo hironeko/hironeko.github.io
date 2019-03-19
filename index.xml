@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hironeko desu</title>
+    <link>http://hironeko.github.io/</link>
+    <description>Recent content on hironeko desu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sun, 17 Mar 2019 20:24:48 +0900</lastBuildDate>
+    <atom:link href="http://hironeko.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>hugoに挑戦</title>
+      <link>http://hironeko.github.io/posts/201903/20190317/</link>
+      <pubDate>Sun, 17 Mar 2019 20:24:48 +0900</pubDate>
+      <guid>http://hironeko.github.io/posts/201903/20190317/</guid>
+      <description>
+
+&lt;h2 id=&#34;はてなブログ&#34;&gt;はてなブログ&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;最初は、はてなブログが再開したがせっかく&lt;code&gt;Go&lt;/code&gt; の勉強を始めたので&lt;code&gt;hugo&lt;/code&gt; でやってみようかなとただし 0 から始めるとどうせやらなくなるからひとまず既存の theme を使用してやろうかなと思う。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;今回の-theme&#34;&gt;今回の theme&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;zen&lt;/code&gt;です。&lt;a href=&#34;https://github.com/frjo/hugo-theme-zen&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;選んだ理由&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;どがつくほどシンプルであるから。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Composerでのちょっとした楽</title>
+      <link>http://hironeko.github.io/posts/201903/20190314/</link>
+      <pubDate>Sun, 17 Mar 2019 20:20:38 +0900</pubDate>
+      <guid>http://hironeko.github.io/posts/201903/20190314/</guid>
+      <description>
+
+&lt;h2 id=&#34;composer-がある環境&#34;&gt;Composer がある環境&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;例えば&lt;code&gt;Laravel&lt;/code&gt;を使用している場合
+
+&lt;ul&gt;
+&lt;li&gt;環境構築ってまぁまぁめんどい多くが下のコマンドのような流れのはず&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;git clone https:/xxxxxxx
+composer install
+cp env-example .env
+php artisan key:generate
+php artisan migrate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;これすらめんどいわけで。。。
+
+&lt;ul&gt;
+&lt;li&gt;docker 環境だったとしたら docker-compose up -d &amp;ndash;build した時点で shell が走るようにしてればいいんだけども&lt;/li&gt;
+&lt;li&gt;環境がそれぞれの PC に依存している場合とかだとまぁーめんどいし README に書くのもだるい&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;めんどいの-composer-json-に書けばいい&#34;&gt;めんどいの composer.json に書けばいい&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;rails とかだと用意されているんだけど(もちろんプロジェクト単位での追記はあると思うけど)&lt;code&gt;setup&lt;/code&gt;コマンドを作っとけばいい
+
+&lt;ul&gt;
+&lt;li&gt;composer の&lt;code&gt;scripts&lt;/code&gt;って箇所に追記すればいい。例えば下記のように&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;       &amp;quot;set-up&amp;quot;: [
+            &amp;quot;composer install&amp;quot;,
+            &amp;quot;cp .env.example .env&amp;quot;,
+            &amp;quot;php artisan key:generate&amp;quot;
+        ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;って書いておけば&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;composer set-up
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;一回で済む話。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;もしまだやったことがなくコマンド都度打つような環境なら最初の段階であらかじめ追記しておいた方がいい。そうしたらドキュメントも一行で済むし、他の作業者が間違えることなく初期環境構築が終えられると思う。できる限り日々小さなことでもめんどーは避けたい。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>レガシーなPHPシステムにPHPUnitを入れてみる</title>
+      <link>http://hironeko.github.io/posts/201903/20190313/</link>
+      <pubDate>Sun, 17 Mar 2019 20:19:32 +0900</pubDate>
+      <guid>http://hironeko.github.io/posts/201903/20190313/</guid>
+      <description>
+
+&lt;h2 id=&#34;目的&#34;&gt;目的&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;単体テストがなく、なんの動作保証もない実装がすぐにローンチされている環境をなくしたい&lt;/li&gt;
+&lt;li&gt;色々とメンテナンスされていないライブラリを消し去りたい&lt;/li&gt;
+&lt;li&gt;他にも色々と理由はあった・・・・気がするけど主にこのへん&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;現状&#34;&gt;現状&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;レガシーのシステムなので PHP の version はもちろんサポ外ですよ&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;なので極力対象のシステムが動く環境で検証実装&lt;/li&gt;
+&lt;li&gt;既存の秘伝のタレで作成される&lt;code&gt;vagrant&lt;/code&gt;環境を参考に&lt;code&gt;docker&lt;/code&gt;の環境構築に着手した&lt;/li&gt;
+&lt;li&gt;しかし大きな問題が発生。メンテされていない、ドキュメントも少ない、安全な保証なしってことで消し去りたいライブラリを入れられないって問題。あまり時間も取られたくないのでひとまず秘伝のタレでできている vagrant 環境で実装することに※実際みる限り問題なく動いてはいるはず。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;単体テストを使用しようとした痕跡はあるけどもそれ自体がテストとして成立してないものなので、即全削除。0 からの実装が確定&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;調査-事前準備&#34;&gt;調査・事前準備&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;該当の PHP version で動く PHPUnit と DbUnit の組み合わせで検証プロトタイプの作成&lt;/li&gt;
+&lt;li&gt;その後秘伝のタレの vagrant 環境で動作確認&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;先々考えるとしんどい&#34;&gt;先々考えるとしんどい&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;理由
+
+&lt;ul&gt;
+&lt;li&gt;PHPUnit, DbUnit の version を PHP の version に伴ってあげると path が変わる。&lt;/li&gt;
+&lt;li&gt;そこを考慮して実装しないと世代アップにも時間が取られることになる。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;次のブログで導入手順を書く&#34;&gt;次のブログで導入手順を書く&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;PHP : 5.6.*&lt;/li&gt;
+&lt;li&gt;PHPUnit : 5.5.*&lt;/li&gt;
+&lt;li&gt;DbUnit : 2.0.*
+という環境です。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>大阪旅行2日目</title>
+      <link>http://hironeko.github.io/posts/201903/20190312/</link>
+      <pubDate>Sun, 17 Mar 2019 20:18:06 +0900</pubDate>
+      <guid>http://hironeko.github.io/posts/201903/20190312/</guid>
+      <description>
+
+&lt;h2 id=&#34;2-日目&#34;&gt;2 日目&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;朝起きてホテルのビュッフェを食し大満足&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;難波&#34;&gt;難波&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;チェックアウト後に向かったのは、&lt;code&gt;難波&lt;/code&gt; - 着いて驚いたのは、なんちゃら筋って名の着く道がただひたすら人でごった返しててすごかった。 - そのまま心斎橋方面というか通過までしたけども歩いてみての感動は、やはり&lt;code&gt;グリコ、道頓堀&lt;/code&gt;でした。 - んで昼は、お目当の&lt;code&gt;加寿屋 法善寺店&lt;/code&gt;へ。 - クッソ並んだ。出入り口がものすごく狭いカウンターの店なので一定数を同時に入れ替え的な回し方なので待たざるおえない。たぶん飯でこれほど並んで待ったのは、初かも？けど結果美味しかった。
+[&lt;a href=&#34;https://tabelog.com/osaka/A2701/A270202/27045072/:embed:cite&#34;&gt;https://tabelog.com/osaka/A2701/A270202/27045072/:embed:cite&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;あべのハルカス&#34;&gt;あべのハルカス&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;次に向かったのが&lt;code&gt;あべのハルカス&lt;/code&gt;。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;高所恐怖症の自分には、終始屁っ放り腰でしたね。まさかトイレがあんま怖いものだったとは。。。。&lt;/li&gt;
+&lt;li&gt;あべのハルカスから次の目的地の新世界を見下ろし(くっそ小さく感じた)。前日に行ったユニバも拝めたね。ただ大阪城ってどこや！！！！！って終始言い続けていた。結果大阪城の正確な位置とか知らんというね。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;新世界の前に動物園が天皇の誕生日で無料開放されていたのでせっかくだからみて回ってみることに。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;大阪の人って動物に対しても普通に突っ込むんだね。聞いてていいな〜って思った。東京ってなんか人間味にかけるというか気取ってるというかそんな雰囲気がすごく強いから大阪の雰囲気はとても新鮮で居心地がよかった。&lt;/li&gt;
+&lt;li&gt;ちなみに突っ込まれていたのは、気が立っているお猿さんでしたね。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;新世界&#34;&gt;新世界&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;ひとまずここは、東京でいうとどこが当てはまるのかは不明だが面白い&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;前日教わった&lt;code&gt;エロ&lt;/code&gt;シリーズのガチャガチャを一回やり、ひとまずみかんの網みたいなおパンティをゲット&lt;/li&gt;
+&lt;li&gt;たこ焼き&lt;/li&gt;
+&lt;li&gt;塩マヨネーズ味のたこ焼きとオーソドックスなたこ焼きを食した。&lt;/li&gt;
+&lt;li&gt;どちらも美味しくて良き&lt;/li&gt;
+&lt;li&gt;んで新世界の名物?である通天閣へ&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;おっさんがただひたすら長渕剛を熱唱&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;しかもオンステージは、通天閣真下の路上の真ん中。だれも気に留めず車もクラクション鳴らさず、おっさんがただひたすら熱唱しているという絵面はシュールだったけど爆笑してしまった&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;少し早いけど夕飯的なノリで&lt;code&gt;横綱&lt;/code&gt;というお店にて串揚げを食す。アスパラの大きさに驚きまぁーーーー本場の串揚げを食せて満足し、電気街の日本橋へ&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;まさか大阪でダッチワイフ鑑賞するとは思わなかった。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;大阪駅へ&#34;&gt;大阪駅へ&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;はやいもので時間はあっという間でなんだかんだ帰りの新幹線の時間が近づいてきてしまった。
+
+&lt;ul&gt;
+&lt;li&gt;551 の肉まんを一箱買い。新幹線で東京へ&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;最後に&#34;&gt;最後に&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;初めてづくしの大阪旅行でしたが十二分に楽しめたと思う。&lt;/li&gt;
+&lt;li&gt;また大阪へ行って行けなかった新喜劇なども行ってみたい。&lt;/li&gt;
+&lt;li&gt;その前に次は、福岡や京都かなー&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>初大阪旅行</title>
+      <link>http://hironeko.github.io/posts/201903/20190311/</link>
+      <pubDate>Sun, 17 Mar 2019 20:16:39 +0900</pubDate>
+      <guid>http://hironeko.github.io/posts/201903/20190311/</guid>
+      <description>
+
+&lt;h2 id=&#34;人生初大阪&#34;&gt;人生初大阪&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;土曜の早朝(新幹線始発)で大阪へ
+
+&lt;ul&gt;
+&lt;li&gt;2 時間半くらいで大阪へ到着。&lt;/li&gt;
+&lt;li&gt;新幹線乗って駅弁食べて速攻爆睡したので気づいたら大阪に到着っていう流れだった。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;着いてからこれまた初のユニバへ直行&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;一回乗り換えして九条まで行きユニバへ到着&lt;/li&gt;
+&lt;li&gt;道中驚いたのは、なんと朝から公園で漫才をしている芸人さんがいたこと(よしもと西梅田劇場横)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;道中聞こえてくるのはひたすら関西弁。自分自身大阪は初だけども周りに大阪出身の人が多すぎて慣れていたがまぁああああああどこもかしこも関西弁で聞いてて面白かった。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;初ユニバ&#34;&gt;初ユニバ&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;ユニバに着いて速攻向かったのは、お目当のハリーポッターさんです。すんげーのなんの。アトラクションで自然と手を振り、拍手したのは初体験。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;何がいいって演出やアトラクションの完成度。普通に錯覚を起こした。ここから二時間くらいはすごいすごいしかいうてなかったと思う。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;この日に乗れたアトラクションは、ハリーポッター、スパイダーマン、ルパン三世、ミニオンと目玉どころを乗れたのはよかった。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;どれもアトラクションのクオリティがすごくこりゃみなさん文句言わずに並びますよと思った。&lt;/li&gt;
+&lt;li&gt;普段からテーマパーク系には、全く興味持たないし並んだりするってのが大嫌いなのだがディズニーとユニバは、並んでいいと思った。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;金銭感覚&#34;&gt;金銭感覚&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;同伴者である彼女の親友さんカップルと夕飯に行ったんだが。お会計の価格に驚いた。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;関東圏だと二人で 12,000 円くらいの食事って結構頻繁に多くてあまり驚かないんだけど大人 4 人でお酒飲んでそこそこ食べて 12,000 円代で収まって驚いていたのだが関西圏の人からするとそれでも&lt;code&gt;「高い」&lt;/code&gt;らしい・・・&lt;/li&gt;
+&lt;li&gt;普通に考えたら一人あたり 3,000 円なのだけども、3,000 円の食事代ってたっっかいよね。普段ランチでは、600 円前後で抑えるようにしているんだから 5 日分の食事代ってことになる。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;翌日には、さらに色々と驚きばかりの大阪旅行になった。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;ホテル&#34;&gt;ホテル&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;今回、JR 東海？のホテル + ユニバチケット + 新幹線往復のセットコースを使用したんですが二人合計で 7 万弱でした。これが安いのか高いのかはまぁーーーーわからないけどもホテルの所在地が市内に比較的に近くて駅近だった。朝食ビュッフェは別料金だったけど追加支払いしてよかったと思う。ただ初大阪だったので朝から盛大に大阪飯を狙うという選択肢を考えてもよかったかもしれない。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;2-日目&#34;&gt;2 日目&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;別で書こうと思う。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;誰も見なくても振り返りの材料としてのブログ&#34;&gt;誰も見なくても振り返りの材料としてのブログ&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;再開のブログが他人からすればどうでもいい大阪旅行というね。&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;今後&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Laravel jp カンファレンス の内容も書こうと思う&lt;/li&gt;
+&lt;li&gt;個人で友人があったら便利だということでスロットの期待値計算システムでも作っている話でも&lt;/li&gt;
+&lt;li&gt;自分が学習がてら使用した Qiita の記事等々も紹介できたらいいかな&lt;/li&gt;
+&lt;li&gt;今在籍している会社内の研修用の Laravel の学習教材(自分が作成した)を Vue や PHPUnit を追記したら再度 GitHub で公開できたらいいなーと考えている&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;以上です&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>ブログ再開</title>
+      <link>http://hironeko.github.io/posts/201903/20190310/</link>
+      <pubDate>Sun, 17 Mar 2019 04:38:56 +0900</pubDate>
+      <guid>http://hironeko.github.io/posts/201903/20190310/</guid>
+      <description>
+
+&lt;h2 id=&#34;主に書いていくこと&#34;&gt;主に書いていくこと&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;エンジニアっぽいこと&lt;/li&gt;
+&lt;li&gt;アニメの考察や感想&lt;/li&gt;
+&lt;li&gt;趣味など&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;ブログを再開する理由&#34;&gt;ブログを再開する理由&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;アウトプットが少ないからブログでアウトプットしていくため&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;書いている人について&#34;&gt;書いている人について&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;一応エンジニア(怠け者の極みである)&lt;/li&gt;
+&lt;li&gt;アニメが好き&lt;/li&gt;
+&lt;li&gt;音楽が好き&lt;/li&gt;
+&lt;li&gt;金儲けが好き&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;ひとまず続けてみようと思う&#34;&gt;ひとまず続けてみようと思う&lt;/h2&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

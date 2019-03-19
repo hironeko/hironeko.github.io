@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html class="nojs" lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+<title>レガシーなPHPシステムにPHPUnitを入れてみる – hironeko desu</title>
+<meta name="created" content="2019-03-17T20:19:32&#43;0900">
+<meta name="modified" content="2019-03-17T20:19:32&#43;0900">
+
+<meta name="description" content=" 目的  単体テストがなく、なんの動作保証もない実装がすぐにローンチされている環境をなくしたい 色々とメンテナンスされていないライブラリを消し去りたい 他にも色々と理由はあった・・・・気がするけど主にこのへん  現状  レガシーのシステムなので PHP の version はもちろんサポ外ですよ  なので極力対象のシステムが動く環境で検証実装 既存の秘伝のタレで作成されるvagrant環境を参考にdockerの環境構築に着手した しかし大きな問題が発生。メンテされていない、ドキュメントも少ない、安全な保証なしってことで消し去りたいライブラリを入れられないって問題。あまり時間も取られたくないのでひとまず秘伝のタレでできている vagrant 環境で実装することに※実際みる限り問題なく動いてはいるはず。  単体テストを使用しようとした痕跡はあるけどもそれ自体がテストとして成立してないものなので、即全削除。0 からの実装が確定   調査・事前準備  該当の PHP version で動く PHPUnit と DbUnit の組み合わせで検証プロトタイプの作成 その後秘伝のタレの vagrant 環境で動作確認  先々考えるとしんどい  理由  PHPUnit, DbUnit の version を PHP の version に伴ってあげると path が変わる。 そこを考慮して実装しないと世代アップにも時間が取られることになる。   次のブログで導入手順を書く  PHP : 5.6.* PHPUnit : 5.5.* DbUnit : 2.0.* という環境です。  ">
+<meta property="og:site_name" content="hironeko desu">
+<meta property="og:title" content="レガシーなPHPシステムにPHPUnitを入れてみる">
+<meta property="og:url" content="http://hironeko.github.io/posts/201903/20190313/">
+
+<meta name="generator" content="Hugo 0.54.0" />
+
+<link rel="canonical" href="http://hironeko.github.io/posts/201903/20190313/">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/css/styles.fb6f3f3940f6eb9b4136ecee151bc514924866085a3345e64b5ef9d8a2f4d82e.css">
+<link rel="stylesheet" href="/css/print.cb485a1261ff646a792035c6761edb68d28428ab8a4a9e172af639c383a1adee.css" media="print">
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "レガシーなPHPシステムにPHPUnitを入れてみる",
+    "datePublished": "2019-03-17T20:19:32+09:00",
+    "dateModified": "2019-03-17T20:19:32+09:00",
+    "url" : "http://hironeko.github.io/posts/201903/20190313/",
+    "description": " 目的  単体テストがなく、なんの動作保証もない実装がすぐにローンチされている環境をなくしたい 色々とメンテナンスされていないライブラリを消し去りたい 他にも色々と理由はあった・・・・気がするけど主にこのへん  現状  レガシーのシステムなので PHP の version はもちろんサポ外ですよ  なので極力対象のシステムが動く環境で検証実装 既存の秘伝のタレで作成されるvagrant環境を参考にdockerの環境構築に着手した しかし大きな問題が発生。メンテされていない、ドキュメントも少ない、安全な保証なしってことで消し去りたいライブラリを入れられないって問題。あまり時間も取られたくないのでひとまず秘伝のタレでできている vagrant 環境で実装することに※実際みる限り問題なく動いてはいるはず。  単体テストを使用しようとした痕跡はあるけどもそれ自体がテストとして成立してないものなので、即全削除。0 からの実装が確定   調査・事前準備  該当の PHP version で動く PHPUnit と DbUnit の組み合わせで検証プロトタイプの作成 その後秘伝のタレの vagrant 環境で動作確認  先々考えるとしんどい  理由  PHPUnit, DbUnit の version を PHP の version に伴ってあげると path が変わる。 そこを考慮して実装しないと世代アップにも時間が取られることになる。   次のブログで導入手順を書く  PHP : 5.6.* PHPUnit : 5.5.* DbUnit : 2.0.* という環境です。  ",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "http://hironeko.github.io"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "hironeko desu",
+      "url": "http://hironeko.github.io"
+    }
+  }
+</script>
+
+</head>
+
+<body>
+<div class="page layout__page layout__sidebar-second">
+<header class="header layout__header" role="banner">
+<h1 class="header__site-name">
+<a href="/" title="Home" class="header__site-link" rel="home"><span>hironeko desu</span></a>
+</h1>
+<div class="region header__region">
+
+
+</div>
+</header>
+
+
+
+
+<nav class="main-menu layout__navigation" role="navigation">
+<h2 class="visually-hidden">Main menu</h2>
+<ul class="navbar">
+<li><a class="" href="/">Home</a></li>
+<li><a class="active" href="/posts/">Posts</a></li>
+</ul>
+</nav>
+
+
+<main class="main layout__main" role="main">
+<h1 class="title ">レガシーなPHPシステムにPHPUnitを入れてみる</h1>
+<article class="section-posts single-view">
+<header>
+</header>
+<div class="content">
+
+
+<h2 id="目的">目的</h2>
+
+<ul>
+<li>単体テストがなく、なんの動作保証もない実装がすぐにローンチされている環境をなくしたい</li>
+<li>色々とメンテナンスされていないライブラリを消し去りたい</li>
+<li>他にも色々と理由はあった・・・・気がするけど主にこのへん</li>
+</ul>
+
+<h2 id="現状">現状</h2>
+
+<ul>
+<li><p>レガシーのシステムなので PHP の version はもちろんサポ外ですよ</p>
+
+<ul>
+<li>なので極力対象のシステムが動く環境で検証実装</li>
+<li>既存の秘伝のタレで作成される<code>vagrant</code>環境を参考に<code>docker</code>の環境構築に着手した</li>
+<li>しかし大きな問題が発生。メンテされていない、ドキュメントも少ない、安全な保証なしってことで消し去りたいライブラリを入れられないって問題。あまり時間も取られたくないのでひとまず秘伝のタレでできている vagrant 環境で実装することに※実際みる限り問題なく動いてはいるはず。</li>
+</ul></li>
+
+<li><p>単体テストを使用しようとした痕跡はあるけどもそれ自体がテストとして成立してないものなので、即全削除。0 からの実装が確定</p></li>
+</ul>
+
+<h2 id="調査-事前準備">調査・事前準備</h2>
+
+<ul>
+<li>該当の PHP version で動く PHPUnit と DbUnit の組み合わせで検証プロトタイプの作成</li>
+<li>その後秘伝のタレの vagrant 環境で動作確認</li>
+</ul>
+
+<h2 id="先々考えるとしんどい">先々考えるとしんどい</h2>
+
+<ul>
+<li>理由
+
+<ul>
+<li>PHPUnit, DbUnit の version を PHP の version に伴ってあげると path が変わる。</li>
+<li>そこを考慮して実装しないと世代アップにも時間が取られることになる。</li>
+</ul></li>
+</ul>
+
+<h2 id="次のブログで導入手順を書く">次のブログで導入手順を書く</h2>
+
+<ul>
+<li>PHP : 5.6.*</li>
+<li>PHPUnit : 5.5.*</li>
+<li>DbUnit : 2.0.*
+という環境です。</li>
+</ul>
+
+
+</div>
+</article>
+</main>
+
+
+
+<aside class="sidebar layout__second-sidebar" role="complementary">
+<section>
+<h4 class="menu"><a class="" href="/posts/">Posts</a></h4>
+<ul class="menu">
+<li><a class="" href="/posts/201903/20190317/">hugoに挑戦</a></li>
+<li><a class="" href="/posts/201903/20190314/">Composerでのちょっとした楽</a></li>
+<li><a class="active" href="/posts/201903/20190313/">レガシーなPHPシステムにPHPUnitを入れてみる</a></li>
+<li><a class="" href="/posts/201903/20190312/">大阪旅行2日目</a></li>
+<li><a class="" href="/posts/201903/20190311/">初大阪旅行</a></li>
+<li><a class="" href="/posts/201903/20190310/">ブログ再開</a></li>
+</ul>
+</section>
+</aside>
+
+
+<footer class="footer layout__footer" role="contentinfo">
+<p><span>© hironeko desu</span></p>
+
+
+</footer>
+
+</div>
+</body>
+</html>
