@@ -6,8 +6,25 @@
     <description>Recent content on hironeko desu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 17 Mar 2019 20:24:48 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 19 Mar 2019 22:46:42 +0900</lastBuildDate>
     <atom:link href="http://hironeko.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>About</title>
+      <link>http://hironeko.github.io/about/</link>
+      <pubDate>Tue, 19 Mar 2019 22:46:42 +0900</pubDate>
+      <guid>http://hironeko.github.io/about/</guid>
+      <description>
+
+&lt;h2 id=&#34;元ニート&#34;&gt;元ニート&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;元ニートから独学でエンジニアになった人&lt;/li&gt;
+&lt;li&gt;業務で使用している言語は、PHP&lt;/li&gt;
+&lt;li&gt;学習したい言語[Go, JS, Rust]&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>hugoに挑戦</title>
