@@ -2,6 +2,7 @@
 title: "About"
 date: 2019-03-19T22:46:42+09:00
 draft: false
+toc: false
 ---
 
 ## 元ニート

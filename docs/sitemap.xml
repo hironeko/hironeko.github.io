@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://hironeko.github.io/resume/</loc>
+    <lastmod>2019-03-19T23:10:29+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://hironeko.github.io/about/</loc>
     <lastmod>2019-03-19T22:46:42+09:00</lastmod>
   </url>
@@ -54,8 +59,14 @@
   </url>
   
   <url>
+    <loc>http://hironeko.github.io/tags/untagged/</loc>
+    <lastmod>2019-03-19T23:10:29+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://hironeko.github.io/</loc>
-    <lastmod>2019-03-19T22:46:42+09:00</lastmod>
+    <lastmod>2019-03-19T23:10:29+09:00</lastmod>
     <priority>0</priority>
   </url>
   

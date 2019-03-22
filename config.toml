@@ -1,5 +1,17 @@
 baseURL = "http://hironeko.github.io"
 languageCode = "ja"
 title = "hironeko desu"
-theme = "zen"
+theme = "sam"
 publishDir = "docs"
+
+[[params.MainMenu]]
+    link = "/about"
+    text = "About"
+
+[[params.MainMenu]]
+    link = "/resume"
+    text = "Resume"
+
+[[params.MainMenu]]
+    link = "/posts"
+    text = "Posts"

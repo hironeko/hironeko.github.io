@@ -1,7 +1,11 @@
 ---
 title: "Resume"
 date: 2019-03-19T23:10:29+09:00
-draft: true
+draft: false
+toc: false
+images:
+tags:
+  - untagged
 ---
 
 ### 職務経歴(概要)
