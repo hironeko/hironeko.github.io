@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on hironeko desu</title>
-    <link>http://hironeko.github.io/posts/</link>
-    <description>Recent content in Posts on hironeko desu</description>
+    <title>Untagged on hironeko desu</title>
+    <link>http://hironeko.github.io/tags/untagged/</link>
+    <description>Recent content in Untagged on hironeko desu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 17 Mar 2019 20:24:48 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 19 Mar 2019 23:10:29 +0900</lastBuildDate>
     
-	<atom:link href="http://hironeko.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://hironeko.github.io/tags/untagged/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Resume</title>
+      <link>http://hironeko.github.io/resume/</link>
+      <pubDate>Tue, 19 Mar 2019 23:10:29 +0900</pubDate>
+      
+      <guid>http://hironeko.github.io/resume/</guid>
+      <description> 職務経歴(概要) Web アプリケーション開発  PHP5.5 ~ 7.2, Ruby2.4, JavaScript あわせて 4 年(下記教育含む)  主に PHP の開発を中心に従事 直近の職場では、PHPUnit の導入、Docker を用いての開発、コードレビュー、コーディングルールを取り入れました。   教育  中途採用向けエンジニア研修プログラム作成 メンターとして教育担当を約 2 年  担当したのは、PHP 研修フロー全てに関わり、体制等の基盤を構築   職務経歴 株式会社 G(現職)  メイン事業：SES SES 出向・中途教育・受託開発 受託開発  派遣社員管理システム(3 人) 自身がメインとなり開発 PHP, Laravel  SES 出向先概要(降順)  ランダムマッチングアプリの開発(4 人) 担当業務  既存プログラムの大幅改修、管理ツールのリプレイス PHP, Laravel, 独自フレームワーク, Silex, React + Redux SQL のチューニング  Web 予約サービスの再構築開発(プロジェクト全体 14 人：チームメンバー 4 人) 担当業務  要件定義 ~ 実装 API, Batch, プロトタイプの実装 PHP, Laravel, Aurora, JavaScript  社内向け大容量ファイル転送システムの開発(5 人) 担当業務  認証,認可機能の実装 Ruby, Ruby on Rails, MariaDB  小売店販促ツールの開発(10 人) 担当業務  予約機能・検索機能追加・改修業務 PHP, Fuel PHP, CodeIgniter, MySQL, jQuery    株式会社 B  メイン事業：SES 在籍期間：2014/11 - 2015/5 SES 出向先概要(降順)  大規模会社向け営業支援システムの開発(6 人) 担当業務  新機能追加・改修業務 PHP, Symfony, MySQL  複数店舗運営会社の顧客管理システム(2 人) 担当業務  ポイント付与などの新機能追加・テスト仕様書の作成 PHP, Fuel PHP, MySQL    得意分野  PHP を用いた開発、特に Laravel を用いての開発  </description>
+    </item>
     
     <item>
       <title>hugoに挑戦</title>
