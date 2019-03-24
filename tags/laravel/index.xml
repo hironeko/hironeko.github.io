@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Laravel on hironeko desu</title>
+    <link>http://hironeko.github.io/tags/laravel/</link>
+    <description>Recent content in Laravel on hironeko desu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 14 Mar 2019 20:20:38 +0900</lastBuildDate>
+    
+	<atom:link href="http://hironeko.github.io/tags/laravel/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Composer でのちょっとした楽</title>
+      <link>http://hironeko.github.io/posts/201903/20190314/</link>
+      <pubDate>Thu, 14 Mar 2019 20:20:38 +0900</pubDate>
+      
+      <guid>http://hironeko.github.io/posts/201903/20190314/</guid>
+      <description>Composer がある環境  例えばLaravelを使用している場合  環境構築ってまぁまぁめんどいことに下のコマンドのような流れのはず
+git clone https:/xxxxxxx composer install cp env-example .env php artisan key:generate php artisan migrate  これすらめんどいわけで。。。 docker 環境だったとしたら docker-compose up -d &amp;ndash;build した時点で shell が走るようにしてればいいんだけども 環境がそれぞれの PC に依存している場合とかだとまぁーめんどいし README に書くのもだるい
+めんどいコマンドは composer.json に書けばいい rails とかだと用意されているんだけど(もちろんプロジェクト単位での追記はあると思うけど)setupコマンドを作っとけばいい
+composer のscriptsって箇所に追記すればいい。例えば下記のように
+&amp;quot;set-up&amp;quot;: [ &amp;quot;composer install&amp;quot;, &amp;quot;cp .env.example .env&amp;quot;, &amp;quot;php artisan key:generate&amp;quot; ]  って書いておけば
+composer set-up  一回で済む話。
+もしまだやったことがなくコマンド都度打つような環境なら最初の段階であらかじめ追記しておいた方がいい。そうしたらドキュメントも一行で済むし、他の作業者が間違えることなく初期環境構築が終えられると思う。できる限り日々小さなことでもめんどーは避けたい。</description>
+    </item>
+    
+  </channel>
+</rss>

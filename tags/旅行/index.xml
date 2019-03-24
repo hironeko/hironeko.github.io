@@ -1,71 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on hironeko desu</title>
-    <link>http://hironeko.github.io/posts/</link>
-    <description>Recent content in Posts on hironeko desu</description>
+    <title>旅行 on hironeko desu</title>
+    <link>http://hironeko.github.io/tags/%E6%97%85%E8%A1%8C/</link>
+    <description>Recent content in 旅行 on hironeko desu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 25 Mar 2019 00:10:42 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 12 Mar 2019 20:18:06 +0900</lastBuildDate>
     
-	<atom:link href="http://hironeko.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://hironeko.github.io/tags/%E6%97%85%E8%A1%8C/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>JSの復習</title>
-      <link>http://hironeko.github.io/posts/201903/20190324/</link>
-      <pubDate>Mon, 25 Mar 2019 00:10:42 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190324/</guid>
-      <description>React と Vue 最近は業務で使用している PHP 以外だとGoの勉強をしているがJSについてもスキルをあげたいのが正直な話だ。
-よって並行して勉強することとにする
-##　なぜするのか？
-自分のいくつかあるウィークポイントの一つにモダンな JS に対しての経験値が引くことがあげられる。
-どのように進めるのか？ 基本的にマルチタスクって生産性が低くなるので好きではないんだけども
-Goの勉強をしながら気晴らしにJSの学習をすることにする
-最終的に基礎的な概念や知識の理解、把握が追いつた段階で
-Goを API サーバーとして使用し、ReactとVue両方とも同じものを作成することにした。
-どんなものを作成するかはまだ決めてないが、よくある Todo 系は、たぶん実用的とは言えないのでそれは、学習の過程に盛り込むことにする
-最終的なゴール どちらの FW でも業務で使用したとしても問題ないレベルをゴールとする。
-次回以降 順に初歩的なことから忘備録として発信していく</description>
-    </item>
-    
-    <item>
-      <title>hugoに挑戦</title>
-      <link>http://hironeko.github.io/posts/201903/20190317/</link>
-      <pubDate>Sun, 17 Mar 2019 20:24:48 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190317/</guid>
-      <description> はてなブログ  最初は、はてなブログが再開したがせっかくGo の勉強を始めたのでhugo でやってみようかなとただし 0 から始めるとどうせやらなくなるからひとまず既存の theme を使用してやろうかなと思う。  今回の theme  zenです。Github
- 選んだ理由
- どがつくほどシンプルであるから。   </description>
-    </item>
-    
-    <item>
-      <title>Composer でのちょっとした楽</title>
-      <link>http://hironeko.github.io/posts/201903/20190314/</link>
-      <pubDate>Thu, 14 Mar 2019 20:20:38 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190314/</guid>
-      <description>Composer がある環境  例えばLaravelを使用している場合  環境構築ってまぁまぁめんどいことに下のコマンドのような流れのはず
-git clone https:/xxxxxxx composer install cp env-example .env php artisan key:generate php artisan migrate  これすらめんどいわけで。。。 docker 環境だったとしたら docker-compose up -d &amp;ndash;build した時点で shell が走るようにしてればいいんだけども 環境がそれぞれの PC に依存している場合とかだとまぁーめんどいし README に書くのもだるい
-めんどいコマンドは composer.json に書けばいい rails とかだと用意されているんだけど(もちろんプロジェクト単位での追記はあると思うけど)setupコマンドを作っとけばいい
-composer のscriptsって箇所に追記すればいい。例えば下記のように
-&amp;quot;set-up&amp;quot;: [ &amp;quot;composer install&amp;quot;, &amp;quot;cp .env.example .env&amp;quot;, &amp;quot;php artisan key:generate&amp;quot; ]  って書いておけば
-composer set-up  一回で済む話。
-もしまだやったことがなくコマンド都度打つような環境なら最初の段階であらかじめ追記しておいた方がいい。そうしたらドキュメントも一行で済むし、他の作業者が間違えることなく初期環境構築が終えられると思う。できる限り日々小さなことでもめんどーは避けたい。</description>
-    </item>
-    
-    <item>
-      <title>レガシーなPHPシステムにPHPUnitを入れてみる</title>
-      <link>http://hironeko.github.io/posts/201903/20190313/</link>
-      <pubDate>Wed, 13 Mar 2019 20:19:32 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190313/</guid>
-      <description> 目的  単体テストがなく、なんの動作保証もない実装がすぐにローンチされている環境をなくしたい 色々とメンテナンスされていないライブラリを消し去りたい 他にも色々と理由はあった・・・・気がするけど主にこのへん  現状  レガシーのシステムなので PHP の version はもちろんサポ外ですよ
- なので極力対象のシステムが動く環境で検証実装 既存の秘伝のタレで作成されるvagrant環境を参考にdockerの環境構築に着手した しかし大きな問題が発生。メンテされていない、ドキュメントも少ない、安全な保証なしってことで消し去りたいライブラリを入れられないって問題。あまり時間も取られたくないのでひとまず秘伝のタレでできている vagrant 環境で実装することに※実際みる限り問題なく動いてはいるはず。  単体テストを使用しようとした痕跡はあるけどもそれ自体がテストとして成立してないものなので、即全削除。0 からの実装が確定
-  調査・事前準備  該当の PHP version で動く PHPUnit と DbUnit の組み合わせで検証プロトタイプの作成 その後秘伝のタレの vagrant 環境で動作確認  先々考えるとしんどい  理由  PHPUnit, DbUnit の version を PHP の version に伴ってあげると path が変わる。 そこを考慮して実装しないと世代アップにも時間が取られることになる。   次のブログで導入手順を書く  PHP : 5.6.* PHPUnit : 5.5.* DbUnit : 2.0.* という環境です。  </description>
-    </item>
     
     <item>
       <title>大阪旅行2日目</title>
@@ -95,15 +39,6 @@ composer set-up  一回で済む話。
  どれもアトラクションのクオリティがすごくこりゃみなさん文句言わずに並びますよと思った。 普段からテーマパーク系には、全く興味持たないし並んだりするってのが大嫌いなのだがディズニーとユニバは、並んでいいと思った。   金銭感覚  同伴者である彼女の親友さんカップルと夕飯に行ったんだが。お会計の価格に驚いた。
  関東圏だと二人で 12,000 円くらいの食事って結構頻繁に多くてあまり驚かないんだけど大人 4 人でお酒飲んでそこそこ食べて 12,000 円代で収まって驚いていたのだが関西圏の人からするとそれでも「高い」らしい・・・ 普通に考えたら一人あたり 3,000 円なのだけども、3,000 円の食事代ってたっっかいよね。普段ランチでは、600 円前後で抑えるようにしているんだから 5 日分の食事代ってことになる。  翌日には、さらに色々と驚きばかりの大阪旅行になった。
   ホテル  今回、JR 東海？のホテル + ユニバチケット + 新幹線往復のセットコースを使用したんですが二人合計で 7 万弱でした。これが安いのか高いのかはまぁーーーーわからないけどもホテルの所在地が市内に比較的に近くて駅近だった。朝食ビュッフェは別料金だったけど追加支払いしてよかったと思う。ただ初大阪だったので朝から盛大に大阪飯を狙うという選択肢を考えてもよかったかもしれない。  2 日目  別で書こうと思う。  誰も見なくても振り返りの材料としてのブログ  再開のブログが他人からすればどうでもいい大阪旅行というね。 今後</description>
-    </item>
-    
-    <item>
-      <title>ブログ再開</title>
-      <link>http://hironeko.github.io/posts/201903/20190310/</link>
-      <pubDate>Sun, 10 Mar 2019 04:38:56 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190310/</guid>
-      <description> 主に書いていくこと  エンジニアっぽいこと アニメの考察や感想 趣味など  ブログを再開する理由  アウトプットが少ないからブログでアウトプットしていくため  書いている人について  一応エンジニア(怠け者の極みである) アニメが好き 音楽が好き 金儲けが好き  ひとまず続けてみようと思う </description>
     </item>
     
   </channel>

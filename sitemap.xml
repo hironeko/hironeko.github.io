@@ -59,6 +59,30 @@
   </url>
   
   <url>
+    <loc>http://hironeko.github.io/tags/hugo/</loc>
+    <lastmod>2019-03-17T20:24:48+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://hironeko.github.io/tags/laravel/</loc>
+    <lastmod>2019-03-14T20:20:38+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://hironeko.github.io/tags/php/</loc>
+    <lastmod>2019-03-14T20:20:38+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://hironeko.github.io/tags/phpunit/</loc>
+    <lastmod>2019-03-13T20:19:32+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://hironeko.github.io/posts/</loc>
     <lastmod>2019-03-25T00:10:42+09:00</lastmod>
     <priority>0</priority>
@@ -85,6 +109,12 @@
   <url>
     <loc>http://hironeko.github.io/</loc>
     <lastmod>2019-03-25T00:10:42+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://hironeko.github.io/tags/%E6%97%85%E8%A1%8C/</loc>
+    <lastmod>2019-03-12T20:18:06+09:00</lastmod>
     <priority>0</priority>
   </url>
   
