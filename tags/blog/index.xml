@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog on hironeko desu</title>
+    <link>http://hironeko.github.io/tags/blog/</link>
+    <description>Recent content in Blog on hironeko desu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 25 Mar 2019 00:10:42 +0900</lastBuildDate>
+    
+	<atom:link href="http://hironeko.github.io/tags/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>JSの復習</title>
+      <link>http://hironeko.github.io/posts/201903/20190324/</link>
+      <pubDate>Mon, 25 Mar 2019 00:10:42 +0900</pubDate>
+      
+      <guid>http://hironeko.github.io/posts/201903/20190324/</guid>
+      <description>React と Vue 最近は業務で使用している PHP 以外だとGoの勉強をしているがJSについてもスキルをあげたいのが正直な話だ。
+よって並行して勉強することとにする
+##　なぜするのか？
+自分のいくつかあるウィークポイントの一つにモダンな JS に対しての経験値が引くことがあげられる。
+どのように進めるのか？ 基本的にマルチタスクって生産性が低くなるので好きではないんだけども
+Goの勉強をしながら気晴らしにJSの学習をすることにする
+最終的に基礎的な概念や知識の理解、把握が追いつた段階で
+Goを API サーバーとして使用し、ReactとVue両方とも同じものを作成することにした。
+どんなものを作成するかはまだ決めてないが、よくある Todo 系は、たぶん実用的とは言えないのでそれは、学習の過程に盛り込むことにする
+##　最終的なゴール
+どちらの FW でも業務で使用したとしても問題ないレベルをゴールとする。
+##　次回以降
+順に初歩的なことから忘備録として発信していく</description>
+    </item>
+    
+  </channel>
+</rss>

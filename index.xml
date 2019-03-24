@@ -6,10 +6,31 @@
     <description>Recent content on hironeko desu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 19 Mar 2019 23:10:29 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 25 Mar 2019 00:10:42 +0900</lastBuildDate>
     
 	<atom:link href="http://hironeko.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>JSの復習</title>
+      <link>http://hironeko.github.io/posts/201903/20190324/</link>
+      <pubDate>Mon, 25 Mar 2019 00:10:42 +0900</pubDate>
+      
+      <guid>http://hironeko.github.io/posts/201903/20190324/</guid>
+      <description>React と Vue 最近は業務で使用している PHP 以外だとGoの勉強をしているがJSについてもスキルをあげたいのが正直な話だ。
+よって並行して勉強することとにする
+##　なぜするのか？
+自分のいくつかあるウィークポイントの一つにモダンな JS に対しての経験値が引くことがあげられる。
+どのように進めるのか？ 基本的にマルチタスクって生産性が低くなるので好きではないんだけども
+Goの勉強をしながら気晴らしにJSの学習をすることにする
+最終的に基礎的な概念や知識の理解、把握が追いつた段階で
+Goを API サーバーとして使用し、ReactとVue両方とも同じものを作成することにした。
+どんなものを作成するかはまだ決めてないが、よくある Todo 系は、たぶん実用的とは言えないのでそれは、学習の過程に盛り込むことにする
+##　最終的なゴール
+どちらの FW でも業務で使用したとしても問題ないレベルをゴールとする。
+##　次回以降
+順に初歩的なことから忘備録として発信していく</description>
+    </item>
     
     <item>
       <title>Resume</title>
@@ -19,7 +40,7 @@
       <guid>http://hironeko.github.io/resume/</guid>
       <description>職務経歴(概要) Web アプリケーション開発  PHP5.5 ~ 7.2, Ruby2.4, JavaScript あわせて 4 年(下記教育含む)  主に PHP の開発を中心に従事 直近の職場では、PHPUnit の導入、Docker を用いての開発、コードレビュー、コーディングルールを取り入れました。   教育  中途採用向けエンジニア研修プログラム作成 メンターとして教育担当を約 2 年  担当したのは、PHP 研修フロー全てに関わり、体制等の基盤を構築   職務経歴 株式会社 G(現職)  メイン事業：SES SES 出向・中途教育・受託開発 受託開発  派遣社員管理システム(3 人) 自身がメインとなり開発 PHP, Laravel  SES 出向先概要(降順)
  ランダムマッチングアプリの開発(4 人)
- 担当業務 既存プログラムの大幅改修、管理ツールのリプレイス  PHP, Laravel, 独自フレームワーク, Silex, React + Redux  SQL のチューニング  Web 予約サービスの再構築開発(プロジェクト全体 14 人：チームメンバー 4 人)</description>
+ 担当業務 既存プログラムの大幅改修、管理ツールのリプレイス  Laravel, 独自フレームワーク, Silex, React + Redux  SQL のチューニング  Web 予約サービスの再構築開発(プロジェクト全体 14 人：チームメンバー 4 人)</description>
     </item>
     
     <item>
@@ -28,7 +49,11 @@
       <pubDate>Tue, 19 Mar 2019 22:46:42 +0900</pubDate>
       
       <guid>http://hironeko.github.io/about/</guid>
-      <description> 元ニート  元ニートから独学でエンジニアになった人 業務で使用している言語は、PHP 学習したい言語[Go, JS, Rust]  </description>
+      <description>元ニート 元ニートから独学でエンジニアになった人
+ DJ したり、お水の世界にいたり、職人したり、サッカー歴 11 年くらい
+ 趣味：音楽鑑賞、アニメ、読書、人間観察
+  業務で使用している主言語は、PHP
+学習したい言語 : [Go, Rust]</description>
     </item>
     
     <item>
