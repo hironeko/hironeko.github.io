@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Php on hironeko desu</title>
+    <link>http://hironeko.github.io/tags/php/</link>
+    <description>Recent content in Php on hironeko desu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 14 Mar 2019 20:20:38 +0900</lastBuildDate>
+    
+	<atom:link href="http://hironeko.github.io/tags/php/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Composer でのちょっとした楽</title>
+      <link>http://hironeko.github.io/posts/201903/20190314/</link>
+      <pubDate>Thu, 14 Mar 2019 20:20:38 +0900</pubDate>
+      
+      <guid>http://hironeko.github.io/posts/201903/20190314/</guid>
+      <description>Composer がある環境  例えばLaravelを使用している場合  環境構築ってまぁまぁめんどいことに下のコマンドのような流れのはず
+git clone https:/xxxxxxx composer install cp env-example .env php artisan key:generate php artisan migrate  これすらめんどいわけで。。。 docker 環境だったとしたら docker-compose up -d &amp;ndash;build した時点で shell が走るようにしてればいいんだけども 環境がそれぞれの PC に依存している場合とかだとまぁーめんどいし README に書くのもだるい
+めんどいコマンドは composer.json に書けばいい rails とかだと用意されているんだけど(もちろんプロジェクト単位での追記はあると思うけど)setupコマンドを作っとけばいい
+composer のscriptsって箇所に追記すればいい。例えば下記のように
+&amp;quot;set-up&amp;quot;: [ &amp;quot;composer install&amp;quot;, &amp;quot;cp .env.example .env&amp;quot;, &amp;quot;php artisan key:generate&amp;quot; ]  って書いておけば
+composer set-up  一回で済む話。
+もしまだやったことがなくコマンド都度打つような環境なら最初の段階であらかじめ追記しておいた方がいい。そうしたらドキュメントも一行で済むし、他の作業者が間違えることなく初期環境構築が終えられると思う。できる限り日々小さなことでもめんどーは避けたい。</description>
+    </item>
+    
+    <item>
+      <title>レガシーなPHPシステムにPHPUnitを入れてみる</title>
+      <link>http://hironeko.github.io/posts/201903/20190313/</link>
+      <pubDate>Wed, 13 Mar 2019 20:19:32 +0900</pubDate>
+      
+      <guid>http://hironeko.github.io/posts/201903/20190313/</guid>
+      <description> 目的  単体テストがなく、なんの動作保証もない実装がすぐにローンチされている環境をなくしたい 色々とメンテナンスされていないライブラリを消し去りたい 他にも色々と理由はあった・・・・気がするけど主にこのへん  現状  レガシーのシステムなので PHP の version はもちろんサポ外ですよ
+ なので極力対象のシステムが動く環境で検証実装 既存の秘伝のタレで作成されるvagrant環境を参考にdockerの環境構築に着手した しかし大きな問題が発生。メンテされていない、ドキュメントも少ない、安全な保証なしってことで消し去りたいライブラリを入れられないって問題。あまり時間も取られたくないのでひとまず秘伝のタレでできている vagrant 環境で実装することに※実際みる限り問題なく動いてはいるはず。  単体テストを使用しようとした痕跡はあるけどもそれ自体がテストとして成立してないものなので、即全削除。0 からの実装が確定
+  調査・事前準備  該当の PHP version で動く PHPUnit と DbUnit の組み合わせで検証プロトタイプの作成 その後秘伝のタレの vagrant 環境で動作確認  先々考えるとしんどい  理由  PHPUnit, DbUnit の version を PHP の version に伴ってあげると path が変わる。 そこを考慮して実装しないと世代アップにも時間が取られることになる。   次のブログで導入手順を書く  PHP : 5.6.* PHPUnit : 5.5.* DbUnit : 2.0.* という環境です。  </description>
+    </item>
+    
+  </channel>
+</rss>
