@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<title>
+JSの復習 - hironeko desu
+</title>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.81bbafc4df93b11c1c3e2449464373c384aa4903731b4fc7a77dfcdd979e184f.css" integrity="sha256-gbuvxN&#43;TsRwcPiRJRkNzw4SqSQNzG0/Hp3383ZeeGE8=" crossorigin="anonymous" media="screen">
+
+
+
+ 
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JSの復習"/>
+<meta name="twitter:description" content="React と Vue 最近は業務で使用している PHP 以外だとGoの勉強をしているがJSについてもスキルをあげたいのが正直な話だ。
+よって並行して勉強することとにする
+##　なぜするのか？
+自分のいくつかあるウィークポイントの一つにモダンな JS に対しての経験値が引くことがあげられる。
+どのように進めるのか？ 基本的にマルチタスクって生産性が低くなるので好きではないんだけども
+Goの勉強をしながら気晴らしにJSの学習をすることにする
+最終的に基礎的な概念や知識の理解、把握が追いつた段階で
+Goを API サーバーとして使用し、ReactとVue両方とも同じものを作成することにした。
+どんなものを作成するかはまだ決めてないが、よくある Todo 系は、たぶん実用的とは言えないのでそれは、学習の過程に盛り込むことにする
+##　最終的なゴール
+どちらの FW でも業務で使用したとしても問題ないレベルをゴールとする。
+##　次回以降
+順に初歩的なことから忘備録として発信していく"/>
+
+<meta property="og:title" content="JSの復習" />
+<meta property="og:description" content="React と Vue 最近は業務で使用している PHP 以外だとGoの勉強をしているがJSについてもスキルをあげたいのが正直な話だ。
+よって並行して勉強することとにする
+##　なぜするのか？
+自分のいくつかあるウィークポイントの一つにモダンな JS に対しての経験値が引くことがあげられる。
+どのように進めるのか？ 基本的にマルチタスクって生産性が低くなるので好きではないんだけども
+Goの勉強をしながら気晴らしにJSの学習をすることにする
+最終的に基礎的な概念や知識の理解、把握が追いつた段階で
+Goを API サーバーとして使用し、ReactとVue両方とも同じものを作成することにした。
+どんなものを作成するかはまだ決めてないが、よくある Todo 系は、たぶん実用的とは言えないのでそれは、学習の過程に盛り込むことにする
+##　最終的なゴール
+どちらの FW でも業務で使用したとしても問題ないレベルをゴールとする。
+##　次回以降
+順に初歩的なことから忘備録として発信していく" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://hironeko.github.io/posts/201903/20190324/" />
+<meta property="article:published_time" content="2019-03-25T00:10:42&#43;09:00"/>
+<meta property="article:modified_time" content="2019-03-25T00:10:42&#43;09:00"/>
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        JSの復習
+        
+    </title>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="section" id="title">JSの復習</div>
+
+        
+<div class="section" id="content">
+    Mon Mar 25, 2019 &#183; 30 words
+    
+    <div class="tag-container">
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/blog">
+                blog
+            </a>
+        </span>
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/story">
+                story
+            </a>
+        </span>
+        
+    </div>
+    
+    <hr/>
+    
+
+<h2 id="react-と-vue">React と Vue</h2>
+
+<p>最近は業務で使用している PHP 以外だと<code>Go</code>の勉強をしているが<code>JS</code>についてもスキルをあげたいのが正直な話だ。</p>
+
+<p>よって並行して勉強することとにする</p>
+
+<p>##　なぜするのか？</p>
+
+<p>自分のいくつかあるウィークポイントの一つにモダンな JS に対しての経験値が引くことがあげられる。</p>
+
+<h2 id="どのように進めるのか">どのように進めるのか？</h2>
+
+<p>基本的にマルチタスクって生産性が低くなるので好きではないんだけども</p>
+
+<p><code>Go</code>の勉強をしながら気晴らしに<code>JS</code>の学習をすることにする</p>
+
+<p>最終的に基礎的な概念や知識の理解、把握が追いつた段階で</p>
+
+<p><code>Go</code>を API サーバーとして使用し、<code>React</code>と<code>Vue</code>両方とも同じものを作成することにした。</p>
+
+<p>どんなものを作成するかはまだ決めてないが、よくある Todo 系は、たぶん実用的とは言えないのでそれは、学習の過程に盛り込むことにする</p>
+
+<p>##　最終的なゴール</p>
+
+<p>どちらの FW でも業務で使用したとしても問題ないレベルをゴールとする。</p>
+
+<p>##　次回以降</p>
+
+<p>順に初歩的なことから忘備録として発信していく</p>
+
+</div>
+
+
+        
+<div class="section bottom-menu">
+    
+<hr />
+<p>
+
+
+    
+        <a href="/posts">back</a>
+        
+            &#183;
+        
+    
+
+    
+        
+            <a href="/">
+                Top
+            </a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/about">
+                About
+            </a>
+        
+            &#183; 
+            <a href="/resume">
+                Resume
+            </a>
+        
+            &#183; 
+            <a href="/posts">
+                Posts
+            </a>
+        
+    
+    &#183; 
+    <a href="http://hironeko.github.io">
+        
+    </a>
+
+</p>
+</div>
+
+
+        <div class="section footer"></div>
+    </div>
+</body>
+
+</html>
