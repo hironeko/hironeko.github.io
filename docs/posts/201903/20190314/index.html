@@ -34,14 +34,26 @@ Composer でのちょっとした楽 - hironeko desu
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Composer でのちょっとした楽"/>
-<meta name="twitter:description" content="Composer がある環境  例えばLaravelを使用している場合  環境構築ってまぁまぁめんどい多くが下のコマンドのような流れのはず   git clone https:/xxxxxxx composer install cp env-example .env php artisan key:generate php artisan migrate   これすらめんどいわけで。。。  docker 環境だったとしたら docker-compose up -d &ndash;build した時点で shell が走るようにしてればいいんだけども 環境がそれぞれの PC に依存している場合とかだとまぁーめんどいし README に書くのもだるい   めんどいの composer.json に書けばいい  rails とかだと用意されているんだけど(もちろんプロジェクト単位での追記はあると思うけど)setupコマンドを作っとけばいい  composer のscriptsって箇所に追記すればいい。例えば下記のように   &quot;set-up&quot;: [ &quot;composer install&quot;, &quot;cp .env.example .env&quot;, &quot;php artisan key:generate&quot; ]   って書いておけば  composer set-up   一回で済む話。"/>
+<meta name="twitter:description" content="Composer がある環境  例えばLaravelを使用している場合  環境構築ってまぁまぁめんどいことに下のコマンドのような流れのはず
+git clone https:/xxxxxxx composer install cp env-example .env php artisan key:generate php artisan migrate  これすらめんどいわけで。。。 docker 環境だったとしたら docker-compose up -d &ndash;build した時点で shell が走るようにしてればいいんだけども 環境がそれぞれの PC に依存している場合とかだとまぁーめんどいし README に書くのもだるい
+めんどいコマンドは composer.json に書けばいい rails とかだと用意されているんだけど(もちろんプロジェクト単位での追記はあると思うけど)setupコマンドを作っとけばいい
+composer のscriptsって箇所に追記すればいい。例えば下記のように
+&quot;set-up&quot;: [ &quot;composer install&quot;, &quot;cp .env.example .env&quot;, &quot;php artisan key:generate&quot; ]  って書いておけば
+composer set-up  一回で済む話。
+もしまだやったことがなくコマンド都度打つような環境なら最初の段階であらかじめ追記しておいた方がいい。そうしたらドキュメントも一行で済むし、他の作業者が間違えることなく初期環境構築が終えられると思う。できる限り日々小さなことでもめんどーは避けたい。"/>
 
 <meta property="og:title" content="Composer でのちょっとした楽" />
-<meta property="og:description" content="Composer がある環境  例えばLaravelを使用している場合  環境構築ってまぁまぁめんどい多くが下のコマンドのような流れのはず   git clone https:/xxxxxxx composer install cp env-example .env php artisan key:generate php artisan migrate   これすらめんどいわけで。。。  docker 環境だったとしたら docker-compose up -d &ndash;build した時点で shell が走るようにしてればいいんだけども 環境がそれぞれの PC に依存している場合とかだとまぁーめんどいし README に書くのもだるい   めんどいの composer.json に書けばいい  rails とかだと用意されているんだけど(もちろんプロジェクト単位での追記はあると思うけど)setupコマンドを作っとけばいい  composer のscriptsって箇所に追記すればいい。例えば下記のように   &quot;set-up&quot;: [ &quot;composer install&quot;, &quot;cp .env.example .env&quot;, &quot;php artisan key:generate&quot; ]   って書いておけば  composer set-up   一回で済む話。" />
+<meta property="og:description" content="Composer がある環境  例えばLaravelを使用している場合  環境構築ってまぁまぁめんどいことに下のコマンドのような流れのはず
+git clone https:/xxxxxxx composer install cp env-example .env php artisan key:generate php artisan migrate  これすらめんどいわけで。。。 docker 環境だったとしたら docker-compose up -d &ndash;build した時点で shell が走るようにしてればいいんだけども 環境がそれぞれの PC に依存している場合とかだとまぁーめんどいし README に書くのもだるい
+めんどいコマンドは composer.json に書けばいい rails とかだと用意されているんだけど(もちろんプロジェクト単位での追記はあると思うけど)setupコマンドを作っとけばいい
+composer のscriptsって箇所に追記すればいい。例えば下記のように
+&quot;set-up&quot;: [ &quot;composer install&quot;, &quot;cp .env.example .env&quot;, &quot;php artisan key:generate&quot; ]  って書いておけば
+composer set-up  一回で済む話。
+もしまだやったことがなくコマンド都度打つような環境なら最初の段階であらかじめ追記しておいた方がいい。そうしたらドキュメントも一行で済むし、他の作業者が間違えることなく初期環境構築が終えられると思う。できる限り日々小さなことでもめんどーは避けたい。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://hironeko.github.io/posts/201903/20190314/" />
-<meta property="article:published_time" content="2019-03-17T20:20:38&#43;09:00"/>
-<meta property="article:modified_time" content="2019-03-17T20:20:38&#43;09:00"/>
+<meta property="article:published_time" content="2019-03-14T20:20:38&#43;09:00"/>
+<meta property="article:modified_time" content="2019-03-14T20:20:38&#43;09:00"/>
 
 
     
@@ -62,7 +74,7 @@ Composer でのちょっとした楽 - hironeko desu
 
         
 <div class="section" id="content">
-    Sun Mar 17, 2019 &#183; 56 words
+    Thu Mar 14, 2019 &#183; 56 words
     
     <div class="tag-container">
         
@@ -80,12 +92,10 @@ Composer でのちょっとした楽 - hironeko desu
 <h2 id="composer-がある環境">Composer がある環境</h2>
 
 <ul>
-<li>例えば<code>Laravel</code>を使用している場合
-
-<ul>
-<li>環境構築ってまぁまぁめんどい多くが下のコマンドのような流れのはず</li>
-</ul></li>
+<li>例えば<code>Laravel</code>を使用している場合</li>
 </ul>
+
+<p>環境構築ってまぁまぁめんどいことに下のコマンドのような流れのはず</p>
 
 <pre><code class="language-shell">git clone https:/xxxxxxx
 composer install
@@ -94,24 +104,15 @@ php artisan key:generate
 php artisan migrate
 </code></pre>
 
-<ul>
-<li>これすらめんどいわけで。。。
+<p>これすらめんどいわけで。。。
+docker 環境だったとしたら docker-compose up -d &ndash;build した時点で shell が走るようにしてればいいんだけども
+環境がそれぞれの PC に依存している場合とかだとまぁーめんどいし README に書くのもだるい</p>
 
-<ul>
-<li>docker 環境だったとしたら docker-compose up -d &ndash;build した時点で shell が走るようにしてればいいんだけども</li>
-<li>環境がそれぞれの PC に依存している場合とかだとまぁーめんどいし README に書くのもだるい</li>
-</ul></li>
-</ul>
+<h2 id="めんどいコマンドは-composer-json-に書けばいい">めんどいコマンドは composer.json に書けばいい</h2>
 
-<h2 id="めんどいの-composer-json-に書けばいい">めんどいの composer.json に書けばいい</h2>
+<p>rails とかだと用意されているんだけど(もちろんプロジェクト単位での追記はあると思うけど)<code>setup</code>コマンドを作っとけばいい</p>
 
-<ul>
-<li>rails とかだと用意されているんだけど(もちろんプロジェクト単位での追記はあると思うけど)<code>setup</code>コマンドを作っとけばいい
-
-<ul>
-<li>composer の<code>scripts</code>って箇所に追記すればいい。例えば下記のように</li>
-</ul></li>
-</ul>
+<p>composer の<code>scripts</code>って箇所に追記すればいい。例えば下記のように</p>
 
 <pre><code class="language-json">       &quot;set-up&quot;: [
             &quot;composer install&quot;,
@@ -120,18 +121,14 @@ php artisan migrate
         ]
 </code></pre>
 
-<ul>
-<li>って書いておけば</li>
-</ul>
+<p>って書いておけば</p>
 
 <pre><code class="language-shell">composer set-up
 </code></pre>
 
-<ul>
-<li><p>一回で済む話。</p></li>
+<p>一回で済む話。</p>
 
-<li><p>もしまだやったことがなくコマンド都度打つような環境なら最初の段階であらかじめ追記しておいた方がいい。そうしたらドキュメントも一行で済むし、他の作業者が間違えることなく初期環境構築が終えられると思う。できる限り日々小さなことでもめんどーは避けたい。</p></li>
-</ul>
+<p>もしまだやったことがなくコマンド都度打つような環境なら最初の段階であらかじめ追記しておいた方がいい。そうしたらドキュメントも一行で済むし、他の作業者が間違えることなく初期環境構築が終えられると思う。できる限り日々小さなことでもめんどーは避けたい。</p>
 
 </div>
 
@@ -152,12 +149,17 @@ php artisan migrate
 
     
         
-            <a href="/about">
-                About
+            <a href="/">
+                Top
             </a>
         
     
     
+        
+            &#183; 
+            <a href="/about">
+                About
+            </a>
         
             &#183; 
             <a href="/resume">

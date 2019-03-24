@@ -34,24 +34,25 @@ tags:
     - 自身がメインとなり開発
     - PHP, Laravel
 - SES 出向先概要(降順)
-  - ランダムマッチングアプリの開発(4 人)
-    - 担当業務
-      - 既存プログラムの大幅改修、管理ツールのリプレイス
-        - PHP, Laravel, 独自フレームワーク, Silex, React + Redux
-      - SQL のチューニング
-  - Web 予約サービスの再構築開発(プロジェクト全体 14 人：チームメンバー 4 人)
-    - 担当業務
-      - 要件定義 ~ 実装
-      - API, Batch, プロトタイプの実装
-        - PHP, Laravel, Aurora, JavaScript
-  - 社内向け大容量ファイル転送システムの開発(5 人)
-    - 担当業務
-      - 認証,認可機能の実装
-        - Ruby, Ruby on Rails, MariaDB
-  - 小売店販促ツールの開発(10 人)
-    - 担当業務
-      - 予約機能・検索機能追加・改修業務
-        - PHP, Fuel PHP, CodeIgniter, MySQL, jQuery
+
+- ランダムマッチングアプリの開発(4 人)
+  - 担当業務
+    - 既存プログラムの大幅改修、管理ツールのリプレイス
+      - PHP, Laravel, 独自フレームワーク, Silex, React + Redux
+    - SQL のチューニング
+- Web 予約サービスの再構築開発(プロジェクト全体 14 人：チームメンバー 4 人)
+  - 担当業務
+    - 要件定義 ~ 実装
+    - API, Batch, プロトタイプの実装
+      - PHP, Laravel, Aurora, JavaScript
+- 社内向け大容量ファイル転送システムの開発(5 人)
+  - 担当業務
+    - 認証,認可機能の実装
+      - Ruby, Ruby on Rails, MariaDB
+- 小売店販促ツールの開発(10 人)
+  - 担当業務
+    - 予約機能・検索機能追加・改修業務
+      - PHP, Fuel PHP, CodeIgniter, MySQL, jQuery
 
 #### 株式会社 B
 

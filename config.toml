@@ -5,6 +5,10 @@ theme = "sam"
 publishDir = "docs"
 
 [[params.MainMenu]]
+    link = "/"
+    text = "Top"
+
+[[params.MainMenu]]
     link = "/about"
     text = "About"
 
