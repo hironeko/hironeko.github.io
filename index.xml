@@ -17,7 +17,9 @@
       <pubDate>Tue, 19 Mar 2019 23:10:29 +0900</pubDate>
       
       <guid>http://hironeko.github.io/resume/</guid>
-      <description> 職務経歴(概要) Web アプリケーション開発  PHP5.5 ~ 7.2, Ruby2.4, JavaScript あわせて 4 年(下記教育含む)  主に PHP の開発を中心に従事 直近の職場では、PHPUnit の導入、Docker を用いての開発、コードレビュー、コーディングルールを取り入れました。   教育  中途採用向けエンジニア研修プログラム作成 メンターとして教育担当を約 2 年  担当したのは、PHP 研修フロー全てに関わり、体制等の基盤を構築   職務経歴 株式会社 G(現職)  メイン事業：SES SES 出向・中途教育・受託開発 受託開発  派遣社員管理システム(3 人) 自身がメインとなり開発 PHP, Laravel  SES 出向先概要(降順)  ランダムマッチングアプリの開発(4 人) 担当業務  既存プログラムの大幅改修、管理ツールのリプレイス PHP, Laravel, 独自フレームワーク, Silex, React + Redux SQL のチューニング  Web 予約サービスの再構築開発(プロジェクト全体 14 人：チームメンバー 4 人) 担当業務  要件定義 ~ 実装 API, Batch, プロトタイプの実装 PHP, Laravel, Aurora, JavaScript  社内向け大容量ファイル転送システムの開発(5 人) 担当業務  認証,認可機能の実装 Ruby, Ruby on Rails, MariaDB  小売店販促ツールの開発(10 人) 担当業務  予約機能・検索機能追加・改修業務 PHP, Fuel PHP, CodeIgniter, MySQL, jQuery    株式会社 B  メイン事業：SES 在籍期間：2014/11 - 2015/5 SES 出向先概要(降順)  大規模会社向け営業支援システムの開発(6 人) 担当業務  新機能追加・改修業務 PHP, Symfony, MySQL  複数店舗運営会社の顧客管理システム(2 人) 担当業務  ポイント付与などの新機能追加・テスト仕様書の作成 PHP, Fuel PHP, MySQL    得意分野  PHP を用いた開発、特に Laravel を用いての開発  </description>
+      <description>職務経歴(概要) Web アプリケーション開発  PHP5.5 ~ 7.2, Ruby2.4, JavaScript あわせて 4 年(下記教育含む)  主に PHP の開発を中心に従事 直近の職場では、PHPUnit の導入、Docker を用いての開発、コードレビュー、コーディングルールを取り入れました。   教育  中途採用向けエンジニア研修プログラム作成 メンターとして教育担当を約 2 年  担当したのは、PHP 研修フロー全てに関わり、体制等の基盤を構築   職務経歴 株式会社 G(現職)  メイン事業：SES SES 出向・中途教育・受託開発 受託開発  派遣社員管理システム(3 人) 自身がメインとなり開発 PHP, Laravel  SES 出向先概要(降順)
+ ランダムマッチングアプリの開発(4 人)
+ 担当業務 既存プログラムの大幅改修、管理ツールのリプレイス  PHP, Laravel, 独自フレームワーク, Silex, React + Redux  SQL のチューニング  Web 予約サービスの再構築開発(プロジェクト全体 14 人：チームメンバー 4 人)</description>
     </item>
     
     <item>
@@ -43,16 +45,22 @@
     <item>
       <title>Composer でのちょっとした楽</title>
       <link>http://hironeko.github.io/posts/201903/20190314/</link>
-      <pubDate>Sun, 17 Mar 2019 20:20:38 +0900</pubDate>
+      <pubDate>Thu, 14 Mar 2019 20:20:38 +0900</pubDate>
       
       <guid>http://hironeko.github.io/posts/201903/20190314/</guid>
-      <description>Composer がある環境  例えばLaravelを使用している場合  環境構築ってまぁまぁめんどい多くが下のコマンドのような流れのはず   git clone https:/xxxxxxx composer install cp env-example .env php artisan key:generate php artisan migrate   これすらめんどいわけで。。。  docker 環境だったとしたら docker-compose up -d &amp;ndash;build した時点で shell が走るようにしてればいいんだけども 環境がそれぞれの PC に依存している場合とかだとまぁーめんどいし README に書くのもだるい   めんどいの composer.json に書けばいい  rails とかだと用意されているんだけど(もちろんプロジェクト単位での追記はあると思うけど)setupコマンドを作っとけばいい  composer のscriptsって箇所に追記すればいい。例えば下記のように   &amp;quot;set-up&amp;quot;: [ &amp;quot;composer install&amp;quot;, &amp;quot;cp .env.example .env&amp;quot;, &amp;quot;php artisan key:generate&amp;quot; ]   って書いておけば  composer set-up   一回で済む話。</description>
+      <description>Composer がある環境  例えばLaravelを使用している場合  環境構築ってまぁまぁめんどいことに下のコマンドのような流れのはず
+git clone https:/xxxxxxx composer install cp env-example .env php artisan key:generate php artisan migrate  これすらめんどいわけで。。。 docker 環境だったとしたら docker-compose up -d &amp;ndash;build した時点で shell が走るようにしてればいいんだけども 環境がそれぞれの PC に依存している場合とかだとまぁーめんどいし README に書くのもだるい
+めんどいコマンドは composer.json に書けばいい rails とかだと用意されているんだけど(もちろんプロジェクト単位での追記はあると思うけど)setupコマンドを作っとけばいい
+composer のscriptsって箇所に追記すればいい。例えば下記のように
+&amp;quot;set-up&amp;quot;: [ &amp;quot;composer install&amp;quot;, &amp;quot;cp .env.example .env&amp;quot;, &amp;quot;php artisan key:generate&amp;quot; ]  って書いておけば
+composer set-up  一回で済む話。
+もしまだやったことがなくコマンド都度打つような環境なら最初の段階であらかじめ追記しておいた方がいい。そうしたらドキュメントも一行で済むし、他の作業者が間違えることなく初期環境構築が終えられると思う。できる限り日々小さなことでもめんどーは避けたい。</description>
     </item>
     
     <item>
       <title>レガシーなPHPシステムにPHPUnitを入れてみる</title>
       <link>http://hironeko.github.io/posts/201903/20190313/</link>
-      <pubDate>Sun, 17 Mar 2019 20:19:32 +0900</pubDate>
+      <pubDate>Wed, 13 Mar 2019 20:19:32 +0900</pubDate>
       
       <guid>http://hironeko.github.io/posts/201903/20190313/</guid>
       <description> 目的  単体テストがなく、なんの動作保証もない実装がすぐにローンチされている環境をなくしたい 色々とメンテナンスされていないライブラリを消し去りたい 他にも色々と理由はあった・・・・気がするけど主にこのへん  現状  レガシーのシステムなので PHP の version はもちろんサポ外ですよ
@@ -63,7 +71,7 @@
     <item>
       <title>大阪旅行2日目</title>
       <link>http://hironeko.github.io/posts/201903/20190312/</link>
-      <pubDate>Sun, 17 Mar 2019 20:18:06 +0900</pubDate>
+      <pubDate>Tue, 12 Mar 2019 20:18:06 +0900</pubDate>
       
       <guid>http://hironeko.github.io/posts/201903/20190312/</guid>
       <description> 2 日目  朝起きてホテルのビュッフェを食し大満足  難波  チェックアウト後に向かったのは、難波 - 着いて驚いたのは、なんちゃら筋って名の着く道がただひたすら人でごった返しててすごかった。 - そのまま心斎橋方面というか通過までしたけども歩いてみての感動は、やはりグリコ、道頓堀でした。 - んで昼は、お目当の加寿屋 法善寺店へ。 - クッソ並んだ。出入り口がものすごく狭いカウンターの店なので一定数を同時に入れ替え的な回し方なので待たざるおえない。たぶん飯でこれほど並んで待ったのは、初かも？けど結果美味しかった。 [https://tabelog.com/osaka/A2701/A270202/27045072/:embed:cite]  あべのハルカス  次に向かったのがあべのハルカス。
@@ -78,7 +86,7 @@
     <item>
       <title>初大阪旅行</title>
       <link>http://hironeko.github.io/posts/201903/20190311/</link>
-      <pubDate>Sun, 17 Mar 2019 20:16:39 +0900</pubDate>
+      <pubDate>Mon, 11 Mar 2019 20:16:39 +0900</pubDate>
       
       <guid>http://hironeko.github.io/posts/201903/20190311/</guid>
       <description>人生初大阪  土曜の早朝(新幹線始発)で大阪へ  2 時間半くらいで大阪へ到着。 新幹線乗って駅弁食べて速攻爆睡したので気づいたら大阪に到着っていう流れだった。  着いてからこれまた初のユニバへ直行
@@ -93,7 +101,7 @@
     <item>
       <title>ブログ再開</title>
       <link>http://hironeko.github.io/posts/201903/20190310/</link>
-      <pubDate>Sun, 17 Mar 2019 04:38:56 +0900</pubDate>
+      <pubDate>Sun, 10 Mar 2019 04:38:56 +0900</pubDate>
       
       <guid>http://hironeko.github.io/posts/201903/20190310/</guid>
       <description> 主に書いていくこと  エンジニアっぽいこと アニメの考察や感想 趣味など  ブログを再開する理由  アウトプットが少ないからブログでアウトプットしていくため  書いている人について  一応エンジニア(怠け者の極みである) アニメが好き 音楽が好き 金儲けが好き  ひとまず続けてみようと思う </description>
