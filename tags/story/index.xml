@@ -6,7 +6,7 @@
     <description>Recent content in Story on hironeko desu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 25 Mar 2019 00:10:42 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 24 Mar 2019 23:10:42 +0900</lastBuildDate>
     
 	<atom:link href="http://hironeko.github.io/tags/story/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>JSの復習</title>
       <link>http://hironeko.github.io/posts/201903/20190324/</link>
-      <pubDate>Mon, 25 Mar 2019 00:10:42 +0900</pubDate>
+      <pubDate>Sun, 24 Mar 2019 23:10:42 +0900</pubDate>
       
       <guid>http://hironeko.github.io/posts/201903/20190324/</guid>
       <description>React と Vue 最近は業務で使用している PHP 以外だとGoの勉強をしているがJSについてもスキルをあげたいのが正直な話だ。

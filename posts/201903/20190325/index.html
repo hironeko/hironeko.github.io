@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<title>
+ReactでイベントとStateの再入門してみた - hironeko desu
+</title>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.81bbafc4df93b11c1c3e2449464373c384aa4903731b4fc7a77dfcdd979e184f.css" integrity="sha256-gbuvxN&#43;TsRwcPiRJRkNzw4SqSQNzG0/Hp3383ZeeGE8=" crossorigin="anonymous" media="screen">
+
+
+
+ 
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ReactでイベントとStateの再入門してみた"/>
+<meta name="twitter:description" content="イベント入門 import React from &quot;react&quot; class App extends React.Component { render() { retrun() /* ここに描く処理 */ } }  大枠は上記に記載している内容。以降は、フォーカスして復習をする
+&lt;button onClick={() =&gt; { console.log(&quot;First Event!!&quot;) }} &gt; 初めてのイベント &lt;/button&gt;  するとブラウザの developer tools の console で確認ができる
+State 入門 何かの動作にたいして何かを変えるようにする動作がアプリケーションには必須。
+この動作に合わせて変更される値のことを React だと State と呼ばれる。
+React は、classを作成する際にReact.Componentをextendsして作成します。その際constructor(props) { ....}を記述し、stateを定義します
+定義したstateをrender内にて使用する際は、this.stateで代入したオブジェクトを使用できます(ただこの使用方法は基本しないと思います)
+this.state.定義したプロパティ名の形で使用すると認識しておく
+され何かのイベントで state の値を更新(変更)する場合は？？ this.setSate({プロパティ名:変更する値})となります
+注意として
+this.state = {定義済みプロパティ:値}, this.state.name = &#39;値&#39;という方法では、行いません。
+同じイベントでクリックされるものによって更新する値が違うだけの場合 class 内にメソッドとして作成するといいことがあるなので実際に書いてみようと思う。今回は、イベントは一個だがメソッドを作成してみる
+// .... class App extends React."/>
+
+<meta property="og:title" content="ReactでイベントとStateの再入門してみた" />
+<meta property="og:description" content="イベント入門 import React from &quot;react&quot; class App extends React.Component { render() { retrun() /* ここに描く処理 */ } }  大枠は上記に記載している内容。以降は、フォーカスして復習をする
+&lt;button onClick={() =&gt; { console.log(&quot;First Event!!&quot;) }} &gt; 初めてのイベント &lt;/button&gt;  するとブラウザの developer tools の console で確認ができる
+State 入門 何かの動作にたいして何かを変えるようにする動作がアプリケーションには必須。
+この動作に合わせて変更される値のことを React だと State と呼ばれる。
+React は、classを作成する際にReact.Componentをextendsして作成します。その際constructor(props) { ....}を記述し、stateを定義します
+定義したstateをrender内にて使用する際は、this.stateで代入したオブジェクトを使用できます(ただこの使用方法は基本しないと思います)
+this.state.定義したプロパティ名の形で使用すると認識しておく
+され何かのイベントで state の値を更新(変更)する場合は？？ this.setSate({プロパティ名:変更する値})となります
+注意として
+this.state = {定義済みプロパティ:値}, this.state.name = &#39;値&#39;という方法では、行いません。
+同じイベントでクリックされるものによって更新する値が違うだけの場合 class 内にメソッドとして作成するといいことがあるなので実際に書いてみようと思う。今回は、イベントは一個だがメソッドを作成してみる
+// .... class App extends React." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://hironeko.github.io/posts/201903/20190325/" />
+<meta property="article:published_time" content="2019-03-25T01:02:21&#43;09:00"/>
+<meta property="article:modified_time" content="2019-03-25T01:02:21&#43;09:00"/>
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        ReactでイベントとStateの再入門してみた
+        
+    </title>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="section" id="title">ReactでイベントとStateの再入門してみた</div>
+
+        
+<div class="section" id="content">
+    Mon Mar 25, 2019 &#183; 101 words
+    
+    <div class="tag-container">
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/javascript">
+                JavaScript
+            </a>
+        </span>
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/react">
+                React
+            </a>
+        </span>
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/%E5%85%A5%E9%96%80">
+                入門
+            </a>
+        </span>
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/event">
+                Event
+            </a>
+        </span>
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/state">
+                State
+            </a>
+        </span>
+        
+    </div>
+    
+    <hr/>
+    
+
+<h2 id="イベント入門">イベント入門</h2>
+
+<pre><code class="language-javascript">import React from &quot;react&quot;
+
+class App extends React.Component {
+  render() {
+    retrun()
+    /* ここに描く処理 */
+  }
+}
+</code></pre>
+
+<p>大枠は上記に記載している内容。以降は、フォーカスして復習をする</p>
+
+<pre><code class="language-javascript">&lt;button
+  onClick={() =&gt; {
+    console.log(&quot;First Event!!&quot;)
+  }}
+&gt;
+  初めてのイベント
+&lt;/button&gt;
+</code></pre>
+
+<p>するとブラウザの developer tools の console で確認ができる</p>
+
+<h2 id="state-入門">State 入門</h2>
+
+<p>何かの動作にたいして何かを変えるようにする動作がアプリケーションには必須。</p>
+
+<p>この動作に合わせて変更される値のことを React だと State と呼ばれる。</p>
+
+<p>React は、<code>class</code>を作成する際に<code>React.Component</code>を<code>extends</code>して作成します。その際<code>constructor(props) { ....}</code>を記述し、<code>state</code>を定義します</p>
+
+<p>定義した<code>state</code>を<code>render</code>内にて使用する際は、<code>this.state</code>で代入したオブジェクトを使用できます(ただこの使用方法は基本しないと思います)</p>
+
+<p><code>this.state.定義したプロパティ名</code>の形で使用すると認識しておく</p>
+
+<h3 id="され何かのイベントで-state-の値を更新-変更-する場合は">され何かのイベントで state の値を更新(変更)する場合は？？</h3>
+
+<p><code>this.setSate({プロパティ名:変更する値})</code>となります</p>
+
+<p>注意として</p>
+
+<p><code>this.state = {定義済みプロパティ:値}</code>, <code>this.state.name = '値'</code>という方法では、行いません。</p>
+
+<p>同じイベントでクリックされるものによって更新する値が違うだけの場合 class 内にメソッドとして作成するといいことがあるなので実際に書いてみようと思う。今回は、イベントは一個だがメソッドを作成してみる</p>
+
+<pre><code class="language-javascript">// ....
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: 'test'};
+  }
+
+  handleClick(value) {
+    this.setState({value: value});
+  }
+
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;button onClick={() =&gt; {}this.handleClick('変更')}&gt;&lt;/button&gt;
+      &lt;/div&gt;
+    )
+  }
+}
+// ....
+</code></pre>
+
+<p>的な感じでしょうか？これに少し手を加えれば tutorial で出てくるカウントアップの作成が可能ですね</p>
+
+</div>
+
+
+        
+<div class="section bottom-menu">
+    
+<hr />
+<p>
+
+
+    
+        <a href="/posts">back</a>
+        
+            &#183;
+        
+    
+
+    
+        
+            <a href="/">
+                Top
+            </a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/about">
+                About
+            </a>
+        
+            &#183; 
+            <a href="/resume">
+                Resume
+            </a>
+        
+            &#183; 
+            <a href="/posts">
+                Posts
+            </a>
+        
+    
+    &#183; 
+    <a href="http://hironeko.github.io">
+        
+    </a>
+
+</p>
+</div>
+
+
+        <div class="section footer"></div>
+    </div>
+</body>
+
+</html>

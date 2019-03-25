@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>State on hironeko desu</title>
+    <link>http://hironeko.github.io/tags/state/</link>
+    <description>Recent content in State on hironeko desu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 25 Mar 2019 01:02:21 +0900</lastBuildDate>
+    
+	<atom:link href="http://hironeko.github.io/tags/state/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ReactでイベントとStateの再入門してみた</title>
+      <link>http://hironeko.github.io/posts/201903/20190325/</link>
+      <pubDate>Mon, 25 Mar 2019 01:02:21 +0900</pubDate>
+      
+      <guid>http://hironeko.github.io/posts/201903/20190325/</guid>
+      <description>イベント入門 import React from &amp;quot;react&amp;quot; class App extends React.Component { render() { retrun() /* ここに描く処理 */ } }  大枠は上記に記載している内容。以降は、フォーカスして復習をする
+&amp;lt;button onClick={() =&amp;gt; { console.log(&amp;quot;First Event!!&amp;quot;) }} &amp;gt; 初めてのイベント &amp;lt;/button&amp;gt;  するとブラウザの developer tools の console で確認ができる
+State 入門 何かの動作にたいして何かを変えるようにする動作がアプリケーションには必須。
+この動作に合わせて変更される値のことを React だと State と呼ばれる。
+React は、classを作成する際にReact.Componentをextendsして作成します。その際constructor(props) { ....}を記述し、stateを定義します
+定義したstateをrender内にて使用する際は、this.stateで代入したオブジェクトを使用できます(ただこの使用方法は基本しないと思います)
+this.state.定義したプロパティ名の形で使用すると認識しておく
+され何かのイベントで state の値を更新(変更)する場合は？？ this.setSate({プロパティ名:変更する値})となります
+注意として
+this.state = {定義済みプロパティ:値}, this.state.name = &#39;値&#39;という方法では、行いません。
+同じイベントでクリックされるものによって更新する値が違うだけの場合 class 内にメソッドとして作成するといいことがあるなので実際に書いてみようと思う。今回は、イベントは一個だがメソッドを作成してみる
+// .... class App extends React.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -3,8 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://hironeko.github.io/posts/201903/20190325/</loc>
+    <lastmod>2019-03-25T01:02:21+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://hironeko.github.io/posts/201903/20190324/</loc>
-    <lastmod>2019-03-25T00:10:42+09:00</lastmod>
+    <lastmod>2019-03-24T23:10:42+09:00</lastmod>
   </url>
   
   <url>
@@ -49,7 +54,7 @@
   
   <url>
     <loc>http://hironeko.github.io/tags/blog/</loc>
-    <lastmod>2019-03-25T00:10:42+09:00</lastmod>
+    <lastmod>2019-03-24T23:10:42+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -59,8 +64,20 @@
   </url>
   
   <url>
+    <loc>http://hironeko.github.io/tags/event/</loc>
+    <lastmod>2019-03-25T01:02:21+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://hironeko.github.io/tags/hugo/</loc>
     <lastmod>2019-03-17T20:24:48+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://hironeko.github.io/tags/javascript/</loc>
+    <lastmod>2019-03-25T01:02:21+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -84,19 +101,31 @@
   
   <url>
     <loc>http://hironeko.github.io/posts/</loc>
-    <lastmod>2019-03-25T00:10:42+09:00</lastmod>
+    <lastmod>2019-03-25T01:02:21+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://hironeko.github.io/tags/react/</loc>
+    <lastmod>2019-03-25T01:02:21+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://hironeko.github.io/tags/state/</loc>
+    <lastmod>2019-03-25T01:02:21+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://hironeko.github.io/tags/story/</loc>
-    <lastmod>2019-03-25T00:10:42+09:00</lastmod>
+    <lastmod>2019-03-24T23:10:42+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://hironeko.github.io/tags/</loc>
-    <lastmod>2019-03-25T00:10:42+09:00</lastmod>
+    <lastmod>2019-03-24T23:10:42+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -108,7 +137,13 @@
   
   <url>
     <loc>http://hironeko.github.io/</loc>
-    <lastmod>2019-03-25T00:10:42+09:00</lastmod>
+    <lastmod>2019-03-25T01:02:21+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://hironeko.github.io/tags/%E5%85%A5%E9%96%80/</loc>
+    <lastmod>2019-03-25T01:02:21+09:00</lastmod>
     <priority>0</priority>
   </url>
   
