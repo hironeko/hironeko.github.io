@@ -6,10 +6,24 @@
     <description>Recent content in Posts on hironeko desu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 25 Mar 2019 01:02:21 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 26 Mar 2019 23:14:50 +0900</lastBuildDate>
     
 	<atom:link href="http://hironeko.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Vueに入門してみよう</title>
+      <link>http://hironeko.github.io/posts/201903/20190326/</link>
+      <pubDate>Tue, 26 Mar 2019 23:14:50 +0900</pubDate>
+      
+      <guid>http://hironeko.github.io/posts/201903/20190326/</guid>
+      <description>Vue をちゃんと入門 触ったことある。けど業務では未使用だし本格的には触っていない。だもんでちゃんと入門してみることにした(復習の意味も込めて)
+参考にするもの 本家を参考にしつつ、無料で実装動画が見れるのでそれを写経をしていこうかと
+Vue はでっかい object？ var app = new Vue({ el: &amp;quot;#app&amp;quot;, data: { message: &amp;quot;Hello Vue!&amp;quot; } })  例えばこれのmessageを変更する場合app.message = &#39;change value&#39;;のようにすれば変更ができる
+でかい object にしか見えない&amp;hellip;..
+ループ 例えばこんな配列があったとします。これを順に表示する場合
+var app = new Vue({ el: &amp;quot;#app&amp;quot;, data: { todos: [ { text: &amp;quot;frist text&amp;quot; }, { text: &amp;quot;second text&amp;quot; }, { text: &amp;quot;thead text&amp;quot; } ] } })  &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt; &amp;lt;ol&amp;gt; &amp;lt;li v-for=&amp;quot;todo in todos&amp;quot;&amp;gt; {{ todo.</description>
+    </item>
     
     <item>
       <title>ReactでイベントとStateの再入門してみた</title>

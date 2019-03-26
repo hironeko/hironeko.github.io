@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<title>
+Vueに入門してみよう - hironeko desu
+</title>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.81bbafc4df93b11c1c3e2449464373c384aa4903731b4fc7a77dfcdd979e184f.css" integrity="sha256-gbuvxN&#43;TsRwcPiRJRkNzw4SqSQNzG0/Hp3383ZeeGE8=" crossorigin="anonymous" media="screen">
+
+
+
+ 
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Vueに入門してみよう"/>
+<meta name="twitter:description" content="Vue をちゃんと入門 触ったことある。けど業務では未使用だし本格的には触っていない。だもんでちゃんと入門してみることにした(復習の意味も込めて)
+参考にするもの 本家を参考にしつつ、無料で実装動画が見れるのでそれを写経をしていこうかと
+Vue はでっかい object？ var app = new Vue({ el: &quot;#app&quot;, data: { message: &quot;Hello Vue!&quot; } })  例えばこれのmessageを変更する場合app.message = &#39;change value&#39;;のようにすれば変更ができる
+でかい object にしか見えない&hellip;..
+ループ 例えばこんな配列があったとします。これを順に表示する場合
+var app = new Vue({ el: &quot;#app&quot;, data: { todos: [ { text: &quot;frist text&quot; }, { text: &quot;second text&quot; }, { text: &quot;thead text&quot; } ] } })  &lt;div id=&quot;app&quot;&gt; &lt;ol&gt; &lt;li v-for=&quot;todo in todos&quot;&gt; {{ todo."/>
+
+<meta property="og:title" content="Vueに入門してみよう" />
+<meta property="og:description" content="Vue をちゃんと入門 触ったことある。けど業務では未使用だし本格的には触っていない。だもんでちゃんと入門してみることにした(復習の意味も込めて)
+参考にするもの 本家を参考にしつつ、無料で実装動画が見れるのでそれを写経をしていこうかと
+Vue はでっかい object？ var app = new Vue({ el: &quot;#app&quot;, data: { message: &quot;Hello Vue!&quot; } })  例えばこれのmessageを変更する場合app.message = &#39;change value&#39;;のようにすれば変更ができる
+でかい object にしか見えない&hellip;..
+ループ 例えばこんな配列があったとします。これを順に表示する場合
+var app = new Vue({ el: &quot;#app&quot;, data: { todos: [ { text: &quot;frist text&quot; }, { text: &quot;second text&quot; }, { text: &quot;thead text&quot; } ] } })  &lt;div id=&quot;app&quot;&gt; &lt;ol&gt; &lt;li v-for=&quot;todo in todos&quot;&gt; {{ todo." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://hironeko.github.io/posts/201903/20190326/" />
+<meta property="article:published_time" content="2019-03-26T23:14:50&#43;09:00"/>
+<meta property="article:modified_time" content="2019-03-26T23:14:50&#43;09:00"/>
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        Vueに入門してみよう
+        
+    </title>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="section" id="title">Vueに入門してみよう</div>
+
+        
+<div class="section" id="content">
+    Tue Mar 26, 2019 &#183; 175 words
+    
+    <div class="tag-container">
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/vue">
+                Vue
+            </a>
+        </span>
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/%E5%85%A5%E9%96%80">
+                入門
+            </a>
+        </span>
+        
+    </div>
+    
+    <hr/>
+    
+
+<h2 id="vue-をちゃんと入門">Vue をちゃんと入門</h2>
+
+<p>触ったことある。けど業務では未使用だし本格的には触っていない。だもんでちゃんと入門してみることにした(復習の意味も込めて)</p>
+
+<h2 id="参考にするもの">参考にするもの</h2>
+
+<p>本家を参考にしつつ、無料で実装動画が見れるのでそれを写経をしていこうかと</p>
+
+<h2 id="vue-はでっかい-object">Vue はでっかい object？</h2>
+
+<pre><code class="language-javascript">var app = new Vue({
+  el: &quot;#app&quot;,
+  data: {
+    message: &quot;Hello Vue!&quot;
+  }
+})
+</code></pre>
+
+<p>例えばこれの<code>message</code>を変更する場合<code>app.message = 'change value';</code>のようにすれば変更ができる</p>
+
+<p>でかい object にしか見えない&hellip;..</p>
+
+<h2 id="ループ">ループ</h2>
+
+<p>例えばこんな配列があったとします。これを順に表示する場合</p>
+
+<pre><code class="language-javascript">var app = new Vue({
+  el: &quot;#app&quot;,
+  data: {
+    todos: [
+      { text: &quot;frist text&quot; },
+      { text: &quot;second text&quot; },
+      { text: &quot;thead text&quot; }
+    ]
+  }
+})
+</code></pre>
+
+<pre><code class="language-html">&lt;div id=&quot;app&quot;&gt;
+  &lt;ol&gt;
+    &lt;li v-for=&quot;todo in todos&quot;&gt;
+      {{ todo.text }}
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>こんな感じになります。んー PHP のテンプレートエンジンみたい&hellip;<code>for ... in ...</code>これは、けっして真新しくもなくもともと JS で存在している<code>for in</code>と同じ挙動してますね。(あっているのか？)</p>
+
+<p>違和感があるとしたらこの箇所が<code>{}</code>とかで括られていない点くらいですかね。</p>
+
+<h2 id="イベント">イベント</h2>
+
+<p>React でも Vue でも思ったんだけども昔の JS で onClick 属性ってあったと思うんだけど、僕がこの業界に入りたての頃にそんな属性使うのは、やばいっすよって言われた記憶がある&hellip;</p>
+
+<p>さて気を撮り直して早速</p>
+
+<pre><code class="language-javascript">var app = new Vue({
+  el: &quot;#app&quot;,
+  data: {
+    message: &quot;hi Vue!!&quot;
+  },
+  methods: {
+    reverseMessage: () =&gt; {
+      this.message = this.message
+        .split(&quot;&quot;)
+        .reverse()
+        .join(&quot;&quot;)
+    }
+  }
+})
+</code></pre>
+
+<pre><code class="language-html">&lt;div id=&quot;app&quot;&gt;
+  &lt;p&gt;{{ message }}&lt;/p&gt;
+  &lt;button v-on:click=&quot;reverseMessage&quot;&gt;Reverse Message&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>ここで自分なりの理解と整理</p>
+
+<p><code>new Vue()</code>でインスタンスを作成しそれを代入、中身に関して</p>
+
+<p><code>el</code> element を指しているでしょう(えっへん)。render 先を指定しているイメージ</p>
+
+<p><code>data</code> React で言う State ってイメージにしておこう。もちろんこのプロパティは object が渡されている(表現があっているのか？)</p>
+
+<p><code>methods</code> これも React でも同じような class に書くから違和感は、ない。</p>
+
+<p>PHP の class で言うなら el は説明が難しいが名称が異なるだけでこの object のプロパティであるということ</p>
+
+<h2 id="基本-dom-操作は-vue-任せ">基本 DOM 操作は Vue 任せ</h2>
+
+<p>公式にそう書かれている。まぁー確かにここまでの記述で DOM 操作しているものはない。なんということでしょう。DOM 操作から解放された。</p>
+
+<p>ここでは、ちょっと飛ばすけど<code>v-model</code>という双方向バインディングがかんたんに行えるディレクティブが存在する</p>
+
+<h2 id="次回以降">次回以降</h2>
+
+<p><code>component</code>について学習する。Vue の重要な抽象概念の一つが存在している。ここはかなーり重要だと思うし、<code>Vuex</code>や<code>Nuxt.js</code>でも大切になってくる箇所なのでしっかりと身につけて行きたいですな。</p>
+
+<h2 id="ちょっと小話">ちょっと小話</h2>
+
+<p>名探偵コナン結構好きなんだけども、お腹のベルトから出る<code>ボール</code>と<code>キック力増強シューズ</code>このコラボって人殺しかねないレベルで危険な気がする。</p>
+
+<p>それとスケボー！こいつもやばい。なんせバイクに追いつかれない速さを持っている。</p>
+
+<p>コナン君はとーーーーーっても危険な小学一年生だ。</p>
+
+</div>
+
+
+        
+<div class="section bottom-menu">
+    
+<hr />
+<p>
+
+
+    
+        <a href="/posts">back</a>
+        
+            &#183;
+        
+    
+
+    
+        
+            <a href="/">
+                Top
+            </a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/about">
+                About
+            </a>
+        
+            &#183; 
+            <a href="/resume">
+                Resume
+            </a>
+        
+            &#183; 
+            <a href="/posts">
+                Posts
+            </a>
+        
+    
+    &#183; 
+    <a href="http://hironeko.github.io">
+        
+    </a>
+
+</p>
+</div>
+
+
+        <div class="section footer"></div>
+    </div>
+</body>
+
+</html>
