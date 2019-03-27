@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://hironeko.github.io/posts/201903/20190327/</loc>
+    <lastmod>2019-03-27T22:53:29+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://hironeko.github.io/posts/201903/20190326/</loc>
     <lastmod>2019-03-26T23:14:50+09:00</lastmod>
   </url>
@@ -87,6 +92,12 @@
   </url>
   
   <url>
+    <loc>http://hironeko.github.io/tags/jenkins/</loc>
+    <lastmod>2019-03-27T22:53:29+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://hironeko.github.io/tags/laravel/</loc>
     <lastmod>2019-03-14T20:20:38+09:00</lastmod>
     <priority>0</priority>
@@ -106,7 +117,7 @@
   
   <url>
     <loc>http://hironeko.github.io/posts/</loc>
-    <lastmod>2019-03-26T23:14:50+09:00</lastmod>
+    <lastmod>2019-03-27T22:53:29+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -148,13 +159,19 @@
   
   <url>
     <loc>http://hironeko.github.io/</loc>
-    <lastmod>2019-03-26T23:14:50+09:00</lastmod>
+    <lastmod>2019-03-27T22:53:29+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://hironeko.github.io/tags/%E5%85%A5%E9%96%80/</loc>
     <lastmod>2019-03-26T23:14:50+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://hironeko.github.io/tags/%E5%B0%8E%E5%85%A5/</loc>
+    <lastmod>2019-03-27T22:53:29+09:00</lastmod>
     <priority>0</priority>
   </url>
   
