@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<title>
+Jenkinsを入れてみる - hironeko desu
+</title>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.81bbafc4df93b11c1c3e2449464373c384aa4903731b4fc7a77dfcdd979e184f.css" integrity="sha256-gbuvxN&#43;TsRwcPiRJRkNzw4SqSQNzG0/Hp3383ZeeGE8=" crossorigin="anonymous" media="screen">
+
+
+
+ 
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Jenkinsを入れてみる"/>
+<meta name="twitter:description" content="なぜ Jenkins なのか 今いる職場で使用してた Jenkins が謎に動作不能に陥ったため選択肢としてひとまずの Jenkins となったから
+並行している管理画面のリプレイスの環境は、比較的にモダンな感じで CircleCi を使用している。
+言うても現状は、push の際に PHPUnit が走るようにしてあるだけであるが。
+そこで知見をためたら全部に適用させていきたいとは思っているが、現状 CircleCi に対しての知見がたまっておらず、今まで使用してた Jenkins でいいよねって話になったためである。
+前置きはこれにておしまい
+CentOS への Install これも何番煎じかわからないけどここに書けばいざという時に自分で振り返れるから。
+Install から自動起動までのコマンドは下記
+sudo -y install java-1.8.0-openjdk wget -0 /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key sudo -y install jenkins sudo systemctl start jenkins sudo chkconfig jenkins on  さぁーあとは、IP:8080 でブラウザからアクセスして確認です。
+ここから設定をおこなっていくのだが下記コマンドで初期パスワードを確認せねば
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+出力された文字列をぺぺぺって貼り付けてボタン押下
+これ終わり。
+あとは普段入れている plugin などを導入して完了
+なぜ Jenkins が動作不能になったのか不明 実際自分が設定したわけでもなく管理してたわけでもなくっていう状況なのでまさに秘伝のタレ化してたのですわ。Jenkis の悪いところでもある属人化という負債ですね。
+運用方法を改善すればそんなことなく Jenkins と仲良く年をとっていけるわけですがね。まぁーそんあ甘くないと言うことですね。"/>
+
+<meta property="og:title" content="Jenkinsを入れてみる" />
+<meta property="og:description" content="なぜ Jenkins なのか 今いる職場で使用してた Jenkins が謎に動作不能に陥ったため選択肢としてひとまずの Jenkins となったから
+並行している管理画面のリプレイスの環境は、比較的にモダンな感じで CircleCi を使用している。
+言うても現状は、push の際に PHPUnit が走るようにしてあるだけであるが。
+そこで知見をためたら全部に適用させていきたいとは思っているが、現状 CircleCi に対しての知見がたまっておらず、今まで使用してた Jenkins でいいよねって話になったためである。
+前置きはこれにておしまい
+CentOS への Install これも何番煎じかわからないけどここに書けばいざという時に自分で振り返れるから。
+Install から自動起動までのコマンドは下記
+sudo -y install java-1.8.0-openjdk wget -0 /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key sudo -y install jenkins sudo systemctl start jenkins sudo chkconfig jenkins on  さぁーあとは、IP:8080 でブラウザからアクセスして確認です。
+ここから設定をおこなっていくのだが下記コマンドで初期パスワードを確認せねば
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+出力された文字列をぺぺぺって貼り付けてボタン押下
+これ終わり。
+あとは普段入れている plugin などを導入して完了
+なぜ Jenkins が動作不能になったのか不明 実際自分が設定したわけでもなく管理してたわけでもなくっていう状況なのでまさに秘伝のタレ化してたのですわ。Jenkis の悪いところでもある属人化という負債ですね。
+運用方法を改善すればそんなことなく Jenkins と仲良く年をとっていけるわけですがね。まぁーそんあ甘くないと言うことですね。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://hironeko.github.io/posts/201903/20190327/" />
+<meta property="article:published_time" content="2019-03-27T22:53:29&#43;09:00"/>
+<meta property="article:modified_time" content="2019-03-27T22:53:29&#43;09:00"/>
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        Jenkinsを入れてみる
+        
+    </title>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="section" id="title">Jenkinsを入れてみる</div>
+
+        
+<div class="section" id="content">
+    Wed Mar 27, 2019 &#183; 79 words
+    
+    <div class="tag-container">
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/jenkins">
+                Jenkins
+            </a>
+        </span>
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/%E5%B0%8E%E5%85%A5">
+                導入
+            </a>
+        </span>
+        
+    </div>
+    
+    <hr/>
+    
+
+<h2 id="なぜ-jenkins-なのか">なぜ Jenkins なのか</h2>
+
+<p>今いる職場で使用してた Jenkins が謎に動作不能に陥ったため選択肢としてひとまずの Jenkins となったから</p>
+
+<p>並行している管理画面のリプレイスの環境は、比較的にモダンな感じで CircleCi を使用している。</p>
+
+<p>言うても現状は、push の際に PHPUnit が走るようにしてあるだけであるが。</p>
+
+<p>そこで知見をためたら全部に適用させていきたいとは思っているが、現状 CircleCi に対しての知見がたまっておらず、今まで使用してた Jenkins でいいよねって話になったためである。</p>
+
+<p>前置きはこれにておしまい</p>
+
+<h2 id="centos-への-install">CentOS への Install</h2>
+
+<p>これも何番煎じかわからないけどここに書けばいざという時に自分で振り返れるから。</p>
+
+<p>Install から自動起動までのコマンドは下記</p>
+
+<pre><code class="language-shell">sudo -y install java-1.8.0-openjdk
+wget -0 /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
+rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
+sudo -y install jenkins
+sudo systemctl start jenkins
+sudo chkconfig jenkins on
+</code></pre>
+
+<p>さぁーあとは、IP:8080 でブラウザからアクセスして確認です。</p>
+
+<p>ここから設定をおこなっていくのだが下記コマンドで初期パスワードを確認せねば</p>
+
+<p><code>sudo cat /var/lib/jenkins/secrets/initialAdminPassword</code></p>
+
+<p>出力された文字列をぺぺぺって貼り付けてボタン押下</p>
+
+<p>これ終わり。</p>
+
+<p>あとは普段入れている plugin などを導入して完了</p>
+
+<h2 id="なぜ-jenkins-が動作不能になったのか不明">なぜ Jenkins が動作不能になったのか不明</h2>
+
+<p>実際自分が設定したわけでもなく管理してたわけでもなくっていう状況なのでまさに秘伝のタレ化してたのですわ。Jenkis の悪いところでもある属人化という負債ですね。</p>
+
+<p>運用方法を改善すればそんなことなく Jenkins と仲良く年をとっていけるわけですがね。まぁーそんあ甘くないと言うことですね。</p>
+
+<p>そもそもこのタイミングで CircleCi に変えろって話ではありますが。</p>
+
+<h2 id="導入しての感想">導入しての感想</h2>
+
+<p>おぉーーーー前の Jenkins の UI と全然違くて良き良き</p>
+
+<p>以上です。</p>
+
+</div>
+
+
+        
+<div class="section bottom-menu">
+    
+<hr />
+<p>
+
+
+    
+        <a href="/posts">back</a>
+        
+            &#183;
+        
+    
+
+    
+        
+            <a href="/">
+                Top
+            </a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/about">
+                About
+            </a>
+        
+            &#183; 
+            <a href="/resume">
+                Resume
+            </a>
+        
+            &#183; 
+            <a href="/posts">
+                Posts
+            </a>
+        
+    
+    &#183; 
+    <a href="http://hironeko.github.io">
+        
+    </a>
+
+</p>
+</div>
+
+
+        <div class="section footer"></div>
+    </div>
+</body>
+
+</html>

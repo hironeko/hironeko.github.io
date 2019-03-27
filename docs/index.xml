@@ -6,10 +6,33 @@
     <description>Recent content on hironeko desu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 26 Mar 2019 23:14:50 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 27 Mar 2019 22:53:29 +0900</lastBuildDate>
     
 	<atom:link href="http://hironeko.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Jenkinsを入れてみる</title>
+      <link>http://hironeko.github.io/posts/201903/20190327/</link>
+      <pubDate>Wed, 27 Mar 2019 22:53:29 +0900</pubDate>
+      
+      <guid>http://hironeko.github.io/posts/201903/20190327/</guid>
+      <description>なぜ Jenkins なのか 今いる職場で使用してた Jenkins が謎に動作不能に陥ったため選択肢としてひとまずの Jenkins となったから
+並行している管理画面のリプレイスの環境は、比較的にモダンな感じで CircleCi を使用している。
+言うても現状は、push の際に PHPUnit が走るようにしてあるだけであるが。
+そこで知見をためたら全部に適用させていきたいとは思っているが、現状 CircleCi に対しての知見がたまっておらず、今まで使用してた Jenkins でいいよねって話になったためである。
+前置きはこれにておしまい
+CentOS への Install これも何番煎じかわからないけどここに書けばいざという時に自分で振り返れるから。
+Install から自動起動までのコマンドは下記
+sudo -y install java-1.8.0-openjdk wget -0 /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key sudo -y install jenkins sudo systemctl start jenkins sudo chkconfig jenkins on  さぁーあとは、IP:8080 でブラウザからアクセスして確認です。
+ここから設定をおこなっていくのだが下記コマンドで初期パスワードを確認せねば
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+出力された文字列をぺぺぺって貼り付けてボタン押下
+これ終わり。
+あとは普段入れている plugin などを導入して完了
+なぜ Jenkins が動作不能になったのか不明 実際自分が設定したわけでもなく管理してたわけでもなくっていう状況なのでまさに秘伝のタレ化してたのですわ。Jenkis の悪いところでもある属人化という負債ですね。
+運用方法を改善すればそんなことなく Jenkins と仲良く年をとっていけるわけですがね。まぁーそんあ甘くないと言うことですね。</description>
+    </item>
     
     <item>
       <title>Vueに入門してみよう</title>
