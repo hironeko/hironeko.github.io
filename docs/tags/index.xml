@@ -131,9 +131,18 @@
     <item>
       <title>Vue</title>
       <link>http://hironeko.github.io/tags/vue/</link>
-      <pubDate>Tue, 26 Mar 2019 23:14:50 +0900</pubDate>
+      <pubDate>Fri, 29 Mar 2019 00:05:20 +0900</pubDate>
       
       <guid>http://hironeko.github.io/tags/vue/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vuex</title>
+      <link>http://hironeko.github.io/tags/vuex/</link>
+      <pubDate>Fri, 29 Mar 2019 00:05:20 +0900</pubDate>
+      
+      <guid>http://hironeko.github.io/tags/vuex/</guid>
       <description></description>
     </item>
     

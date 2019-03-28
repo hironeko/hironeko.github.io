@@ -6,10 +6,32 @@
     <description>Recent content on hironeko desu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 28 Mar 2019 22:37:37 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 29 Mar 2019 00:05:20 +0900</lastBuildDate>
     
 	<atom:link href="http://hironeko.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Vueで1ページアプリ</title>
+      <link>http://hironeko.github.io/posts/201903/20190329/</link>
+      <pubDate>Fri, 29 Mar 2019 00:05:20 +0900</pubDate>
+      
+      <guid>http://hironeko.github.io/posts/201903/20190329/</guid>
+      <description>Vue.js だけでひとまず何かを作成 今回は、時計のアプリケーションを写経。Linter は使用せずです。
+進め方は参考サイトを元に進めました。
+CSS はコピペしたがそれ以外は写経、手に馴染めば何も考えなくても手が勝手に動くようになるものなので。戦地の道も一歩からですね。
+今回のアプリの写経での学び computedの挙動 ただし年月日時分の箇所すかね。
+秒は、method でもいいわけですね。
+例えば、このコードでは、computed にsecondsを methods に移動させます。
+seconds() { return zeroPadding(this.date.getSeconds(), 2) }  としtemplateの方は、seconds &amp;gt; seconds()に変更し再起動しても変化がありません。
+値に変化が起きない限り再計算処理が走らないのが computed です。 computed の使うポイントとしては、キャッシュしたい何かを返す必要がある(再計算する必要が低い)場合に適任
+methods に関しては、算出(計算)結果のキャッシュはされません。
+日本語で説明を書くには、ちょっと通じにくい文章になりますな。
+大雑把に基礎の学習を終えひとまず何かしら作って手に馴染ませる ということで次は、vuex を使用しての学習。以前 component についは、重要と言う話だったがここで実際に手を動かし学習を進める。
+下記参考サイトのvue.js＋Vuexチュートリアルを参考に進める。(1 年前のものなので必要に応じて適宜変更を加えながら進める)
+参考サイト 第一回 Vue.js で Web アプリをつくろう！
+vue.js ＋ Vuex チュートリアル</description>
+    </item>
     
     <item>
       <title>Jenkinsのハマりポイントとanyenvを入れた</title>
