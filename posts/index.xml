@@ -6,10 +6,29 @@
     <description>Recent content in Posts on hironeko desu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 27 Mar 2019 22:53:29 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 28 Mar 2019 22:37:37 +0900</lastBuildDate>
     
 	<atom:link href="http://hironeko.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Jenkinsのハマりポイントとanyenvを入れた</title>
+      <link>http://hironeko.github.io/posts/201903/20190328/</link>
+      <pubDate>Thu, 28 Mar 2019 22:37:37 +0900</pubDate>
+      
+      <guid>http://hironeko.github.io/posts/201903/20190328/</guid>
+      <description>Jenkins でのハマった箇所の備忘録 今回困ったポイント
+蓋を開けたらそうだよねって話だったけど
+Jenkins ユーザーで job に必要なものを準備 Jenkins を導入したあとに job で使うために言語の Version 管理ツールを入れる必要があった。Jenkins 初心者の自分は、さてはてどう切り替えるんだ？ ひとまずぐぐる。結果まず最初に行うこと
+root で操作
+cat /etc/passwd  passwdは、一般ユーザーでも見れるから root である必要はないんだが。。。 以下のように出力される。
+.... jenkins:x:996:994:Jenkins Automation Server:/var/lib/jenkins:/bin/false  この結果の/bin/falseの箇所を手動で修正してもいいんだけどやるならちゃんとコマンドで実行する
+chsh jenkins -s /bin/bash  自分が導入した際の Jenkins の shell の path が/bin/bashだったので合わせた(正しいのか・・・？)
+shell を変更したあとに下記コマンドでユーザーを切り替える
+sudo su - jenkins  ここにたどり着くのに少々時間がかかってしまった&amp;hellip;&amp;hellip;
+anyenv をいれる Githubのページにある README を読めば導入はできるが注意点が必要
+git clone https://github.com/anyenv/anyenv ~/.anyenv echo &#39;export PATH=&amp;quot;$HOME/.anyenv/bin:$PATH&amp;quot;&#39; &amp;gt;&amp;gt; ~/.anyenv echo &#39;eval &amp;quot;$(anyenv init -)&amp;quot;&#39; &amp;gt;&amp;gt; ~/.</description>
+    </item>
     
     <item>
       <title>Jenkinsを入れてみる</title>
