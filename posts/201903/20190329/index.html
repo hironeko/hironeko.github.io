@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<title>
+Vueで1ページアプリ - hironeko desu
+</title>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.81bbafc4df93b11c1c3e2449464373c384aa4903731b4fc7a77dfcdd979e184f.css" integrity="sha256-gbuvxN&#43;TsRwcPiRJRkNzw4SqSQNzG0/Hp3383ZeeGE8=" crossorigin="anonymous" media="screen">
+
+
+
+ 
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Vueで1ページアプリ"/>
+<meta name="twitter:description" content="Vue.js だけでひとまず何かを作成 今回は、時計のアプリケーションを写経。Linter は使用せずです。
+進め方は参考サイトを元に進めました。
+CSS はコピペしたがそれ以外は写経、手に馴染めば何も考えなくても手が勝手に動くようになるものなので。戦地の道も一歩からですね。
+今回のアプリの写経での学び computedの挙動 ただし年月日時分の箇所すかね。
+秒は、method でもいいわけですね。
+例えば、このコードでは、computed にsecondsを methods に移動させます。
+seconds() { return zeroPadding(this.date.getSeconds(), 2) }  としtemplateの方は、seconds &gt; seconds()に変更し再起動しても変化がありません。
+値に変化が起きない限り再計算処理が走らないのが computed です。 computed の使うポイントとしては、キャッシュしたい何かを返す必要がある(再計算する必要が低い)場合に適任
+methods に関しては、算出(計算)結果のキャッシュはされません。
+日本語で説明を書くには、ちょっと通じにくい文章になりますな。
+大雑把に基礎の学習を終えひとまず何かしら作って手に馴染ませる ということで次は、vuex を使用しての学習。以前 component についは、重要と言う話だったがここで実際に手を動かし学習を進める。
+下記参考サイトのvue.js＋Vuexチュートリアルを参考に進める。(1 年前のものなので必要に応じて適宜変更を加えながら進める)
+参考サイト 第一回 Vue.js で Web アプリをつくろう！
+vue.js ＋ Vuex チュートリアル"/>
+
+<meta property="og:title" content="Vueで1ページアプリ" />
+<meta property="og:description" content="Vue.js だけでひとまず何かを作成 今回は、時計のアプリケーションを写経。Linter は使用せずです。
+進め方は参考サイトを元に進めました。
+CSS はコピペしたがそれ以外は写経、手に馴染めば何も考えなくても手が勝手に動くようになるものなので。戦地の道も一歩からですね。
+今回のアプリの写経での学び computedの挙動 ただし年月日時分の箇所すかね。
+秒は、method でもいいわけですね。
+例えば、このコードでは、computed にsecondsを methods に移動させます。
+seconds() { return zeroPadding(this.date.getSeconds(), 2) }  としtemplateの方は、seconds &gt; seconds()に変更し再起動しても変化がありません。
+値に変化が起きない限り再計算処理が走らないのが computed です。 computed の使うポイントとしては、キャッシュしたい何かを返す必要がある(再計算する必要が低い)場合に適任
+methods に関しては、算出(計算)結果のキャッシュはされません。
+日本語で説明を書くには、ちょっと通じにくい文章になりますな。
+大雑把に基礎の学習を終えひとまず何かしら作って手に馴染ませる ということで次は、vuex を使用しての学習。以前 component についは、重要と言う話だったがここで実際に手を動かし学習を進める。
+下記参考サイトのvue.js＋Vuexチュートリアルを参考に進める。(1 年前のものなので必要に応じて適宜変更を加えながら進める)
+参考サイト 第一回 Vue.js で Web アプリをつくろう！
+vue.js ＋ Vuex チュートリアル" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://hironeko.github.io/posts/201903/20190329/" />
+<meta property="article:published_time" content="2019-03-29T00:05:20&#43;09:00"/>
+<meta property="article:modified_time" content="2019-03-29T00:05:20&#43;09:00"/>
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        Vueで1ページアプリ
+        
+    </title>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="section" id="title">Vueで1ページアプリ</div>
+
+        
+<div class="section" id="content">
+    Fri Mar 29, 2019 &#183; 50 words
+    
+    <div class="tag-container">
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/vue">
+                Vue
+            </a>
+        </span>
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/vuex">
+                Vuex
+            </a>
+        </span>
+        
+    </div>
+    
+    <hr/>
+    
+
+<h2 id="vue-js-だけでひとまず何かを作成">Vue.js だけでひとまず何かを作成</h2>
+
+<p>今回は、時計のアプリケーションを写経。Linter は使用せずです。</p>
+
+<p>進め方は参考サイトを元に進めました。</p>
+
+<p>CSS はコピペしたがそれ以外は写経、手に馴染めば何も考えなくても手が勝手に動くようになるものなので。戦地の道も一歩からですね。</p>
+
+<h2 id="今回のアプリの写経での学び">今回のアプリの写経での学び</h2>
+
+<p><code>computed</code>の挙動
+ただし年月日時分の箇所すかね。</p>
+
+<p>秒は、method でもいいわけですね。</p>
+
+<p>例えば、このコードでは、computed に<code>seconds</code>を methods に移動させます。</p>
+
+<pre><code class="language-javascript">seconds() {
+  return zeroPadding(this.date.getSeconds(), 2)
+}
+</code></pre>
+
+<p>とし<code>template</code>の方は、<code>seconds</code> &gt; <code>seconds()</code>に変更し再起動しても変化がありません。</p>
+
+<p>値に変化が起きない限り再計算処理が走らないのが computed です。
+computed の使うポイントとしては、キャッシュしたい何かを返す必要がある(再計算する必要が低い)場合に適任</p>
+
+<p>methods に関しては、算出(計算)結果のキャッシュはされません。</p>
+
+<p>日本語で説明を書くには、ちょっと通じにくい文章になりますな。</p>
+
+<h2 id="大雑把に基礎の学習を終えひとまず何かしら作って手に馴染ませる">大雑把に基礎の学習を終えひとまず何かしら作って手に馴染ませる</h2>
+
+<p>ということで次は、vuex を使用しての学習。以前 component についは、重要と言う話だったがここで実際に手を動かし学習を進める。</p>
+
+<p>下記参考サイトの<code>vue.js＋Vuexチュートリアル</code>を参考に進める。(1 年前のものなので必要に応じて適宜変更を加えながら進める)</p>
+
+<h4 id="参考サイト">参考サイト</h4>
+
+<p><a href="https://www.monster-dive.com/blog/web_creative/20180608_001789.php">第一回 Vue.js で Web アプリをつくろう！</a></p>
+
+<p><a href="https://qiita.com/_P0cChi_/items/ebf8fbf035b36218a37e">vue.js ＋ Vuex チュートリアル</a></p>
+
+</div>
+
+
+        
+<div class="section bottom-menu">
+    
+<hr />
+<p>
+
+
+    
+        <a href="/posts">back</a>
+        
+            &#183;
+        
+    
+
+    
+        
+            <a href="/">
+                Top
+            </a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/about">
+                About
+            </a>
+        
+            &#183; 
+            <a href="/resume">
+                Resume
+            </a>
+        
+            &#183; 
+            <a href="/posts">
+                Posts
+            </a>
+        
+    
+    &#183; 
+    <a href="http://hironeko.github.io">
+        
+    </a>
+
+</p>
+</div>
+
+
+        <div class="section footer"></div>
+    </div>
+</body>
+
+</html>
