@@ -6,7 +6,7 @@
     <description>Recent content in Vue on hironeko desu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 29 Mar 2019 23:55:43 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 30 Mar 2019 00:05:43 +0900</lastBuildDate>
     
 	<atom:link href="http://hironeko.github.io/tags/vue/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Vuexに挑戦！！</title>
       <link>http://hironeko.github.io/posts/201903/20190330/</link>
-      <pubDate>Fri, 29 Mar 2019 23:55:43 +0900</pubDate>
+      <pubDate>Sat, 30 Mar 2019 00:05:43 +0900</pubDate>
       
       <guid>http://hironeko.github.io/posts/201903/20190330/</guid>
       <description>何事も手を動かすことが大事 Qiita の記事(下記記載)では、いきなりVuexの導入から始まっているがリンクにある gist のページを見るとVueの環境構築から手順があるのでわからない人は参考にしましょう。
