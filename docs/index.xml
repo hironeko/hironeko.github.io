@@ -6,10 +6,22 @@
     <description>Recent content on hironeko desu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 29 Mar 2019 00:05:20 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 29 Mar 2019 23:55:43 +0900</lastBuildDate>
     
 	<atom:link href="http://hironeko.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Vuexに挑戦！！</title>
+      <link>http://hironeko.github.io/posts/201903/20190330/</link>
+      <pubDate>Fri, 29 Mar 2019 23:55:43 +0900</pubDate>
+      
+      <guid>http://hironeko.github.io/posts/201903/20190330/</guid>
+      <description>何事も手を動かすことが大事 Qiita の記事(下記記載)では、いきなりVuexの導入から始まっているがリンクにある gist のページを見るとVueの環境構築から手順があるのでわからない人は参考にしましょう。
+例によって Linter は、今回も抜きます。というのも今回は、構文に敏感に注意するより手を動かして Vue と仲良くなるのが目的なのでそこは、捨てます。実際の開発では、大切な要素であることは忘れずに進めます。
+自分は以下のように設定しました。
+? Project name your_app_name ? Project description A Vue.js project ? Author hironeko &amp;lt;xxxxxxxx@exsample.com&amp;gt; ? Vue build standalone ? Install vue-router? Yes ? Use ESLint to lint your code? No ? Set up unit tests No ? Setup e2e tests with Nightwatch? No ? Should we run `npm install` for you after the project has been created? (recommended) yarn  Vuex を install さっそく install するみたいですね。待ってました。</description>
+    </item>
     
     <item>
       <title>Vueで1ページアプリ</title>
