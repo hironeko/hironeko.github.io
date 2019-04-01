@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<title>
+Vuexに挑戦2 - hironeko desu
+</title>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.81bbafc4df93b11c1c3e2449464373c384aa4903731b4fc7a77dfcdd979e184f.css" integrity="sha256-gbuvxN&#43;TsRwcPiRJRkNzw4SqSQNzG0/Hp3383ZeeGE8=" crossorigin="anonymous" media="screen">
+
+
+
+ 
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Vuexに挑戦2"/>
+<meta name="twitter:description" content="前回の続編 テキストエリアを作成する。ここは、大きく変更はなくお手本の通りに進める。 どうやらエラー文言を出力するように記述するみたですね。
+さっさ先に進めます。 次は、StringComp.vueの作成
+src/components/modules/以下に作成したら、Form.vueで import, components, template に追加を行う。
+今回は、src/components/modules/以下に作成したものは、Form.vueで使うので忘れずに追記ですな。
+イベント ボタンの作成、イベントを発火させるためにv-onディレクティブを使う。
+そのまま写経するのは、簡単だがちゃんと理解は必要だね。
+vue のメソッドを使用するみたですね。なぜ使うの、何が実現できるかくらいは把握すべきなのでちょっと調べます。
+調べているうちにmapActionとmapGettersは、Vuex の学習でかなーーーり重要とわかる。
+コンポーネント内のアクションのディスパッチ 正攻法のやりかたthis.$store.dispatch(&#39;xxx&#39;)で可能だがちゃーーーんと便利なヘルパーを用意してくれているのが Vuex のようですな。それが今回学ぶものの一つmapActionsである。(公式サイト)
+よは、簡単にコンポーネント内のアクションを使おうぜ！と今は、把握しておく。 これを利用する際、必ず Vue インスタンスにstoreを追加しないといけない
+mapGetters も同様 この編集では、mapGetters が使われていないように見えるがこのあとちゃんと使用している。 this.$store.getters[&#39;SOME&#39;]
+store の作成 mapActions を使用するので store を追加する必要がある。先にmain.jsの修正を行うようだ。
+この時点は、storeフォルダすら存在していないため保存したらエラーが発生する。フォルダと index.js を作成した段階でエラーが消える。
+作成の順番が本当に正しいのか不明だけどここでふと思ったのは、mapActions の第一引数は、namespaced になっている。store の index.js で作成している const 名であるわけで、最初に store を作成すべきでは・・・？と思ったが結果動くなら順番なんて関係ないけどもふと気になった。
+すべての実装を行い終わったら画面の確認ボタンを押下すると console にbuttonActionが出力される。なんと！！！！
+実装してて、公式の解説を読んだりしてたけどもなるほどねー感覚的には理解しているがあくまで感覚なのでさらに深めたいですね。何個も作成して
+Vuex 今回の大本命。ここまでの Vuex 自体は、出てはきているがなぜ必要なのか、何をするものなのかって言うのがここで解説をしてくださっている。
+若干疑問なのは、HeadComp の title を computed で mapGetters？別にキャッシュする必要なくない？って思って公式見たらどうやらお作法っぽい
+あと mapgetters の記述が人によって結構異なっている。おおよそは。module-typeってフォルダ以下にファイルを作成してそれらを import してッシ要している感じ。作成したファイルには、export defaultで const を export している感じ"/>
+
+<meta property="og:title" content="Vuexに挑戦2" />
+<meta property="og:description" content="前回の続編 テキストエリアを作成する。ここは、大きく変更はなくお手本の通りに進める。 どうやらエラー文言を出力するように記述するみたですね。
+さっさ先に進めます。 次は、StringComp.vueの作成
+src/components/modules/以下に作成したら、Form.vueで import, components, template に追加を行う。
+今回は、src/components/modules/以下に作成したものは、Form.vueで使うので忘れずに追記ですな。
+イベント ボタンの作成、イベントを発火させるためにv-onディレクティブを使う。
+そのまま写経するのは、簡単だがちゃんと理解は必要だね。
+vue のメソッドを使用するみたですね。なぜ使うの、何が実現できるかくらいは把握すべきなのでちょっと調べます。
+調べているうちにmapActionとmapGettersは、Vuex の学習でかなーーーり重要とわかる。
+コンポーネント内のアクションのディスパッチ 正攻法のやりかたthis.$store.dispatch(&#39;xxx&#39;)で可能だがちゃーーーんと便利なヘルパーを用意してくれているのが Vuex のようですな。それが今回学ぶものの一つmapActionsである。(公式サイト)
+よは、簡単にコンポーネント内のアクションを使おうぜ！と今は、把握しておく。 これを利用する際、必ず Vue インスタンスにstoreを追加しないといけない
+mapGetters も同様 この編集では、mapGetters が使われていないように見えるがこのあとちゃんと使用している。 this.$store.getters[&#39;SOME&#39;]
+store の作成 mapActions を使用するので store を追加する必要がある。先にmain.jsの修正を行うようだ。
+この時点は、storeフォルダすら存在していないため保存したらエラーが発生する。フォルダと index.js を作成した段階でエラーが消える。
+作成の順番が本当に正しいのか不明だけどここでふと思ったのは、mapActions の第一引数は、namespaced になっている。store の index.js で作成している const 名であるわけで、最初に store を作成すべきでは・・・？と思ったが結果動くなら順番なんて関係ないけどもふと気になった。
+すべての実装を行い終わったら画面の確認ボタンを押下すると console にbuttonActionが出力される。なんと！！！！
+実装してて、公式の解説を読んだりしてたけどもなるほどねー感覚的には理解しているがあくまで感覚なのでさらに深めたいですね。何個も作成して
+Vuex 今回の大本命。ここまでの Vuex 自体は、出てはきているがなぜ必要なのか、何をするものなのかって言うのがここで解説をしてくださっている。
+若干疑問なのは、HeadComp の title を computed で mapGetters？別にキャッシュする必要なくない？って思って公式見たらどうやらお作法っぽい
+あと mapgetters の記述が人によって結構異なっている。おおよそは。module-typeってフォルダ以下にファイルを作成してそれらを import してッシ要している感じ。作成したファイルには、export defaultで const を export している感じ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://hironeko.github.io/posts/201904/20190401/" />
+<meta property="article:published_time" content="2019-04-01T00:09:15&#43;09:00"/>
+<meta property="article:modified_time" content="2019-04-01T00:09:15&#43;09:00"/>
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        Vuexに挑戦2
+        
+    </title>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="section" id="title">Vuexに挑戦2</div>
+
+        
+<div class="section" id="content">
+    Mon Apr 01, 2019 &#183; 155 words
+    
+    <div class="tag-container">
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/vue">
+                Vue
+            </a>
+        </span>
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/vuex">
+                Vuex
+            </a>
+        </span>
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/%E5%85%A5%E9%96%80">
+                入門
+            </a>
+        </span>
+        
+    </div>
+    
+    <hr/>
+    
+
+<h2 id="前回の続編">前回の続編</h2>
+
+<p>テキストエリアを作成する。ここは、大きく変更はなくお手本の通りに進める。
+どうやらエラー文言を出力するように記述するみたですね。</p>
+
+<p>さっさ先に進めます。
+次は、<code>StringComp.vue</code>の作成</p>
+
+<p><code>src/components/modules/</code>以下に作成したら、<code>Form.vue</code>で import, components, template に追加を行う。</p>
+
+<p>今回は、<code>src/components/modules/</code>以下に作成したものは、<code>Form.vue</code>で使うので忘れずに追記ですな。</p>
+
+<h2 id="イベント">イベント</h2>
+
+<p>ボタンの作成、イベントを発火させるために<code>v-on</code>ディレクティブを使う。</p>
+
+<p>そのまま写経するのは、簡単だがちゃんと理解は必要だね。</p>
+
+<p>vue のメソッドを使用するみたですね。なぜ使うの、何が実現できるかくらいは把握すべきなのでちょっと調べます。</p>
+
+<p>調べているうちに<code>mapAction</code>と<code>mapGetters</code>は、Vuex の学習でかなーーーり重要とわかる。</p>
+
+<h4 id="コンポーネント内のアクションのディスパッチ">コンポーネント内のアクションのディスパッチ</h4>
+
+<p>正攻法のやりかた<code>this.$store.dispatch('xxx')</code>で可能だがちゃーーーんと便利なヘルパーを用意してくれているのが Vuex のようですな。それが今回学ぶものの一つ<code>mapActions</code>である。(<a href="https://vuex.vuejs.org/ja/guide/actions.html#%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E5%86%85%E3%81%A7%E3%81%AE%E3%82%A2%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E3%83%87%E3%82%A3%E3%82%B9%E3%83%91%E3%83%83%E3%83%81">公式サイト</a>)</p>
+
+<p>よは、簡単にコンポーネント内のアクションを使おうぜ！と今は、把握しておく。
+これを利用する際、必ず Vue インスタンスに<code>store</code>を追加しないといけない</p>
+
+<h4 id="mapgetters-も同様">mapGetters も同様</h4>
+
+<p>この編集では、mapGetters が使われていないように見えるがこのあとちゃんと使用している。
+<code>this.$store.getters['SOME']</code></p>
+
+<h3 id="store-の作成">store の作成</h3>
+
+<p>mapActions を使用するので store を追加する必要がある。先に<code>main.js</code>の修正を行うようだ。</p>
+
+<p>この時点は、<code>store</code>フォルダすら存在していないため保存したらエラーが発生する。フォルダと index.js を作成した段階でエラーが消える。</p>
+
+<p>作成の順番が本当に正しいのか不明だけどここでふと思ったのは、mapActions の第一引数は、namespaced になっている。store の index.js で作成している const 名であるわけで、最初に store を作成すべきでは・・・？と思ったが結果動くなら順番なんて関係ないけどもふと気になった。</p>
+
+<p>すべての実装を行い終わったら画面の<code>確認</code>ボタンを押下すると console に<code>buttonAction</code>が出力される。なんと！！！！</p>
+
+<p>実装してて、公式の解説を読んだりしてたけどもなるほどねー感覚的には理解しているがあくまで感覚なのでさらに深めたいですね。何個も作成して</p>
+
+<h2 id="vuex">Vuex</h2>
+
+<p>今回の大本命。ここまでの Vuex 自体は、出てはきているがなぜ必要なのか、何をするものなのかって言うのがここで解説をしてくださっている。</p>
+
+<p>若干疑問なのは、HeadComp の title を computed で mapGetters？別にキャッシュする必要なくない？って思って公式見たらどうやらお作法っぽい</p>
+
+<p>あと mapgetters の記述が人によって結構異なっている。おおよそは。<code>module-type</code>ってフォルダ以下にファイルを作成してそれらを import してッシ要している感じ。作成したファイルには、<code>export default</code>で const を export している感じ</p>
+
+<h3 id="mapgetters-を実装">mapGetters を実装</h3>
+
+<pre><code class="language-javascript">computed: mapGetters({
+  title: &quot;getTitle&quot;
+})
+</code></pre>
+
+<p>と書きます。ここの書き方が色々とあるっぽい。<code>spread peretor</code>を使用した方法とかね
+下記のような書き方もできます。</p>
+
+<pre><code class="language-javascript">computed: {
+  ...mapGetters(['title'])
+}
+</code></pre>
+
+<p>自分的には、こちらの方がスッキリかなーと、ただ上の書き方だとそれをする上でどんなメソッドを呼ぶかわかるからケースバイケースなのかなーとも思う。</p>
+
+<h3 id="es6-はしっかりと学んでおくのが吉">ES6 はしっかりと学んでおくのが吉</h3>
+
+<p>今回 mapGetters で使用した<code>spread operator</code>を使用している。JS と言えば mozilla!!!!と言うことでこちらのリファレンスを参考して<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Spread_syntax">スプレッド構文</a></p>
+
+<p>まぁー iterable って単語は、大切なのでこの際覚えておくといいかもねーと思いましたな。(初心者の方は特に。自分も人に説明できるレベルには至っていない)</p>
+
+<h3 id="ちょっと-tips-store-に書く主な-4-つ">ちょっと Tips Store に書く主な 4 つ</h3>
+
+<ul>
+<li>state : 状態データ</li>
+<li>mutations : 状態の更新する処理</li>
+<li>getters : 状態を取得する処理</li>
+<li>actions : 非同期処理(mutations を呼び出す)</li>
+</ul>
+
+<p>おっ？mapActions, mapGetters は、やった。のこりの二つもヘルパーがあると。そりゃそうかってな。</p>
+
+<p>細かな話は、また別の投稿にしようと思う。</p>
+
+<h2 id="いつも脱線しかける">いつも脱線しかける</h2>
+
+<p>昔から一つのことに集中するとまぁー何時間でも平気なんだけども調べ物していると基本的に芋づる式にいろんな言葉、概念、繋がり、関連、共通項などなど気になり始めて調べまくって結果自分の中で index が大量に生成される。</p>
+
+<p>学習する上で大切と思っているのは、以下</p>
+
+<p><code>把握</code>, <code>認識</code>, <code>8割</code>, <code>書き換え・置き換え</code>, <code>index集め</code></p>
+
+<p>かなーって思っている。完璧に理解しようなどと恐れ多く(むしろ世の中の人の 9 割が完璧に理解なんてしてないと思っている)専門家でもなければ研究者でもなく、また学者でもないので</p>
+
+<p>把握して使えるように理解して、集めた断片的知識を一つにどんどんつないでいって知識の層を深めていくのが大事だと思う。</p>
+
+<p>んで何事も 8 割くらいの力で 8 割(仕事内容的に網羅している)の完成度で 8 割の理解でいいと思っている。</p>
+
+<p>は？なんでと思う人もいるかもしれないけどその人ってたぶん人に説明できない人ならばそれって結果理解しているとは言えない。結果 8-9 割レベルってこと
+んじゃ最初から 8 割で業務こなせて人よりスキルがつくならそれが一番</p>
+
+<p>人手不足の今の時代において何かに特化するから広く中深く(ちゅうふかく)人より頭一個抜けているエンジニアを目指すかどちらかと思う。</p>
+
+<p>自分の今のスキル感は、そこにたどり着けていないからスキルのボトムアップと知識という index を集めまくる日々です。</p>
+
+</div>
+
+
+        
+<div class="section bottom-menu">
+    
+<hr />
+<p>
+
+
+    
+        <a href="/posts">back</a>
+        
+            &#183;
+        
+    
+
+    
+        
+            <a href="/">
+                Top
+            </a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/about">
+                About
+            </a>
+        
+            &#183; 
+            <a href="/resume">
+                Resume
+            </a>
+        
+            &#183; 
+            <a href="/posts">
+                Posts
+            </a>
+        
+    
+    &#183; 
+    <a href="http://hironeko.github.io">
+        
+    </a>
+
+</p>
+</div>
+
+
+        <div class="section footer"></div>
+    </div>
+</body>
+
+</html>
