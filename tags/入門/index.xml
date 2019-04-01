@@ -6,10 +6,37 @@
     <description>Recent content in 入門 on hironeko desu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 30 Mar 2019 00:05:43 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 01 Apr 2019 00:09:15 +0900</lastBuildDate>
     
 	<atom:link href="http://hironeko.github.io/tags/%E5%85%A5%E9%96%80/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Vuexに挑戦2</title>
+      <link>http://hironeko.github.io/posts/201904/20190401/</link>
+      <pubDate>Mon, 01 Apr 2019 00:09:15 +0900</pubDate>
+      
+      <guid>http://hironeko.github.io/posts/201904/20190401/</guid>
+      <description>前回の続編 テキストエリアを作成する。ここは、大きく変更はなくお手本の通りに進める。 どうやらエラー文言を出力するように記述するみたですね。
+さっさ先に進めます。 次は、StringComp.vueの作成
+src/components/modules/以下に作成したら、Form.vueで import, components, template に追加を行う。
+今回は、src/components/modules/以下に作成したものは、Form.vueで使うので忘れずに追記ですな。
+イベント ボタンの作成、イベントを発火させるためにv-onディレクティブを使う。
+そのまま写経するのは、簡単だがちゃんと理解は必要だね。
+vue のメソッドを使用するみたですね。なぜ使うの、何が実現できるかくらいは把握すべきなのでちょっと調べます。
+調べているうちにmapActionとmapGettersは、Vuex の学習でかなーーーり重要とわかる。
+コンポーネント内のアクションのディスパッチ 正攻法のやりかたthis.$store.dispatch(&#39;xxx&#39;)で可能だがちゃーーーんと便利なヘルパーを用意してくれているのが Vuex のようですな。それが今回学ぶものの一つmapActionsである。(公式サイト)
+よは、簡単にコンポーネント内のアクションを使おうぜ！と今は、把握しておく。 これを利用する際、必ず Vue インスタンスにstoreを追加しないといけない
+mapGetters も同様 この編集では、mapGetters が使われていないように見えるがこのあとちゃんと使用している。 this.$store.getters[&#39;SOME&#39;]
+store の作成 mapActions を使用するので store を追加する必要がある。先にmain.jsの修正を行うようだ。
+この時点は、storeフォルダすら存在していないため保存したらエラーが発生する。フォルダと index.js を作成した段階でエラーが消える。
+作成の順番が本当に正しいのか不明だけどここでふと思ったのは、mapActions の第一引数は、namespaced になっている。store の index.js で作成している const 名であるわけで、最初に store を作成すべきでは・・・？と思ったが結果動くなら順番なんて関係ないけどもふと気になった。
+すべての実装を行い終わったら画面の確認ボタンを押下すると console にbuttonActionが出力される。なんと！！！！
+実装してて、公式の解説を読んだりしてたけどもなるほどねー感覚的には理解しているがあくまで感覚なのでさらに深めたいですね。何個も作成して
+Vuex 今回の大本命。ここまでの Vuex 自体は、出てはきているがなぜ必要なのか、何をするものなのかって言うのがここで解説をしてくださっている。
+若干疑問なのは、HeadComp の title を computed で mapGetters？別にキャッシュする必要なくない？って思って公式見たらどうやらお作法っぽい
+あと mapgetters の記述が人によって結構異なっている。おおよそは。module-typeってフォルダ以下にファイルを作成してそれらを import してッシ要している感じ。作成したファイルには、export defaultで const を export している感じ</description>
+    </item>
     
     <item>
       <title>Vuexに挑戦！！</title>
