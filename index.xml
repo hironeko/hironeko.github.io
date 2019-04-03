@@ -6,10 +6,31 @@
     <description>Recent content on hironeko desu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 01 Apr 2019 00:09:15 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 02 Apr 2019 00:09:16 +0900</lastBuildDate>
     
 	<atom:link href="http://hironeko.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>2019040x</title>
+      <link>http://hironeko.github.io/posts/201904/20190402/</link>
+      <pubDate>Tue, 02 Apr 2019 00:09:16 +0900</pubDate>
+      
+      <guid>http://hironeko.github.io/posts/201904/20190402/</guid>
+      <description>前回までのあらすじ HeadComp.vue に mapGetters を導入したところまでは、やったはず。
+今回は、Form.vue に mapGetters の記述を追加から進めます。
+mapGetters には、書き方が色々？ お手本の書き方
+computed: mapGetters(&amp;quot;Form&amp;quot;, { button: &amp;quot;getButton&amp;quot; })  このように書いている。ただ mapGetters について調べているとどうもこの書き方は見かけないぞ・・・？ということになり mapGetters とより仲良くなるために調べました。 ちなみに公式サイト
+ES6 の書き方を使用して(spread operator)の書き方が紹介されている。
+調べ物をしてて最終的に気づくのってやっぱ公式サイトやリファレンスって最強じゃね？って話。さらにいうと実装されている中身をみるのが一番さいつよです。ただいろんなところに記載されているコードは、良くも悪くも書き方の参考として頭の片隅に入れておくのを忘れずに。
+さて実際に自分がこの場面でいいなって思った書き方は以下です。 小さな規模ならわざわざ別名でマッピングする必要もないでしょうと考えました
+computed: { ...mapGetters( &#39;Form&#39;, [&#39;button&#39;] ) }  ただこのファイルで Form という文字が二回出てくる時点でどうなのって思うのも正直なところ。ただしこの書き方をした場合同時にstore/index.jsの方も書き方を変更しないといけない
+例えば下記のように
+getters: { button: (state, getters, rootState) =&amp;gt; state.button[rootState.stepCount] }  getters って必要なのか。。。？ちらっと最後まで見たが現状他のゲッターを受け取るようなことは書いてなかったが。。。ただ root の state へアクセスしたくまた使用したいから使わないけど第二引数に getters を書いていると言うことなのか。
+引数を表にしている人がいた【Vuex】Store の各プロパティ引数メモ
+ちなみに第 4 引数もあってrootGettersとかけるらしい
+root の getters を使用できるってことかな。今その事案が頭に浮かばないから一旦そういうものとして先に進む</description>
+    </item>
     
     <item>
       <title>Vuexに挑戦2</title>
