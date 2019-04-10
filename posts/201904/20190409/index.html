@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<title>
+Vuexに挑戦4 - hironeko desu
+</title>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.81bbafc4df93b11c1c3e2449464373c384aa4903731b4fc7a77dfcdd979e184f.css" integrity="sha256-gbuvxN&#43;TsRwcPiRJRkNzw4SqSQNzG0/Hp3383ZeeGE8=" crossorigin="anonymous" media="screen">
+
+
+
+ 
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Vuexに挑戦4"/>
+<meta name="twitter:description" content="前回までのあらすじ Form の制御って箇所まで行いました。次は、テキストエリアの切り替えです。
+:is とは？ お手本の Qiita の記事には補足がないので初心者は「ん？」となるでしょう。単純にこれは、　Vue が用意している省略機能の一つで完全な構文はv-bind:isです。(間違ってたらすみません)
+こうやって世間の目にさらされる場所に書く際は、間違えがないだろうかとちゃんと調べて動作確認しってことをするため体系的に頭にあったことが正しい知識として登録されることに意味があると思っている。
+あとは、お手本をもとに微妙に変えた書き方(spread operator)などで書きなおしつつ動作確認。
+このブログもそうだけど基本自宅では、VSCode を使用しているんだけど Vue で mapGetters を記述した際に import してくれるのはいいのだがtemplateの中にぶっこまれるのはどうして。。。。
+お手本のまま記述を大方終え動作確認をするとアプリっぽい感じになってきましたね。
+thanks ページの作成 この章で最後ですな。
+お手本通りの実装をすすめます。 ただ個人的にふと思ったのがThanks.vueにて mapActions, mapGetters を import しているけどもこれ消しても動くわけです。何か意図があったのかな？
+単純この file って最後のページだから何かイベント等は、発生しないと思う。
+あと一点rootState.setpCount == 2の箇所。個人的には厳密に判定してほしので===しました。
+いうてここは、数値しか来ないのは、わかっているけども。基本的に業務でも==は使用しないようにしているため。ここも 3 個にした。
+今回の学び 全体像は、掴めた。ただ state 関連は、色々と書き方がある点を知れたのと Vue がなぜ人気があるかなんとなくわかった。
+感想が短い・・・・
+さて次は何をやろうかな。 ちょっとまえに Laravel と Vue の instagram clone の記事がバズってたからそれを考えたは考えたがんー悩みどころだな。ただひたすら時間がかかりそうだ。
+それか今回のアプリのように比較的細かくあーだこーだ書くのはやめて、修正を加えた箇所やお手本と違う方法を試した箇所だけピックアップするようにするか。The memo 的な投稿を一個作成するだけにするか実に悩めかしい。"/>
+
+<meta property="og:title" content="Vuexに挑戦4" />
+<meta property="og:description" content="前回までのあらすじ Form の制御って箇所まで行いました。次は、テキストエリアの切り替えです。
+:is とは？ お手本の Qiita の記事には補足がないので初心者は「ん？」となるでしょう。単純にこれは、　Vue が用意している省略機能の一つで完全な構文はv-bind:isです。(間違ってたらすみません)
+こうやって世間の目にさらされる場所に書く際は、間違えがないだろうかとちゃんと調べて動作確認しってことをするため体系的に頭にあったことが正しい知識として登録されることに意味があると思っている。
+あとは、お手本をもとに微妙に変えた書き方(spread operator)などで書きなおしつつ動作確認。
+このブログもそうだけど基本自宅では、VSCode を使用しているんだけど Vue で mapGetters を記述した際に import してくれるのはいいのだがtemplateの中にぶっこまれるのはどうして。。。。
+お手本のまま記述を大方終え動作確認をするとアプリっぽい感じになってきましたね。
+thanks ページの作成 この章で最後ですな。
+お手本通りの実装をすすめます。 ただ個人的にふと思ったのがThanks.vueにて mapActions, mapGetters を import しているけどもこれ消しても動くわけです。何か意図があったのかな？
+単純この file って最後のページだから何かイベント等は、発生しないと思う。
+あと一点rootState.setpCount == 2の箇所。個人的には厳密に判定してほしので===しました。
+いうてここは、数値しか来ないのは、わかっているけども。基本的に業務でも==は使用しないようにしているため。ここも 3 個にした。
+今回の学び 全体像は、掴めた。ただ state 関連は、色々と書き方がある点を知れたのと Vue がなぜ人気があるかなんとなくわかった。
+感想が短い・・・・
+さて次は何をやろうかな。 ちょっとまえに Laravel と Vue の instagram clone の記事がバズってたからそれを考えたは考えたがんー悩みどころだな。ただひたすら時間がかかりそうだ。
+それか今回のアプリのように比較的細かくあーだこーだ書くのはやめて、修正を加えた箇所やお手本と違う方法を試した箇所だけピックアップするようにするか。The memo 的な投稿を一個作成するだけにするか実に悩めかしい。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://hironeko.github.io/posts/201904/20190409/" />
+<meta property="article:published_time" content="2019-04-09T22:27:22&#43;09:00"/>
+<meta property="article:modified_time" content="2019-04-09T22:27:22&#43;09:00"/>
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        Vuexに挑戦4
+        
+    </title>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="section" id="title">Vuexに挑戦4</div>
+
+        
+<div class="section" id="content">
+    Tue Apr 09, 2019 &#183; 60 words
+    
+    <div class="tag-container">
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/vuex">
+                Vuex
+            </a>
+        </span>
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/%E5%85%A5%E9%96%80">
+                入門
+            </a>
+        </span>
+        
+    </div>
+    
+    <hr/>
+    
+
+<h2 id="前回までのあらすじ">前回までのあらすじ</h2>
+
+<p>Form の制御って箇所まで行いました。次は、テキストエリアの切り替えです。</p>
+
+<h2 id="is-とは">:is とは？</h2>
+
+<p>お手本の Qiita の記事には補足がないので初心者は「ん？」となるでしょう。単純にこれは、　 Vue が用意している省略機能の一つで完全な構文は<code>v-bind:is</code>です。(間違ってたらすみません)</p>
+
+<p>こうやって世間の目にさらされる場所に書く際は、間違えがないだろうかとちゃんと調べて動作確認しってことをするため体系的に頭にあったことが正しい知識として登録されることに意味があると思っている。</p>
+
+<p>あとは、お手本をもとに微妙に変えた書き方(spread operator)などで書きなおしつつ動作確認。</p>
+
+<p>このブログもそうだけど基本自宅では、VSCode を使用しているんだけど Vue で mapGetters を記述した際に import してくれるのはいいのだが<code>template</code>の中にぶっこまれるのはどうして。。。。</p>
+
+<p>お手本のまま記述を大方終え動作確認をするとアプリっぽい感じになってきましたね。</p>
+
+<h2 id="thanks-ページの作成">thanks ページの作成</h2>
+
+<p>この章で最後ですな。</p>
+
+<p>お手本通りの実装をすすめます。
+ただ個人的にふと思ったのが<code>Thanks.vue</code>にて mapActions, mapGetters を import しているけどもこれ消しても動くわけです。何か意図があったのかな？</p>
+
+<p>単純この file って最後のページだから何かイベント等は、発生しないと思う。</p>
+
+<p>あと一点<code>rootState.setpCount == 2</code>の箇所。個人的には厳密に判定してほしので<code>===</code>しました。</p>
+
+<p>いうてここは、数値しか来ないのは、わかっているけども。基本的に業務でも<code>==</code>は使用しないようにしているため。ここも 3 個にした。</p>
+
+<h2 id="今回の学び">今回の学び</h2>
+
+<p>全体像は、掴めた。ただ state 関連は、色々と書き方がある点を知れたのと Vue がなぜ人気があるかなんとなくわかった。</p>
+
+<p>感想が短い・・・・</p>
+
+<h2 id="さて次は何をやろうかな">さて次は何をやろうかな。</h2>
+
+<p>ちょっとまえに Laravel と Vue の instagram clone の記事がバズってたからそれを考えたは考えたがんー悩みどころだな。ただひたすら時間がかかりそうだ。</p>
+
+<p>それか今回のアプリのように比較的細かくあーだこーだ書くのはやめて、修正を加えた箇所やお手本と違う方法を試した箇所だけピックアップするようにするか。The memo 的な投稿を一個作成するだけにするか実に悩めかしい。</p>
+
+</div>
+
+
+        
+<div class="section bottom-menu">
+    
+<hr />
+<p>
+
+
+    
+        <a href="/posts">back</a>
+        
+            &#183;
+        
+    
+
+    
+        
+            <a href="/">
+                Top
+            </a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/about">
+                About
+            </a>
+        
+            &#183; 
+            <a href="/resume">
+                Resume
+            </a>
+        
+            &#183; 
+            <a href="/posts">
+                Posts
+            </a>
+        
+    
+    &#183; 
+    <a href="http://hironeko.github.io">
+        
+    </a>
+
+</p>
+</div>
+
+
+        <div class="section footer"></div>
+    </div>
+</body>
+
+</html>
