@@ -6,10 +6,33 @@
     <description>Recent content in 入門 on hironeko desu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 02 Apr 2019 00:09:16 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 09 Apr 2019 22:27:22 +0900</lastBuildDate>
     
 	<atom:link href="http://hironeko.github.io/tags/%E5%85%A5%E9%96%80/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Vuexに挑戦4</title>
+      <link>http://hironeko.github.io/posts/201904/20190409/</link>
+      <pubDate>Tue, 09 Apr 2019 22:27:22 +0900</pubDate>
+      
+      <guid>http://hironeko.github.io/posts/201904/20190409/</guid>
+      <description>前回までのあらすじ Form の制御って箇所まで行いました。次は、テキストエリアの切り替えです。
+:is とは？ お手本の Qiita の記事には補足がないので初心者は「ん？」となるでしょう。単純にこれは、　Vue が用意している省略機能の一つで完全な構文はv-bind:isです。(間違ってたらすみません)
+こうやって世間の目にさらされる場所に書く際は、間違えがないだろうかとちゃんと調べて動作確認しってことをするため体系的に頭にあったことが正しい知識として登録されることに意味があると思っている。
+あとは、お手本をもとに微妙に変えた書き方(spread operator)などで書きなおしつつ動作確認。
+このブログもそうだけど基本自宅では、VSCode を使用しているんだけど Vue で mapGetters を記述した際に import してくれるのはいいのだがtemplateの中にぶっこまれるのはどうして。。。。
+お手本のまま記述を大方終え動作確認をするとアプリっぽい感じになってきましたね。
+thanks ページの作成 この章で最後ですな。
+お手本通りの実装をすすめます。 ただ個人的にふと思ったのがThanks.vueにて mapActions, mapGetters を import しているけどもこれ消しても動くわけです。何か意図があったのかな？
+単純この file って最後のページだから何かイベント等は、発生しないと思う。
+あと一点rootState.setpCount == 2の箇所。個人的には厳密に判定してほしので===しました。
+いうてここは、数値しか来ないのは、わかっているけども。基本的に業務でも==は使用しないようにしているため。ここも 3 個にした。
+今回の学び 全体像は、掴めた。ただ state 関連は、色々と書き方がある点を知れたのと Vue がなぜ人気があるかなんとなくわかった。
+感想が短い・・・・
+さて次は何をやろうかな。 ちょっとまえに Laravel と Vue の instagram clone の記事がバズってたからそれを考えたは考えたがんー悩みどころだな。ただひたすら時間がかかりそうだ。
+それか今回のアプリのように比較的細かくあーだこーだ書くのはやめて、修正を加えた箇所やお手本と違う方法を試した箇所だけピックアップするようにするか。The memo 的な投稿を一個作成するだけにするか実に悩めかしい。</description>
+    </item>
     
     <item>
       <title>Vuexに挑戦3</title>
