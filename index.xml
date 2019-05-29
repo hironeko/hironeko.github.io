@@ -6,10 +6,27 @@
     <description>Recent content on hironeko desu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 09 Apr 2019 22:27:22 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 29 May 2019 23:25:59 +0900</lastBuildDate>
     
 	<atom:link href="http://hironeko.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>久々に投稿</title>
+      <link>http://hironeko.github.io/posts/201905/20190529/</link>
+      <pubDate>Wed, 29 May 2019 23:25:59 +0900</pubDate>
+      
+      <guid>http://hironeko.github.io/posts/201905/20190529/</guid>
+      <description>モチベーション維持が大変 プログラミングが好きで今の仕事をやっている(半分正解)
+技術の探求は大好きなんだけどもめんどくさがりすぎる。
+それと人と微妙に感覚が異なっているのが自分的に納得いかない
+ラバーダッキング的な学習方法が主だからより一層ね
+それはさておき 最近職場で一人でもくもくと開発と PM 的なことを並行して行なっているんだけども その際に Laravel でちょっとしたコマンドを作成した
+repository pattern を採用しているんだけど DDD に寄せている設計で書いてて Laravel の artisan command には repository file の作成 command なんてなくてただただだるい作業が必ず発生するからめんどくて作った話
+ただ参考にしたサイトのコードにちょっと手を加えた程度
+あるとないとではだいぶ違う
+&amp;lt;?php declare(strict_types=1); namespace App\Console\Commands; use Illuminate\Console\Command; /** * CreateReposioryFileCommand class */ class CreateReposioryFileCommand extends Command { /** * @const string repository dir path */ const REPOSITORIES_PATH = &#39;app/Repositories/&#39;; /** * The name and signature of the console command. * * @var string */ protected $signature = &#39;make:repository {repositoryName : The name of repository}&#39;; /** * The console command description.</description>
+    </item>
     
     <item>
       <title>Vuexに挑戦4</title>

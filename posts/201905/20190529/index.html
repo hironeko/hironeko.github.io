@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<title>
+久々に投稿 - hironeko desu
+</title>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.81bbafc4df93b11c1c3e2449464373c384aa4903731b4fc7a77dfcdd979e184f.css" integrity="sha256-gbuvxN&#43;TsRwcPiRJRkNzw4SqSQNzG0/Hp3383ZeeGE8=" crossorigin="anonymous" media="screen">
+
+
+
+ 
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="久々に投稿"/>
+<meta name="twitter:description" content="モチベーション維持が大変 プログラミングが好きで今の仕事をやっている(半分正解)
+技術の探求は大好きなんだけどもめんどくさがりすぎる。
+それと人と微妙に感覚が異なっているのが自分的に納得いかない
+ラバーダッキング的な学習方法が主だからより一層ね
+それはさておき 最近職場で一人でもくもくと開発と PM 的なことを並行して行なっているんだけども その際に Laravel でちょっとしたコマンドを作成した
+repository pattern を採用しているんだけど DDD に寄せている設計で書いてて Laravel の artisan command には repository file の作成 command なんてなくてただただだるい作業が必ず発生するからめんどくて作った話
+ただ参考にしたサイトのコードにちょっと手を加えた程度
+あるとないとではだいぶ違う
+&lt;?php declare(strict_types=1); namespace App\Console\Commands; use Illuminate\Console\Command; /** * CreateReposioryFileCommand class */ class CreateReposioryFileCommand extends Command { /** * @const string repository dir path */ const REPOSITORIES_PATH = &#39;app/Repositories/&#39;; /** * The name and signature of the console command. * * @var string */ protected $signature = &#39;make:repository {repositoryName : The name of repository}&#39;; /** * The console command description."/>
+
+<meta property="og:title" content="久々に投稿" />
+<meta property="og:description" content="モチベーション維持が大変 プログラミングが好きで今の仕事をやっている(半分正解)
+技術の探求は大好きなんだけどもめんどくさがりすぎる。
+それと人と微妙に感覚が異なっているのが自分的に納得いかない
+ラバーダッキング的な学習方法が主だからより一層ね
+それはさておき 最近職場で一人でもくもくと開発と PM 的なことを並行して行なっているんだけども その際に Laravel でちょっとしたコマンドを作成した
+repository pattern を採用しているんだけど DDD に寄せている設計で書いてて Laravel の artisan command には repository file の作成 command なんてなくてただただだるい作業が必ず発生するからめんどくて作った話
+ただ参考にしたサイトのコードにちょっと手を加えた程度
+あるとないとではだいぶ違う
+&lt;?php declare(strict_types=1); namespace App\Console\Commands; use Illuminate\Console\Command; /** * CreateReposioryFileCommand class */ class CreateReposioryFileCommand extends Command { /** * @const string repository dir path */ const REPOSITORIES_PATH = &#39;app/Repositories/&#39;; /** * The name and signature of the console command. * * @var string */ protected $signature = &#39;make:repository {repositoryName : The name of repository}&#39;; /** * The console command description." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://hironeko.github.io/posts/201905/20190529/" />
+<meta property="article:published_time" content="2019-05-29T23:25:59&#43;09:00"/>
+<meta property="article:modified_time" content="2019-05-29T23:25:59&#43;09:00"/>
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        久々に投稿
+        
+    </title>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="section" id="title">久々に投稿</div>
+
+        
+<div class="section" id="content">
+    Wed May 29, 2019 &#183; 367 words
+    
+    <div class="tag-container">
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/blog">
+                blog
+            </a>
+        </span>
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/story">
+                story
+            </a>
+        </span>
+        
+    </div>
+    
+    <hr/>
+    
+
+<h2 id="モチベーション維持が大変">モチベーション維持が大変</h2>
+
+<p>プログラミングが好きで今の仕事をやっている(半分正解)</p>
+
+<p>技術の探求は大好きなんだけどもめんどくさがりすぎる。</p>
+
+<p>それと人と微妙に感覚が異なっているのが自分的に納得いかない</p>
+
+<p>ラバーダッキング的な学習方法が主だからより一層ね</p>
+
+<h3 id="それはさておき">それはさておき</h3>
+
+<p>最近職場で一人でもくもくと開発と PM 的なことを並行して行なっているんだけども
+その際に Laravel でちょっとしたコマンドを作成した</p>
+
+<p>repository pattern を採用しているんだけど DDD に寄せている設計で書いてて
+Laravel の artisan command には repository file の作成 command なんてなくてただただだるい作業が必ず発生するからめんどくて作った話</p>
+
+<p>ただ参考にしたサイトのコードにちょっと手を加えた程度</p>
+
+<p>あるとないとではだいぶ違う</p>
+
+<pre><code class="language-php">&lt;?php
+declare(strict_types=1);
+
+namespace App\Console\Commands;
+
+use Illuminate\Console\Command;
+
+/**
+ * CreateReposioryFileCommand class
+ */
+class CreateReposioryFileCommand extends Command
+{
+    /**
+     * @const string repository dir path
+     */
+    const REPOSITORIES_PATH = 'app/Repositories/';
+
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'make:repository {repositoryName : The name of repository}';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Create repository files';
+
+    /**
+     * @var string
+     */
+    private $fileName;
+
+    /**
+     * @var string
+     */
+    private $dirName;
+
+    /**
+     * @var string
+     */
+    private $repositroyFileName;
+
+    /**
+     * @var string
+     */
+    private $interfaceFileName;
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle()
+    {
+        $this-&gt;fileName = $this-&gt;argument('repositoryName');
+
+        if (is_null($this-&gt;fileName)) {
+            $this-&gt;error('Repository Name invalid');
+        }
+        $this-&gt;dirName = $this-&gt;ask('new directory name. or use directory name');
+
+        if (is_null($this-&gt;dirName)) {
+            $this-&gt;error('Directory required!');
+        }
+
+        if (!$this-&gt;isExistDirectory()) {
+            $this-&gt;createDirectory();
+        }
+
+        $this-&gt;repositroyFileName = self::REPOSITORIES_PATH . $this-&gt;dirName . '/' . $this-&gt;fileName . 'Repository.php';
+        $this-&gt;interfaceFileName = self::REPOSITORIES_PATH . $this-&gt;dirName . '/' . $this-&gt;fileName . 'Interface.php';
+        if ($this-&gt;isExistFiles()) {
+            $this-&gt;error('already exist');
+            return;
+        }
+
+        $this-&gt;creatRepositoryFile();
+        $this-&gt;createInterFaceFile();
+        $this-&gt;info('create successfully');
+    }
+
+    /**
+     * Repositoryのfileを作成する
+     * @return void
+     */
+    private function creatRepositoryFile(): void
+    {
+        $content = &quot;&lt;?php\ndeclare(strict_types=1);\n\nnamespace App\\Repositories\\$this-&gt;dirName;\n\nfinal class $this-&gt;fileName&quot; . &quot;Repository implements $this-&gt;fileName&quot; . &quot;Interface\n{\n}\n&quot;;
+        file_put_contents($this-&gt;repositroyFileName, $content);
+    }
+
+    /**
+     * Interfaceのfileを作成する
+     * @return void
+     */
+    private function createInterFaceFile(): void
+    {
+        $content = &quot;&lt;?php\ndeclare(strict_type=1);\n\nnamespace App\\Repositories\\$this-&gt;dirName;\n\ninterface $this-&gt;fileName&quot; . &quot;Interface\n{\n}\n&quot;;
+        file_put_contents($this-&gt;interfaceFileName, $content);
+    }
+
+    /**
+     * 同名fileの確認
+     *
+     * @return bool
+     */
+    private function isExistFiles()
+    {
+        if (file_exists($this-&gt;repositroyFileName) &amp;&amp; file_exists($this-&gt;interfaceFileName)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * directoryの存在確認
+     *
+     * @return bool
+     */
+    private function isExistDirectory()
+    {
+        if (file_exists(self::REPOSITORIES_PATH . $this-&gt;dirName)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 指定名でdirectoryの作成
+     *
+     * @return void
+     */
+    private function createDirectory()
+    {
+        mkdir(self::REPOSITORIES_PATH . $this-&gt;dirName, 0755, true);
+    }
+}
+</code></pre>
+
+<p>です。</p>
+
+<p>以上</p>
+
+<p>あらかじめ、app/以下に Repository という directory はある前提になっているけども</p>
+
+<p>あと repository と interface は分けるべきだって意見もあると思うんですがーー</p>
+
+<p>個人的には、やりやすいっちゃやりやすいんでこっちにしても</p>
+
+<p>file 数増えるってなるかもだけどもどうあがいても増えるものは増えるし</p>
+
+<p>directory に関しては、機能単位で作成するでもよし repository 単位で作成するでもよし prefix 単位(機能単位と変わらんと思いますが)でわけてもよしって思います。</p>
+
+<p>プログラミングって教的問題が多くまた時代の流れも多いし女子みたくやっぱあれがいいよねこれがいいよねって風潮もあるんで極論正解は、ないんじゃないかなって思っています。ただ間違いはあると思ってます。</p>
+
+<p>なので一定水準以上の正解を超えるような設計でいいと思います。</p>
+
+<p>ただ間違えはちゃんと排除しましょう。</p>
+
+<p>設計書等書くくらいならコードで表現しましょう！</p>
+
+<p>扱う道具のお作法は守りましょう！</p>
+
+<p>ってのが最近常々思うことです。</p>
+
+<p>ポエムは以上です。</p>
+
+<p>ではまた。</p>
+
+</div>
+
+
+        
+<div class="section bottom-menu">
+    
+<hr />
+<p>
+
+
+    
+        <a href="/posts">back</a>
+        
+            &#183;
+        
+    
+
+    
+        
+            <a href="/">
+                Top
+            </a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/about">
+                About
+            </a>
+        
+            &#183; 
+            <a href="/resume">
+                Resume
+            </a>
+        
+            &#183; 
+            <a href="/posts">
+                Posts
+            </a>
+        
+    
+    &#183; 
+    <a href="http://hironeko.github.io">
+        
+    </a>
+
+</p>
+</div>
+
+
+        <div class="section footer"></div>
+    </div>
+</body>
+
+</html>
