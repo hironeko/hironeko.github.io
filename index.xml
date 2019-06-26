@@ -6,10 +6,21 @@
     <description>Recent content on hironeko desu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 29 May 2019 23:25:59 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 26 Jun 2019 22:53:16 +0900</lastBuildDate>
     
 	<atom:link href="http://hironeko.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>vuepressを触ってみた</title>
+      <link>http://hironeko.github.io/posts/201906/20190626/</link>
+      <pubDate>Wed, 26 Jun 2019 22:53:16 +0900</pubDate>
+      
+      <guid>http://hironeko.github.io/posts/201906/20190626/</guid>
+      <description>目的  Go の勉強で Hugo を触ってみたものの自分としては、んー今じゃない感がありました。機能としては十分だし、成熟しつつあるドキュメントも多いんだけども Go をちゃんと学習してからだなと思った次第  ちゃんとというのは曖昧で正確に言えば基礎を一通りしてからでってことですね。最初の過程をすっ飛ばしました。  そこで代わりになるものはないかなーできれば Vue か React 関連で。。。っとおもったら vuepress なるものがあるらしいとのことで触ってみた  触った所感  わかりやすい。ただその一言ですね。ただ日本語ドキュメントは、Hugo とくらべてあまりない印象  コードを書いた際のスニペットもいい感じでした。 絵文字も見れますしね。  ひとまず導入手順のみ書き残そうと思った次第です  導入手順 VuePress 下記コマンドを実行
+yarn init yarn add -D vuepress echo &#39;# Hello VuePress&#39; &amp;gt; README.md  package.json に追加
+&amp;quot;scripts&amp;quot;: { &amp;quot;dev&amp;quot;: &amp;quot;vuepress dev&amp;quot;, &amp;quot;build&amp;quot;: &amp;quot;vuepress build&amp;quot; },  yarn dev // サーバーを起動しブラウザで確認 yarn build // buildを行いディレクトリを作成 touch .vuepress/config.js  以下を記述 base: &amp;lsquo;/dirName/&amp;rsquo; // GitHub Pages の公開ディレクトリ dest: &amp;lsquo;docs/&amp;rsquo;, // build 時の出力先指定</description>
+    </item>
     
     <item>
       <title>久々に投稿</title>
