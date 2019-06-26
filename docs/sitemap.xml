@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://hironeko.github.io/posts/201906/20190626/</loc>
+    <lastmod>2019-06-26T22:53:16+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://hironeko.github.io/posts/201905/20190529/</loc>
     <lastmod>2019-05-29T23:25:59+09:00</lastmod>
   </url>
@@ -168,7 +173,7 @@
   
   <url>
     <loc>http://hironeko.github.io/posts/</loc>
-    <lastmod>2019-05-29T23:25:59+09:00</lastmod>
+    <lastmod>2019-06-26T22:53:16+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -204,7 +209,13 @@
   
   <url>
     <loc>http://hironeko.github.io/tags/vue/</loc>
-    <lastmod>2019-04-01T00:09:15+09:00</lastmod>
+    <lastmod>2019-06-26T22:53:16+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://hironeko.github.io/tags/vuepress/</loc>
+    <lastmod>2019-06-26T22:53:16+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -222,7 +233,7 @@
   
   <url>
     <loc>http://hironeko.github.io/</loc>
-    <lastmod>2019-05-29T23:25:59+09:00</lastmod>
+    <lastmod>2019-06-26T22:53:16+09:00</lastmod>
     <priority>0</priority>
   </url>
   
