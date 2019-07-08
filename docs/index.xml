@@ -6,10 +6,34 @@
     <description>Recent content on hironeko desu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 26 Jun 2019 22:53:16 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 04 Jul 2019 01:13:19 +0900</lastBuildDate>
     
 	<atom:link href="http://hironeko.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Vueのディレクトリ構成</title>
+      <link>http://hironeko.github.io/posts/201907/20190704/</link>
+      <pubDate>Thu, 04 Jul 2019 01:13:19 +0900</pubDate>
+      
+      <guid>http://hironeko.github.io/posts/201907/20190704/</guid>
+      <description>今の自分の中で Vue のディレクトリ構成の最適解 そもそも色々と疑問があった。
+なぜ component は毎回個別に import するのか？
+なぜ JS は一個の object でどうにかしようとしているのにすべては詰め込まないのか
+でっかい object だとまぁーメモリやら通信速度やら問題は、あるのはわかっているがそもそも論が始まりそうだし宗教問題に発展してそうな雰囲気
+答えは OSS で生まれるのかも 人気のある FW やライブラリに関しては、いろんな人がいろんな提案し今の最適解を出そうとしているし他人にコードを読んもらうことを意識した書き方をしているためかリーダブルであることが多くとても有意義
+エンジニアリングは、エンジニアのスキルをあげることにも一役買っていると思う。
+答え出なくても draft にはなる 最適解が生まれづらい JS という世界では、現時点でベストであるというだけでも十分かなと思う。
+##　で最初の表題へ戻る
+├── components ├── container ├── lib ├── router └── store  途中段階だけど上記のような流れになるかなと
+いちいち components を import するのはだるいので中規模もしくは、ページ数が少ない、ないし小規模ならばグローバルに登録してしまえって思う。特に管理画面系を作成するならなおのこと思う
+都度 import をする記述が減るって happy だと思う
+また sotre の中も色々考えるけど
+mutations, getters, actions等々分けてもいいわけだし
+なんなら機能単位もしくは、ドメイン単位でサブディレクトリをmodulesみたいな作ってstoreに modules で登録すればいいねって思った
+さすれエンドポイントの file の記述が少なからず減るし 全体的な可読性が高まると思う。
+ヒントというか元になったのは vuetify の管理画面関連の OSS の構成</description>
+    </item>
     
     <item>
       <title>vuepressを触ってみた</title>
