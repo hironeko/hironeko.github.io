@@ -6,10 +6,20 @@
     <description>Recent content on hironeko desu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 04 Jul 2019 01:13:19 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 11 Jul 2019 00:05:36 +0900</lastBuildDate>
     
 	<atom:link href="http://hironeko.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LaravelでAPIのValidationエラーをどこで返すか問題</title>
+      <link>http://hironeko.github.io/posts/201907/201907010/</link>
+      <pubDate>Thu, 11 Jul 2019 00:05:36 +0900</pubDate>
+      
+      <guid>http://hironeko.github.io/posts/201907/201907010/</guid>
+      <description>個人的見解  Handler でハンドリングして返すのが正しいと思う。 そこ以外でハンドリングするとなると多分 trait を FormRequest で use するとかそんな方法になってしまう。それはそれで正しいとは思うけども本当に正しいのだろうか？と考えた結果Handler.phpで返すことに決めた  実処理 app/Exceptions/Handler.php
+&amp;lt;?php declare(strict_types=1); // 省略 class Handler extends ExceptionHandler { /** * @const string */ const ROUTE_PREFIX = &#39;api&#39;; // 省略 public function render($request, Exception $exception): void { if(collect(explode(&#39;/&#39;, $request-&amp;gt;route()-&amp;gt;getPrefix()))-&amp;gt;first() === self::ROUTE_PREFIX ) { $this-&amp;gt;apiReqponse($exception); } } // 省略 private function apiResponse(Exception $exception): void { if ($exception instanceof ValidationException) { $this-&amp;gt;throw($exception-&amp;gt;errors(), 400); } // 他のexceptionを羅列することが可能 } private function throw(array $errorMessage, int $code): void { throw new HttpResponseException( response()-&amp;gt;json( [ &#39;status&#39; =&amp;gt; &#39;fail&#39;, &#39;code&#39; =&amp;gt; $code, &#39;error_message&#39; =&amp;gt; $errorMessage ], $code ) ); } }  返却値  返却内容は、ぶっちゃけエラーとわかりかつ、フロント側で処理が行いやすいものならなんでもいいかなと思う。  { &#39;status&#39;: &#39;fail, &#39;code&#39;: 400, &#39;error_message&#39;: { &#39;field name&#39;: [ &#39;エラーです&#39; ] } }  余談 こっからは余談ですが、API の実装をしている基本的な返却形式は統一すべきだとおもってますし実際それは、スタンダードな考えだと思っています。今回Validationエラーに関して Handler でハンドリングを行うようにしたことによって統一できました。さらにいうとこれでテストの実装に関してはも形式が同じになったことにより楽になりました。</description>
+    </item>
     
     <item>
       <title>Vueのディレクトリ構成</title>

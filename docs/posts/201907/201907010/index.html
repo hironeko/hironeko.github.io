@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<title>
+LaravelでAPIのValidationエラーをどこで返すか問題 - hironeko desu
+</title>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.81bbafc4df93b11c1c3e2449464373c384aa4903731b4fc7a77dfcdd979e184f.css" integrity="sha256-gbuvxN&#43;TsRwcPiRJRkNzw4SqSQNzG0/Hp3383ZeeGE8=" crossorigin="anonymous" media="screen">
+
+
+
+ 
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="LaravelでAPIのValidationエラーをどこで返すか問題"/>
+<meta name="twitter:description" content="個人的見解  Handler でハンドリングして返すのが正しいと思う。 そこ以外でハンドリングするとなると多分 trait を FormRequest で use するとかそんな方法になってしまう。それはそれで正しいとは思うけども本当に正しいのだろうか？と考えた結果Handler.phpで返すことに決めた  実処理 app/Exceptions/Handler.php
+&lt;?php declare(strict_types=1); // 省略 class Handler extends ExceptionHandler { /** * @const string */ const ROUTE_PREFIX = &#39;api&#39;; // 省略 public function render($request, Exception $exception): void { if(collect(explode(&#39;/&#39;, $request-&gt;route()-&gt;getPrefix()))-&gt;first() === self::ROUTE_PREFIX ) { $this-&gt;apiReqponse($exception); } } // 省略 private function apiResponse(Exception $exception): void { if ($exception instanceof ValidationException) { $this-&gt;throw($exception-&gt;errors(), 400); } // 他のexceptionを羅列することが可能 } private function throw(array $errorMessage, int $code): void { throw new HttpResponseException( response()-&gt;json( [ &#39;status&#39; =&gt; &#39;fail&#39;, &#39;code&#39; =&gt; $code, &#39;error_message&#39; =&gt; $errorMessage ], $code ) ); } }  返却値  返却内容は、ぶっちゃけエラーとわかりかつ、フロント側で処理が行いやすいものならなんでもいいかなと思う。  { &#39;status&#39;: &#39;fail, &#39;code&#39;: 400, &#39;error_message&#39;: { &#39;field name&#39;: [ &#39;エラーです&#39; ] } }  余談 こっからは余談ですが、API の実装をしている基本的な返却形式は統一すべきだとおもってますし実際それは、スタンダードな考えだと思っています。今回Validationエラーに関して Handler でハンドリングを行うようにしたことによって統一できました。さらにいうとこれでテストの実装に関してはも形式が同じになったことにより楽になりました。"/>
+
+<meta property="og:title" content="LaravelでAPIのValidationエラーをどこで返すか問題" />
+<meta property="og:description" content="個人的見解  Handler でハンドリングして返すのが正しいと思う。 そこ以外でハンドリングするとなると多分 trait を FormRequest で use するとかそんな方法になってしまう。それはそれで正しいとは思うけども本当に正しいのだろうか？と考えた結果Handler.phpで返すことに決めた  実処理 app/Exceptions/Handler.php
+&lt;?php declare(strict_types=1); // 省略 class Handler extends ExceptionHandler { /** * @const string */ const ROUTE_PREFIX = &#39;api&#39;; // 省略 public function render($request, Exception $exception): void { if(collect(explode(&#39;/&#39;, $request-&gt;route()-&gt;getPrefix()))-&gt;first() === self::ROUTE_PREFIX ) { $this-&gt;apiReqponse($exception); } } // 省略 private function apiResponse(Exception $exception): void { if ($exception instanceof ValidationException) { $this-&gt;throw($exception-&gt;errors(), 400); } // 他のexceptionを羅列することが可能 } private function throw(array $errorMessage, int $code): void { throw new HttpResponseException( response()-&gt;json( [ &#39;status&#39; =&gt; &#39;fail&#39;, &#39;code&#39; =&gt; $code, &#39;error_message&#39; =&gt; $errorMessage ], $code ) ); } }  返却値  返却内容は、ぶっちゃけエラーとわかりかつ、フロント側で処理が行いやすいものならなんでもいいかなと思う。  { &#39;status&#39;: &#39;fail, &#39;code&#39;: 400, &#39;error_message&#39;: { &#39;field name&#39;: [ &#39;エラーです&#39; ] } }  余談 こっからは余談ですが、API の実装をしている基本的な返却形式は統一すべきだとおもってますし実際それは、スタンダードな考えだと思っています。今回Validationエラーに関して Handler でハンドリングを行うようにしたことによって統一できました。さらにいうとこれでテストの実装に関してはも形式が同じになったことにより楽になりました。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://hironeko.github.io/posts/201907/201907010/" />
+<meta property="article:published_time" content="2019-07-11T00:05:36&#43;09:00"/>
+<meta property="article:modified_time" content="2019-07-11T00:05:36&#43;09:00"/>
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        LaravelでAPIのValidationエラーをどこで返すか問題
+        
+    </title>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="section" id="title">LaravelでAPIのValidationエラーをどこで返すか問題</div>
+
+        
+<div class="section" id="content">
+    Thu Jul 11, 2019 &#183; 127 words
+    
+    <div class="tag-container">
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/blog">
+                blog
+            </a>
+        </span>
+        
+        <span class="tag">
+            <a href="http://hironeko.github.io/tags/story">
+                story
+            </a>
+        </span>
+        
+    </div>
+    
+    <hr/>
+    
+
+<h2 id="個人的見解">個人的見解</h2>
+
+<ul>
+<li>Handler でハンドリングして返すのが正しいと思う。</li>
+<li>そこ以外でハンドリングするとなると多分 trait を FormRequest で use するとかそんな方法になってしまう。それはそれで正しいとは思うけども本当に正しいのだろうか？と考えた結果<code>Handler.php</code>で返すことに決めた</li>
+</ul>
+
+<h2 id="実処理">実処理</h2>
+
+<p><code>app/Exceptions/Handler.php</code></p>
+
+<pre><code class="language-php">&lt;?php
+declare(strict_types=1);
+
+// 省略
+
+class Handler extends ExceptionHandler
+{
+    /**
+    * @const string
+    */
+    const ROUTE_PREFIX = 'api';
+
+    // 省略
+    public function render($request, Exception $exception): void
+    {
+        if(collect(explode('/', $request-&gt;route()-&gt;getPrefix()))-&gt;first() === self::ROUTE_PREFIX ) {
+            $this-&gt;apiReqponse($exception);
+        }
+    }
+
+    // 省略
+    private function apiResponse(Exception $exception): void
+    {
+        if ($exception instanceof ValidationException) {
+            $this-&gt;throw($exception-&gt;errors(), 400);
+        }
+
+        // 他のexceptionを羅列することが可能
+    }
+
+    private function throw(array $errorMessage, int $code): void
+    {
+        throw new HttpResponseException(
+            response()-&gt;json(
+                [
+                    'status' =&gt; 'fail',
+                    'code' =&gt; $code,
+                    'error_message' =&gt; $errorMessage
+                ],
+                $code
+            )
+        );
+    }
+}
+</code></pre>
+
+<h2 id="返却値">返却値</h2>
+
+<ul>
+<li>返却内容は、ぶっちゃけエラーとわかりかつ、フロント側で処理が行いやすいものならなんでもいいかなと思う。</li>
+</ul>
+
+<pre><code class="language-json">
+{
+    'status': 'fail,
+    'code': 400,
+    'error_message': {
+        'field name': [
+            'エラーです'
+        ]
+    }
+}
+</code></pre>
+
+<h2 id="余談">余談</h2>
+
+<p>こっからは余談ですが、API の実装をしている基本的な返却形式は統一すべきだとおもってますし実際それは、スタンダードな考えだと思っています。今回<code>Validationエラー</code>に関して Handler でハンドリングを行うようにしたことによって統一できました。さらにいうとこれでテストの実装に関してはも形式が同じになったことにより楽になりました。</p>
+
+<p>またこのハンドリングを他の<code>Exception</code>にも対応させることによって利用者側に明確にどんなエラーかをこちらの意図で伝えることが可能になります。なのでどのレイヤーでも対応が可能になるかと。</p>
+
+<p>似たように正常の処理に関しても trait にまとめることによってレスポンスに関しては、どこにどのように定義すべきかがわかるようになりますね。</p>
+
+<p>trait を利用し getter, setter の要領で形式を統一可能です。</p>
+
+<p>次回・・・・・・</p>
+
+<p>気分が乗ったら実装例を晒したいと思います。</p>
+
+</div>
+
+
+        
+<div class="section bottom-menu">
+    
+<hr />
+<p>
+
+
+    
+        <a href="/posts">back</a>
+        
+            &#183;
+        
+    
+
+    
+        
+            <a href="/">
+                Top
+            </a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/about">
+                About
+            </a>
+        
+            &#183; 
+            <a href="/resume">
+                Resume
+            </a>
+        
+            &#183; 
+            <a href="/posts">
+                Posts
+            </a>
+        
+    
+    &#183; 
+    <a href="http://hironeko.github.io">
+        
+    </a>
+
+</p>
+</div>
+
+
+        <div class="section footer"></div>
+    </div>
+</body>
+
+</html>
