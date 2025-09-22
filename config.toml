@@ -1,8 +1,21 @@
-baseURL = "http://hironeko.github.io"
+baseURL = "https://hironeko.github.io/"
 languageCode = "ja"
 title = "hironeko desu"
-theme = "sam"
 publishDir = "docs"
+enableRobotsTXT = true
+canonifyURLs = true
+
+[params]
+# 検索エンジン向けのサイト全体の説明（各ページのdescriptionが無い場合のフォールバック）
+description = "PHP/Laravel中心のWebエンジニア・hironekoのポートフォリオとブログ"
+author = "hironeko"
+# OGP/Twitterのデフォルト画像（存在するものに合わせておきます）
+images = ["/tn.png"]
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+  filename = "sitemap.xml"
 
 [[params.MainMenu]]
     link = "/"
