@@ -1,84 +1,235 @@
-<!DOCTYPE html>
-<html>
-    <head>
-	<meta name="generator" content="Hugo 0.54.0" />
-        <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
-
-<title>
-hironeko desu
-</title>
-
-
-  <link href="http://hironeko.github.io/index.xml" rel="alternate" type="application/rss+xml" title="hironeko desu" />
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/css/main.min.81bbafc4df93b11c1c3e2449464373c384aa4903731b4fc7a77dfcdd979e184f.css" integrity="sha256-gbuvxN&#43;TsRwcPiRJRkNzw4SqSQNzG0/Hp3383ZeeGE8=" crossorigin="anonymous" media="screen">
-
-
-
- 
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="hironeko desu"/>
-<meta name="twitter:description" content=""/>
-
-<meta property="og:title" content="hironeko desu" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://hironeko.github.io/" />
-
-<meta property="og:updated_time" content="2019-07-11T00:05:36&#43;09:00"/>
-
-
-        <title>hironeko desu</title>
-    </head>
-    <body>
-        <div class="section" id="splash">
-
-            
-                
-                    <div class="big-link">
-                        <a href="/">
-                            Top
-                        </a>
-                    </div>
-                
-                    <div class="big-link">
-                        <a href="/about">
-                            About
-                        </a>
-                    </div>
-                
-                    <div class="big-link">
-                        <a href="/resume">
-                            Resume
-                        </a>
-                    </div>
-                
-                    <div class="big-link">
-                        <a href="/posts">
-                            Posts
-                        </a>
-                    </div>
-                
-
-            
-            
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>hironeko - Top</title>
+    <meta name="description" content="PHP/Laravel中心のWebエンジニア・hironekoのポートフォリオとブログ" />
+    <style>
+      :root {
+        --bg: #0f172a;
+        --panel: rgba(15, 23, 42, 0.6);
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --accent: #22d3ee;
+        --accent-2: #a78bfa;
+        --chip-bg: rgba(148, 163, 184, 0.15);
+        --border: rgba(226, 232, 240, 0.08);
+        --shadow: 0 10px 30px rgba(2, 8, 23, 0.6);
+      }
+      [data-theme="light"] {
+        --bg: #f8fafc;
+        --panel: rgba(255,255,255,0.75);
+        --text: #0f172a;
+        --muted: #334155;
+        --accent: #0ea5e9;
+        --accent-2: #7c3aed;
+        --chip-bg: rgba(2, 132, 199, 0.08);
+        --border: rgba(15, 23, 42, 0.08);
+        --shadow: 0 8px 24px rgba(0,0,0,0.08);
+      }
+      html, body { height: 100%; }
+      body {
+        margin: 0;
+        color: var(--text);
+        background:
+          radial-gradient(1200px 800px at 10% -10%, rgba(34, 211, 238, 0.15), transparent 60%),
+          radial-gradient(1000px 700px at 110% 10%, rgba(167, 139, 250, 0.18), transparent 60%),
+          linear-gradient(180deg, var(--bg), var(--bg));
+        font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", "Meiryo", Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .container { max-width: 1080px; margin: 0 auto; padding: 64px 20px 96px; }
+      .hero { display: grid; grid-template-columns: 1fr auto; gap: 24px; }
+      .title { display: flex; flex-direction: column; gap: 6px; justify-content: flex-end; }
+      .name { font-size: clamp(28px, 5vw, 40px); font-weight: 800; letter-spacing: .4px; }
+      .role { color: var(--muted); font-size: 16px; }
+      .actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+      .btn {
+        appearance: none;
+        border: 1px solid var(--border);
+        color: var(--text);
+        background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+        padding: 10px 14px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: transform 120ms ease, border-color 200ms ease, background 200ms ease;
+        box-shadow: var(--shadow);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.18); }
+      .btn-accent { border-color: rgba(34, 211, 238, 0.35); background: linear-gradient(180deg, rgba(34,211,238,0.16), rgba(34,211,238,0.06)); }
+      .home-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
+      @media (max-width: 980px) { .home-grid { grid-template-columns: 1fr; } }
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 24px 24px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: var(--shadow);
+      }
+      .section-title {
+        font-size: 13px;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+      .summary-grid { display: grid; gap: 12px; }
+      .summary-item { background: var(--chip-bg); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; }
+      .timeline { position: relative; }
+      .timeline::before {
+        content: "";
+        position: absolute; inset: 0 0 0 14px;
+        width: 2px; background: linear-gradient(var(--accent), var(--accent-2));
+        opacity: .35;
+      }
+      .item { position: relative; padding-left: 36px; }
+      .item + .item { margin-top: 20px; }
+      .dot {
+        position: absolute; left: 8px; top: 6px;
+        width: 10px; height: 10px; border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, var(--accent), var(--accent-2));
+        box-shadow: 0 0 0 5px rgba(34, 211, 238, 0.08);
+      }
+      .meta { color: var(--muted); font-size: 13px; margin-top: 4px; display: flex; flex-wrap: wrap; gap: 6px; }
+      .stack { font-size: 12px; color: var(--muted); margin-top: 4px; }
+      .post-list { display: grid; gap: 14px; }
+      .post-item { border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; background: rgba(15,23,42,0.35); box-shadow: var(--shadow); transition: transform 120ms ease, border-color 200ms ease; }
+      [data-theme="light"] .post-item { background: rgba(255,255,255,0.85); }
+      .post-item:hover { transform: translateY(-2px); border-color: rgba(34,211,238,0.3); }
+      .post-title { font-weight: 700; margin: 0; }
+      .post-meta { color: var(--muted); font-size: 13px; margin-top: 4px; }
+      .cta { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+      .footer { color: var(--muted); margin-top: 28px; display: flex; gap: 12px; align-items: center; }
+      .sep { opacity: .3; }
+      @media print {
+        body { background: #fff; color: #000; }
+        .actions, .footer { display: none !important; }
+        .card { box-shadow: none; border-color: #ddd; background: #fff; }
+        .container { padding: 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="app">
+      <header class="hero">
+        <div class="title">
+          <div class="name">hironeko</div>
+          <div class="role">エンジニアリング / PdM / PjM</div>
         </div>
-    </body>
+        <nav class="actions">
+          <a class="btn" href="/">Top</a>
+          <a class="btn" href="/about/">About</a>
+          <a class="btn" href="/resume/">Resume</a>
+          <a class="btn" href="/posts/">Posts</a>
+          <button class="btn" id="themeToggle">テーマ切替</button>
+        </nav>
+      </header>
+
+      <main class="home-grid">
+        <section class="card">
+          <div class="section-title">Overview</div>
+          <p>独学からキャリアをスタートした Web エンジニア。現在はヘルスケア系サービスで技術とプロダクトの統制を担いながら、0→1 の立ち上げやレガシー刷新、スクラムによるチームづくりまで横断的に推進しています。</p>
+          <div class="summary-grid">
+            <div class="summary-item">Web エンジニア歴 10 年超。PdM/PjM/スクラムマスターを兼務しながら、事業フェーズに応じて技術と運営を調律。</div>
+            <div class="summary-item">得意領域: エンジニアリング、PdM、PjM。モノレポ化・CI/CD 再設計・AWS 運用改善など基盤づくりを一貫してリード。</div>
+            <div class="summary-item">リリース後の不具合ゼロ、バグ報告 10％以下、エラー 8 割削減など、品質改善と統制の実績を積み重ねている。</div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="section-title">Latest Experience</div>
+          <div class="timeline">
+            <div class="item">
+              <div class="dot"></div>
+              <div><strong>株式会社 O</strong> — 2025年8月〜現在</div>
+              <div class="meta"><span>ヘルスケア系サービス / テックリード・PdM/PjM</span><span>2025年9月時点で2ヶ月</span></div>
+              <div class="stack">主な成果: プラットフォーム統制とリプレイス設計</div>
+            </div>
+            <div class="item">
+              <div class="dot"></div>
+              <div><strong>株式会社 T</strong> — 2024年3月〜2025年7月</div>
+              <div class="meta"><span>不動産系 SaaS 事業会社 / エンジニア</span><span>在籍 17ヶ月</span></div>
+              <div class="stack">主な成果: 社内請求管理システム (0→1)</div>
+            </div>
+          </div>
+          <div class="cta">
+            <a class="btn btn-accent" href="/resume/">View Resume</a>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="section-title">Strengths</div>
+          <div class="summary-grid">
+            <div class="summary-item"><strong>プロジェクトリーダーシップ</strong><br>ステークホルダーとの合意形成、アジャイルイベント設計、マルチハットでの全体推進。</div>
+            <div class="summary-item"><strong>品質向上</strong><br>テスト文化導入、エラー削減、手戻り防止の仕組み化で開発速度と品質を両立。</div>
+            <div class="summary-item"><strong>レガシー改善</strong><br>リプレイス・リファクタリング・アーキテクチャ刷新を主導し、継続的な改善サイクルを構築。</div>
+            <div class="summary-item"><strong>チーム文化醸成</strong><br>レビュー文化や研修設計、輪読会運営で学習する組織づくりを推進。</div>
+            <div class="summary-item"><strong>ビジネス視点</strong><br>ユーザー課題と技術の橋渡しを担い、意思決定を支援。</div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="section-title">Latest Posts</div>
+          <div class="post-list">
+            <article class="post-item">
+              <a class="post-title" href="/posts/201907/20190704/">Vueのディレクトリ構成</a>
+              <div class="post-meta">2019年7月4日</div>
+            </article>
+            <article class="post-item">
+              <a class="post-title" href="/posts/201907/201907010/">LTに向けてVueのサンプルを作った</a>
+              <div class="post-meta">2019年7月1日</div>
+            </article>
+            <article class="post-item">
+              <a class="post-title" href="/posts/201906/20190626/">最近導入したLaravelのパッケージメモ</a>
+              <div class="post-meta">2019年6月26日</div>
+            </article>
+          </div>
+          <div class="cta">
+            <a class="btn" href="/posts/">All Posts</a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>© 2025 hironeko</span>
+        <span class="sep">·</span>
+        <a class="btn" href="/">Home</a>
+      </footer>
+    </div>
+
+    <script>
+      (function() {
+        const root = document.documentElement;
+        const key = 'theme';
+        const stored = window.localStorage ? localStorage.getItem(key) : null;
+        const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        if (stored === 'light') root.setAttribute('data-theme', 'light');
+        else if (stored === 'dark') root.removeAttribute('data-theme');
+        else if (prefersLight) root.setAttribute('data-theme', 'light');
+        const btn = document.getElementById('themeToggle');
+        if (btn) {
+          btn.addEventListener('click', () => {
+            const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            if (next === 'dark') {
+              root.removeAttribute('data-theme');
+              if (window.localStorage) localStorage.setItem(key, 'dark');
+            } else {
+              root.setAttribute('data-theme', 'light');
+              if (window.localStorage) localStorage.setItem(key, 'light');
+            }
+          });
+        }
+      })();
+    </script>
+  </body>
 </html>

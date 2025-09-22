@@ -1,73 +1,144 @@
 ---
 title: "Resume"
-date: 2019-03-19T23:10:29+09:00
+date: 2025-09-18T00:00:00+09:00
+lastmod: 2025-09-18T00:00:00+09:00
 draft: false
-toc: false
-images:
-tags:
-  - untagged
+description: "職務経歴・スキル・実績のまとめ（ポートフォリオ）"
+layout: "resume-v2"
+type: "resume"
+name: "hironeko"
+role: "エンジニアリング / PdM / PjM"
+profile: "独学からキャリアをスタートした Web エンジニア。現在はヘルスケア系サービスで技術とプロダクトの統制を担いながら、0→1 の立ち上げやレガシー刷新、スクラムによるチームづくりまで横断的に推進しています。"
+summary:
+  - "Web エンジニア歴 10 年超。PdM/PjM/スクラムマスターを兼務しながら、事業フェーズに応じて技術と運営を調律。"
+  - "得意領域: エンジニアリング、PdM、PjM。モノレポ化・CI/CD 再設計・AWS 運用改善など基盤づくりを一貫してリード。"
+  - "リリース後の不具合ゼロ、バグ報告 10％以下、エラー 8 割削減など、品質改善と統制の実績を積み重ねている。"
+strengths:
+  - name: "プロジェクトリーダーシップ"
+    detail: "ステークホルダーとの合意形成、アジャイルイベント設計、マルチハットでの全体推進。"
+  - name: "品質向上"
+    detail: "テスト文化導入、エラー削減、手戻り防止の仕組み化で開発速度と品質を両立。"
+  - name: "レガシー改善"
+    detail: "リプレイス・リファクタリング・アーキテクチャ刷新を主導し、継続的な改善サイクルを構築。"
+  - name: "チーム文化醸成"
+    detail: "レビュー文化や研修設計、輪読会運営で学習する組織づくりを推進。"
+  - name: "ビジネス視点"
+    detail: "ユーザー課題と技術の橋渡しを担い、意思決定を支援。"
+skills:
+  - category: "言語"
+    items: ["PHP (5 系〜8.3)", "JavaScript", "TypeScript", "Go", "Ruby"]
+  - category: "フレームワーク"
+    items: ["Laravel", "Vue.js", "Nuxt.js", "React", "Next.js", "Backbone.js", "jQuery", "Symfony", "Ruby on Rails"]
+  - category: "データベース"
+    items: ["MySQL", "Aurora (MySQL 互換)"]
+  - category: "インフラ・ツール"
+    items: ["AWS", "Docker", "Terraform", "Ubuntu", "Amazon Linux", "Vagrant", "GitHub Actions", "Terraform Cloud", "OpenID Connect", "Datadog", "Sentry", "Jenkins"]
+  - category: "プロセス"
+    items: ["スクラム", "アジャイル開発", "テスト駆動開発 (PHPUnit/TDD)"]
+initiatives:
+  - "メインプロダクトでのスクラムライクな開発イベント運営とリファイメント設計"
+  - "社内請求管理システムの 0→1 開発とモノレポ化、CI/CD 再設計"
+  - "Datadog・Terraform を用いた監視とインフラ運用の自動化"
+  - "研修・輪読会を通じた学習文化の醸成"
+experiences:
+  - company: "株式会社 O"
+    period: "2025年8月〜現在"
+    duration: "2025年9月時点で2ヶ月"
+    role: "ヘルスケア系サービス企業 / テックリード・PdM/PjM"
+    team: "小規模クロスファンクショナルチーム"
+    stack: ["AWS", "Docker", "PHP", "Laravel", "Terraform", "GitHub Actions", "Slack", "Confluence"]
+    projects:
+      - name: "プラットフォーム統制とリプレイス設計"
+        bullets:
+          - "既存レガシー環境のリプレイス計画を策定し、段階移行のロードマップと協業体制をデザイン。"
+          - "AWS 運用の改善と権限設計を推進し、監視・運用フローの見直しと自動化をリード。"
+          - "PHPUnit がユニットテスト偏重だった運用を是正し、Feature テストを拡充して結合観点を補強。"
+      - name: "スケジュール＆仕様統制"
+        bullets:
+          - "社内のスケジュール管理と仕様策定を統括し、ステークホルダーとの合意形成とリリース統制を実施。"
+          - "業務委託メンバーへのタスク配分とコードレビューを担当し、チーム全体の品質を担保。"
+          - "採用・情シス的な対応、外部協業に向けた体制設計までマルチハットで推進。"
+  - company: "株式会社 T"
+    period: "2024年3月〜2025年7月"
+    duration: "在籍 17ヶ月"
+    role: "不動産系 SaaS 事業会社 / エンジニア"
+    team: "チーム 8 名"
+    stack: ["PHP 8.3", "TypeScript", "Laravel", "Nuxt.js", "Vue", "MySQL", "Ubuntu (コンテナ)", "Docker", "GitHub Actions"]
+    projects:
+      - name: "メインプロダクト機能開発"
+        bullets:
+          - "社内初のチーム開発体制を設計し、PdM・仕様把握者・PjM を巻き込んだスクラムライクなイベントを運営。"
+          - "複数回のリファイメントで仕様理解と合意形成を行い、手戻りとリリース後バグをゼロに抑制。"
+      - name: "社内請求管理システム (0→1)"
+        bullets:
+          - "ウォーターフォール前提の設計を見直し、アジャイルライクな進行と透明性の高いスケジュール管理を実現。"
+          - "PdM・PjM・スクラムマスター・テックリード・アーキテクトを兼務し、開発環境・CI/CD・モノレポ化・テスト方針を策定。"
+          - "致命的なバグや手戻りなくリリースし、新規参画者がスムーズに稼働できる体制を整備。"
+  - company: "株式会社 F"
+    period: "2022年3月〜2024年2月"
+    duration: "24ヶ月"
+    role: "建築系 SaaS 事業会社 / エンジニア"
+    team: "チーム 19 名"
+    stack: ["PHP 8.2", "JavaScript", "TypeScript", "Go", "Laravel", "Vue", "Backbone.js", "jQuery", "Next.js", "React", "Aurora (MySQL)", "Amazon Linux (EC2)", "Ubuntu (コンテナ)", "Terraform", "Docker", "Terraform Cloud", "OpenID Connect", "GitHub Actions"]
+    projects:
+      - name: "新規契約対応機能開発"
+        bullets:
+          - "国が提示した仕様をもとに要件定義から実装まで一貫対応し、Vue 実装を共通化できる設計を提案・推進。"
+      - name: "PHPUnit 導入・テスト文化定着"
+        bullets:
+          - "勉強会主催と PR レビューを通じ、ほぼ全 PR でテスト実装が行われる体制を構築。"
+      - name: "スクラムマスター・SRE 活動"
+        bullets:
+          - "認定スクラムマスターとして 1on1 やリファイメント運営で PM の自走を支援。"
+          - "SRE チーム第一号として Datadog 導入、Laravel 6→9 アップデート、CI 整備、Terraform 化を推進。"
+          - "入社半年で社内表彰 2 部門受賞。担当機能のリリース後バグ報告を従来比 10％以下に抑制。"
+  - company: "株式会社 R"
+    period: "2019年10月〜2022年2月"
+    duration: "29ヶ月"
+    role: "HR 系 SaaS 事業会社 / エンジニア"
+    team: "チーム 14 名"
+    stack: ["PHP 8.0", "JavaScript", "Laravel", "Vue", "Nuxt.js", "Aurora (MySQL)", "Ubuntu / Alpine (コンテナ)", "GitHub Actions"]
+    projects:
+      - name: "モノレポ化と API 実装"
+        bullets:
+          - "既存コードを新リポジトリへ移行し、PHPUnit Feature テストで品質の土台を構築。"
+          - "監査対応のログ管理・承認機能を DB 設計からリードし、運用バグの調査・改修を実施。"
+      - name: "フロントエンド改善"
+        bullets:
+          - "API を活用した UI 実装と UX 改善で利用体験を向上。"
+      - name: "技術課題チーム・スクラム運営"
+        bullets:
+          - "Sentry エラーの即日対応と優先度整理で 2 ヶ月でエラー 8 割削減。"
+          - "ユーザーインタビューやビジネスヒアリングを通じて、課題に対するエンジニアリング提案を推進。"
+  - company: "株式会社 G"
+    period: "2015年5月〜2019年9月"
+    duration: "53ヶ月"
+    role: "SES 事業会社 / エンジニア"
+    team: "社内および出向先"
+    stack: ["PHP 5 系", "JavaScript", "Ruby", "Laravel", "FuelPHP", "CodeIgniter", "Silex", "Symfony", "Ruby on Rails", "Vagrant", "React", "Vue"]
+    projects:
+      - name: "社内教育・受託開発"
+        bullets:
+          - "新入社員向けエンジニア研修を 0 から設計し、日次でカリキュラム改善しながら教育体制を構築。"
+          - "勤怠管理システムをほぼ単独実装し、外部 PM と連携しながら品質とスケジュールを両立。"
+      - name: "SES 出向先プロジェクト"
+        bullets:
+          - "リプレイス案件で Repository パターン導入やレビュー文化の定着を推進。"
+          - "ランダムマッチングアプリ開発で SQL チューニング、クラス設計改善、インフラ障害対応（DB フェイルオーバー、Jenkins 再導入）を実施。"
+          - "管理ツールを Laravel + Vue へリプレイスし、レビュー・テスト文化や Git Flow ライクな運用を導入。"
+links:
+  - label: "Top"
+    url: "/"
+  - label: "About"
+    url: "/about/"
+  - label: "Posts"
+    url: "/posts/"
+interests:
+  - "スクラム / アジャイル"
+  - "プロダクトマネジメント"
+  - "組織づくり"
+  - "ドメイン駆動設計"
+  - "Go / Rust"
+  - "観測性・プラットフォーム領域"
+  - "音楽・アニメ・読書・人間観察・DJ"
 ---
-
-### 職務経歴(概要)
-
-#### Web アプリケーション開発
-
-- PHP5.5 ~ 7.2, Ruby2.4, JavaScript あわせて 4 年(下記教育含む)
-  - 主に PHP の開発を中心に従事
-  - 直近の職場では、PHPUnit の導入、Docker を用いての開発、コードレビュー、コーディングルールを取り入れました。
-
-#### 教育
-
-- 中途採用向けエンジニア研修プログラム作成
-- メンターとして教育担当を約 2 年
-  - 担当したのは、PHP
-  - 研修フロー全てに関わり、体制等の基盤を構築
-
-### 職務経歴
-
-#### 株式会社 G(現職)
-
-- メイン事業：SES
-- SES 出向・中途教育・受託開発
-- 受託開発
-  - 派遣社員管理システム(3 人)
-    - 自身がメインとなり開発
-    - PHP, Laravel
-- SES 出向先概要(降順)
-
-- ランダムマッチングアプリの開発(4 人)
-  - 担当業務
-    - 既存プログラムの大幅改修、管理ツールのリプレイス
-      - Laravel, 独自フレームワーク, Silex, React + Redux
-    - SQL のチューニング
-- Web 予約サービスの再構築開発(プロジェクト全体 14 人：チームメンバー 4 人)
-  - 担当業務
-    - 要件定義 ~ 実装
-    - API, Batch, プロトタイプの実装
-      - Laravel, Aurora, JavaScript
-- 社内向け大容量ファイル転送システムの開発(5 人)
-  - 担当業務
-    - 認証,認可機能の実装
-      - Ruby on Rails, MariaDB
-- 小売店販促ツールの開発(10 人)
-  - 担当業務
-    - 予約機能・検索機能追加・改修業務
-      - Fuel PHP, CodeIgniter, MySQL, jQuery
-
-#### 株式会社 B
-
-- メイン事業：SES
-- 在籍期間：`2014/11 - 2015/5`
-- SES 出向先概要(降順)
-  - 大規模会社向け営業支援システムの開発(6 人)
-    - 担当業務
-      - 新機能追加・改修業務
-        - Symfony, MySQL
-  - 複数店舗運営会社の顧客管理システム(2 人)
-    - 担当業務
-      - ポイント付与などの新機能追加・テスト仕様書の作成
-        - Fuel PHP, MySQL
-
-### 得意分野
-
-- 要件定義から実装までの対応ができ、PHP を用いた開発、特に Laravel を用いての開発が得意です。

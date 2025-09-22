@@ -4,8 +4,9 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>About - hironeko</title>
-    <meta name="description" content="自己紹介、スキル、興味関心などの概要" />
+    <title>{{ with .Title }}{{ . }} - {{ end }}{{ .Site.Title }}</title>
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else if .Params.description }}{{ .Params.description }}{{ else }}{{ .Site.Params.description }}{{ end }}" />
+    {{ block "extra_head" . }}{{ end }}
     <style>
       :root {
         --bg: #0f172a;
@@ -63,79 +64,100 @@
         gap: 8px;
       }
       .btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.18); }
-      .main-card {
-        margin-top: 32px;
+      .btn-accent { border-color: rgba(34, 211, 238, 0.35); background: linear-gradient(180deg, rgba(34,211,238,0.16), rgba(34,211,238,0.06)); }
+      .card {
         background: var(--panel);
         border: 1px solid var(--border);
         border-radius: 16px;
-        padding: 24px 24px;
+        padding: 18px 18px;
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         box-shadow: var(--shadow);
       }
-      .main-card h2, .main-card h3 { color: var(--text); }
-      .main-card p { margin: 12px 0; }
-      ul { padding-left: 20px; }
+      .card + .card { margin-top: 16px; }
+      .section-title {
+        font-size: 13px;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: var(--chip-bg);
+        border: 1px solid var(--border);
+        font-size: 13px;
+      }
       .footer { color: var(--muted); margin-top: 28px; display: flex; gap: 12px; align-items: center; }
       .sep { opacity: .3; }
       @media print {
         body { background: #fff; color: #000; }
         .actions, .footer { display: none !important; }
-        .main-card { box-shadow: none; border-color: #ddd; background: #fff; }
+        .card { box-shadow: none; border-color: #ddd; background: #fff; }
         .container { padding: 0; }
       }
+      {{ block "extra_styles" . }}{{ end }}
     </style>
   </head>
   <body>
     <div class="container" id="app">
+      {{ $title := cond (isset .Params "name") (.Params.name) .Title }}
+      {{ $subtitle := "" }}
+      {{ if .Params.role }}
+        {{ $subtitle = .Params.role }}
+      {{ else if .Params.subtitle }}
+        {{ $subtitle = .Params.subtitle }}
+      {{ else if .Params.hero_subtitle }}
+        {{ $subtitle = .Params.hero_subtitle }}
+      {{ else if .Params.description }}
+        {{ $subtitle = .Params.description }}
+      {{ else if .Description }}
+        {{ $subtitle = .Description }}
+      {{ else }}
+        {{ $subtitle = .Site.Params.description }}
+      {{ end }}
+
       <header class="hero">
         <div class="title">
-          <div class="name">hironeko</div>
-          <div class="role">エンジニアリング視点でチームと事業をつなぐ人</div>
+          <div class="name">{{ $title }}</div>
+          <div class="role">{{ $subtitle }}</div>
         </div>
         <nav class="actions">
-          <a class="btn" href="/">Top</a>
-          <a class="btn" href="/about/">About</a>
-          <a class="btn" href="/resume/">Resume</a>
-          <a class="btn" href="/posts/">Posts</a>
+          {{ $links := .Params.links }}
+          {{ if not $links }}
+            {{ $links = .Site.Params.MainMenu }}
+          {{ end }}
+          {{ with $links }}
+            {{ range . }}
+              {{ $href := "" }}
+              {{ $label := "" }}
+              {{ if (isset . "url") }}{{ $href = .url }}{{ end }}
+              {{ if (isset . "link") }}{{ $href = .link }}{{ end }}
+              {{ if (isset . "URL") }}{{ $href = .URL }}{{ end }}
+              {{ if (isset . "href") }}{{ $href = .href }}{{ end }}
+              {{ if (isset . "label") }}{{ $label = .label }}{{ end }}
+              {{ if (isset . "text") }}{{ $label = .text }}{{ end }}
+              {{ if (isset . "name") }}{{ $label = .name }}{{ end }}
+              <a class="btn" href="{{ $href }}">{{ $label }}</a>
+            {{ end }}
+          {{ end }}
+          {{ if or (.Params.enable_print) (eq .Type "resume") }}
+            <button class="btn btn-accent" onclick="window.print()">PDFで保存</button>
+          {{ end }}
           <button class="btn" id="themeToggle">テーマ切替</button>
         </nav>
       </header>
 
-      <main class="main-card">
-        <article class="content">
-          <h2>プロフィール</h2>
-          <p>独学からキャリアをスタートした元ニートの Web エンジニア。2015 年にエンジニアとしてのキャリアを開始し、現在はヘルスケア系サービスでテックリード兼 PdM/PjM として、開発統制・協業設計・採用までマルチハットで携わっています。10 年を超える開発経験を通じて、0→1 の立ち上げ、プロセス改善、ステークホルダーを巻き込んだ意思決定を得意としています。</p>
-
-          <h2>得意領域</h2>
-          <ul>
-            <li>PHP / Laravel を中心にした Web アプリケーション開発とアーキテクチャ設計</li>
-            <li>PdM・PjM・スクラムマスターを兼務しながらチームをリードするアジャイル推進</li>
-            <li>テスト文化・レビュー文化の定着による品質改善と開発体験の向上</li>
-            <li>レガシーシステムのリファクタリングやリプレイスによる継続的改善</li>
-          </ul>
-
-          <h2>最近の取り組み</h2>
-          <ul>
-            <li>ヘルスケア領域プロダクトの統制と段階的リプレイス計画の策定・推進</li>
-            <li>社内スケジュールおよび仕様統制、情シス的対応を兼ねたステークホルダー調整</li>
-            <li>AWS 運用改善・テスト戦略再構築・コードレビューによる品質担保</li>
-            <li>0→1 プロジェクトやモノレポ化、CI/CD パイプライン再設計、学習コミュニティ運営</li>
-          </ul>
-
-          <h2>興味・関心</h2>
-          <ul>
-            <li>学習: スクラム / アジャイル、プロダクトマネジメント、組織づくり、ドメイン駆動設計</li>
-            <li>技術: Go, Rust などの静的型付け言語、観測性やプラットフォーム領域</li>
-            <li>趣味: 音楽鑑賞、アニメ、読書、人間観察、DJ</li>
-          </ul>
-
-          <p>キャリアやプロジェクトについて気軽にご相談ください。</p>
-        </article>
-      </main>
+      {{ block "main" . }}{{ end }}
 
       <footer class="footer">
-        <span>© 2025 hironeko</span>
+        <span>© {{ now.Format "2006" }} {{ with .Site.Params.author }}{{ . }}{{ else }}{{ .Site.Title }}{{ end }}</span>
         <span class="sep">·</span>
         <a class="btn" href="/">Home</a>
       </footer>

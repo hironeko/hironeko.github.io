@@ -1,0 +1,15 @@
+{{ define "extra_styles" }}
+.main-card { margin-top: 32px; }
+.main-card .content :first-child { margin-top: 0; }
+.main-card .content :last-child { margin-bottom: 0; }
+.main-card h2, .main-card h3, .main-card h4 { color: var(--text); }
+.main-card a { color: inherit; text-decoration: underline; text-decoration-color: rgba(34, 211, 238, 0.6); }
+{{ end }}
+
+{{ define "main" }}
+  <main class="main-card card">
+    <div class="content">
+      {{ .Content }}
+    </div>
+  </main>
+{{ end }}

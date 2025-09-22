@@ -1,0 +1,35 @@
+{{ define "extra_styles" }}
+.list-card { margin-top: 32px; }
+.post-list { display: grid; gap: 16px; margin-top: 24px; }
+.post-item { border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; background: rgba(15, 23, 42, 0.35); box-shadow: var(--shadow); transition: transform 120ms ease, border-color 200ms ease; }
+[data-theme="light"] .post-item { background: rgba(255,255,255,0.85); }
+.post-item:hover { transform: translateY(-2px); border-color: rgba(34, 211, 238, 0.3); }
+.post-title { font-size: 18px; font-weight: 700; margin: 0; }
+.post-meta { color: var(--muted); font-size: 13px; margin-top: 6px; display: flex; gap: 12px; flex-wrap: wrap; }
+.post-summary { margin-top: 12px; color: var(--text); }
+.more { margin-top: 24px; display: flex; gap: 10px; justify-content: flex-end; }
+.more a { text-decoration: none; }
+{{ end }}
+
+{{ define "main" }}
+  <main class="list-card card">
+    <div class="section-title">{{ if eq .Kind "term" }}{{ .Title }}{{ else }}{{ .Title }}{{ end }}</div>
+    {{ if .Content }}
+      <div class="intro">{{ .Content }}</div>
+    {{ end }}
+    <div class="post-list">
+      {{ range .Pages.ByDate.Reverse }}
+        <article class="post-item">
+          <a class="post-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+          <div class="post-meta">
+            <span>{{ .Date.Format "2006年1月2日" }}</span>
+            {{ with .Params.tags }}<span>Tags: {{ delimit . ", " }}</span>{{ end }}
+          </div>
+          {{ with .Summary }}
+            <p class="post-summary">{{ . | plainify }}</p>
+          {{ end }}
+        </article>
+      {{ end }}
+    </div>
+  </main>
+{{ end }}
