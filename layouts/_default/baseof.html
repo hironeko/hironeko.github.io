@@ -33,8 +33,8 @@
         --panel: rgba(15, 23, 42, 0.6);
         --text: #e2e8f0;
         --muted: #94a3b8;
-        --accent: #22d3ee;
-        --accent-2: #a78bfa;
+        --accent: #6366f1;
+        --accent-2: #14b8a6;
         --chip-bg: rgba(148, 163, 184, 0.15);
         --border: rgba(226, 232, 240, 0.08);
         --shadow: 0 10px 30px rgba(2, 8, 23, 0.6);
@@ -44,9 +44,9 @@
         --panel: rgba(255,255,255,0.75);
         --text: #0f172a;
         --muted: #334155;
-        --accent: #0ea5e9;
-        --accent-2: #7c3aed;
-        --chip-bg: rgba(2, 132, 199, 0.08);
+        --accent: #4f46e5;
+        --accent-2: #0d9488;
+        --chip-bg: rgba(79, 70, 229, 0.08);
         --border: rgba(15, 23, 42, 0.08);
         --shadow: 0 8px 24px rgba(0,0,0,0.08);
       }
@@ -55,8 +55,8 @@
         margin: 0;
         color: var(--text);
         background:
-          radial-gradient(1200px 800px at 10% -10%, rgba(34, 211, 238, 0.15), transparent 60%),
-          radial-gradient(1000px 700px at 110% 10%, rgba(167, 139, 250, 0.18), transparent 60%),
+          radial-gradient(1200px 800px at 10% -10%, rgba(99, 102, 241, 0.14), transparent 60%),
+          radial-gradient(1000px 700px at 110% 10%, rgba(20, 184, 166, 0.12), transparent 60%),
           linear-gradient(180deg, var(--bg), var(--bg));
         font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", "Meiryo", Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
@@ -84,7 +84,7 @@
         gap: 8px;
       }
       .btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.18); }
-      .btn-accent { border-color: rgba(34, 211, 238, 0.35); background: linear-gradient(180deg, rgba(34,211,238,0.16), rgba(34,211,238,0.06)); }
+      .btn-accent { border-color: rgba(99, 102, 241, 0.45); background: linear-gradient(180deg, rgba(99,102,241,0.18), rgba(99,102,241,0.07)); }
       .card {
         background: var(--panel);
         border: 1px solid var(--border);
@@ -116,6 +116,12 @@
       }
       .footer { color: var(--muted); margin-top: 28px; display: flex; gap: 12px; align-items: center; }
       .sep { opacity: .3; }
+      @media (max-width: 640px) {
+        .container { padding: 28px 16px 64px; }
+        .hero { grid-template-columns: 1fr; gap: 14px; }
+        .actions { justify-content: flex-start; flex-wrap: wrap; }
+        .name { font-size: 28px; }
+      }
       @media print {
         body { background: #fff; color: #000; }
         .actions, .footer { display: none !important; }

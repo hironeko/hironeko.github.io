@@ -18,7 +18,7 @@
   position: absolute; left: 8px; top: 8px;
   width: 12px; height: 12px; border-radius: 50%;
   background: radial-gradient(circle at 30% 30%, var(--accent), var(--accent-2));
-  box-shadow: 0 0 0 6px rgba(34, 211, 238, 0.08);
+  box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.10);
 }
 .meta { color: var(--muted); font-size: 13px; margin-top: 4px; display: flex; flex-wrap: wrap; gap: 6px; }
 .stack { margin-top: 6px; font-size: 13px; color: var(--muted); }
@@ -43,14 +43,17 @@
       </div>
       {{ end }}
 
-      {{ with .Params.strengths }}
+      {{ if or .Params.strengths_lead .Params.strengths }}
       <div class="card">
         <div class="section-title">Strengths</div>
+        {{ with .Params.strengths_lead }}<p style="font-size:13px;color:var(--muted);margin:0 0 10px;line-height:1.5;">{{ . }}</p>{{ end }}
+        {{ with .Params.strengths }}
         <ul class="list-tight">
           {{ range . }}
             <li><strong>{{ .name }}</strong> — {{ .detail }}</li>
           {{ end }}
         </ul>
+        {{ end }}
       </div>
       {{ end }}
 
