@@ -1,213 +1,24 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    
-    <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
-
-<title>
-vuepressを触ってみた - hironeko desu
-</title>
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/css/main.min.81bbafc4df93b11c1c3e2449464373c384aa4903731b4fc7a77dfcdd979e184f.css" integrity="sha256-gbuvxN&#43;TsRwcPiRJRkNzw4SqSQNzG0/Hp3383ZeeGE8=" crossorigin="anonymous" media="screen">
-
-
-
- 
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="vuepressを触ってみた"/>
-<meta name="twitter:description" content="目的  Go の勉強で Hugo を触ってみたものの自分としては、んー今じゃない感がありました。機能としては十分だし、成熟しつつあるドキュメントも多いんだけども Go をちゃんと学習してからだなと思った次第  ちゃんとというのは曖昧で正確に言えば基礎を一通りしてからでってことですね。最初の過程をすっ飛ばしました。  そこで代わりになるものはないかなーできれば Vue か React 関連で。。。っとおもったら vuepress なるものがあるらしいとのことで触ってみた  触った所感  わかりやすい。ただその一言ですね。ただ日本語ドキュメントは、Hugo とくらべてあまりない印象  コードを書いた際のスニペットもいい感じでした。 絵文字も見れますしね。  ひとまず導入手順のみ書き残そうと思った次第です  導入手順 VuePress 下記コマンドを実行
-yarn init yarn add -D vuepress echo &#39;# Hello VuePress&#39; &gt; README.md  package.json に追加
-&quot;scripts&quot;: { &quot;dev&quot;: &quot;vuepress dev&quot;, &quot;build&quot;: &quot;vuepress build&quot; },  yarn dev // サーバーを起動しブラウザで確認 yarn build // buildを行いディレクトリを作成 touch .vuepress/config.js  以下を記述 base: &lsquo;/dirName/&rsquo; // GitHub Pages の公開ディレクトリ dest: &lsquo;docs/&rsquo;, // build 時の出力先指定"/>
-
-<meta property="og:title" content="vuepressを触ってみた" />
-<meta property="og:description" content="目的  Go の勉強で Hugo を触ってみたものの自分としては、んー今じゃない感がありました。機能としては十分だし、成熟しつつあるドキュメントも多いんだけども Go をちゃんと学習してからだなと思った次第  ちゃんとというのは曖昧で正確に言えば基礎を一通りしてからでってことですね。最初の過程をすっ飛ばしました。  そこで代わりになるものはないかなーできれば Vue か React 関連で。。。っとおもったら vuepress なるものがあるらしいとのことで触ってみた  触った所感  わかりやすい。ただその一言ですね。ただ日本語ドキュメントは、Hugo とくらべてあまりない印象  コードを書いた際のスニペットもいい感じでした。 絵文字も見れますしね。  ひとまず導入手順のみ書き残そうと思った次第です  導入手順 VuePress 下記コマンドを実行
-yarn init yarn add -D vuepress echo &#39;# Hello VuePress&#39; &gt; README.md  package.json に追加
-&quot;scripts&quot;: { &quot;dev&quot;: &quot;vuepress dev&quot;, &quot;build&quot;: &quot;vuepress build&quot; },  yarn dev // サーバーを起動しブラウザで確認 yarn build // buildを行いディレクトリを作成 touch .vuepress/config.js  以下を記述 base: &lsquo;/dirName/&rsquo; // GitHub Pages の公開ディレクトリ dest: &lsquo;docs/&rsquo;, // build 時の出力先指定" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://hironeko.github.io/posts/201906/20190626/" />
-<meta property="article:published_time" content="2019-06-26T22:53:16&#43;09:00"/>
-<meta property="article:modified_time" content="2019-06-26T22:53:16&#43;09:00"/>
-
-
-    
-
-    
-    
-    
-    <title>
-        
-        vuepressを触ってみた
-        
-    </title>
-</head>
-
-<body>
-    <div class="wrap">
-        <div class="section" id="title">vuepressを触ってみた</div>
-
-        
-<div class="section" id="content">
-    Wed Jun 26, 2019 &#183; 97 words
-    
-    <div class="tag-container">
-        
-        <span class="tag">
-            <a href="http://hironeko.github.io/tags/vuepress">
-                vuepress
-            </a>
-        </span>
-        
-        <span class="tag">
-            <a href="http://hironeko.github.io/tags/vue">
-                vue
-            </a>
-        </span>
-        
-    </div>
-    
-    <hr/>
-    
-
-<h2 id="目的">目的</h2>
-
-<ul>
-<li>Go の勉強で Hugo を触ってみたものの自分としては、んー今じゃない感がありました。機能としては十分だし、成熟しつつあるドキュメントも多いんだけども Go をちゃんと学習してからだなと思った次第
-
-<ul>
-<li>ちゃんとというのは曖昧で正確に言えば基礎を一通りしてからでってことですね。最初の過程をすっ飛ばしました。</li>
-</ul></li>
-<li>そこで代わりになるものはないかなーできれば Vue か React 関連で。。。っとおもったら vuepress なるものがあるらしいとのことで触ってみた</li>
-</ul>
-
-<h2 id="触った所感">触った所感</h2>
-
-<ul>
-<li>わかりやすい。ただその一言ですね。ただ日本語ドキュメントは、Hugo とくらべてあまりない印象
-
-<ul>
-<li>コードを書いた際のスニペットもいい感じでした。</li>
-<li>絵文字も見れますしね。</li>
-</ul></li>
-<li>ひとまず導入手順のみ書き残そうと思った次第です</li>
-</ul>
-
-<h2 id="導入手順">導入手順</h2>
-
-<h1 id="vuepress">VuePress</h1>
-
-<p>下記コマンドを実行</p>
-
-<pre><code>yarn init
+<!doctype html><html lang=ja><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>vuepressを触ってみた - hironeko | Webエンジニア / テックリード</title><meta name=description content="PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。"><link rel=canonical href=https://hironeko.github.io/posts/201906/20190626/><meta property="og:type" content="article"><meta property="og:title" content="vuepressを触ってみた - hironeko | Webエンジニア / テックリード"><meta property="og:description" content="PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。"><meta property="og:url" content="https://hironeko.github.io/posts/201906/20190626/"><meta property="og:image" content="https://hironeko.github.io/tn.png"><meta property="og:locale" content="ja_JP"><meta property="og:site_name" content="hironeko | Webエンジニア / テックリード"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="vuepressを触ってみた - hironeko | Webエンジニア / テックリード"><meta name=twitter:description content="PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。"><meta name=twitter:image content="https://hironeko.github.io/tn.png"><script type=application/ld+json>{"@context":"https://schema.org","@type":"Person","name":"hironeko","jobTitle":"Webエンジニア / テックリード / PdM・PjM","description":"PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。","url":"https://hironeko.github.io/","sameAs":["https://github.com/hironeko"],"knowsAbout":["PHP","Laravel","TypeScript","Vue.js","React","AWS","Docker","Terraform","アジャイル開発","スクラム","テックリード","PdM","PjM"]}</script><style>:root{--bg:#0f172a;--panel:rgba(15, 23, 42, 0.6);--text:#e2e8f0;--muted:#94a3b8;--accent:#22d3ee;--accent-2:#a78bfa;--chip-bg:rgba(148, 163, 184, 0.15);--border:rgba(226, 232, 240, 0.08);--shadow:0 10px 30px rgba(2, 8, 23, 0.6)}[data-theme=light]{--bg:#f8fafc;--panel:rgba(255,255,255,0.75);--text:#0f172a;--muted:#334155;--accent:#0ea5e9;--accent-2:#7c3aed;--chip-bg:rgba(2, 132, 199, 0.08);--border:rgba(15, 23, 42, 0.08);--shadow:0 8px 24px rgba(0,0,0,0.08)}html,body{height:100%}body{margin:0;color:var(--text);background:radial-gradient(1200px 800px at 10% -10%,rgba(34,211,238,.15),transparent 60%),radial-gradient(1e3px 700px at 110% 10%,rgba(167,139,250,.18),transparent 60%),linear-gradient(180deg,var(--bg),var(--bg));font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,hiragino kaku gothic pron,noto sans jp,yu gothic ui,meiryo,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}.container{max-width:1080px;margin:0 auto;padding:64px 20px 96px}.hero{display:grid;grid-template-columns:1fr auto;gap:24px}.title{display:flex;flex-direction:column;gap:6px;justify-content:flex-end}.name{font-size:clamp(28px,5vw,40px);font-weight:800;letter-spacing:.4px}.role{color:var(--muted);font-size:16px}.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.btn{appearance:none;border:1px solid var(--border);color:var(--text);background:linear-gradient(180deg,rgba(255,255,255,6%),rgba(255,255,255,2%));padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;transition:transform 120ms ease,border-color 200ms ease,background 200ms ease;box-shadow:var(--shadow);display:inline-flex;align-items:center;gap:8px}.btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.18)}.btn-accent{border-color:rgba(34,211,238,.35);background:linear-gradient(180deg,rgba(34,211,238,.16),rgba(34,211,238,6%))}.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:var(--shadow)}.card+.card{margin-top:16px}.section-title{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:10px}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:var(--chip-bg);border:1px solid var(--border);font-size:13px}.footer{color:var(--muted);margin-top:28px;display:flex;gap:12px;align-items:center}.sep{opacity:.3}@media print{body{background:#fff;color:#000}.actions,.footer{display:none!important}.card{box-shadow:none;border-color:#ddd;background:#fff}.container{padding:0}}.main-card{margin-top:32px}.main-card .content :first-child{margin-top:0}.main-card .content :last-child{margin-bottom:0}.main-card h2,.main-card h3,.main-card h4{color:var(--text)}.main-card a{color:inherit;text-decoration:underline;text-decoration-color:rgba(34,211,238,.6)}</style></head><body><div class=container id=app><header class=hero><div class=title><div class=name>vuepressを触ってみた</div><div class=role>PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。</div></div><nav class=actions><a class=btn href=https://hironeko.github.io/>Top</a>
+<a class=btn href=https://hironeko.github.io/about>About</a>
+<a class=btn href=https://hironeko.github.io/resume>Resume</a>
+<a class=btn href=https://hironeko.github.io/posts>Posts</a>
+<button class=btn id=themeToggle>テーマ切替</button></nav></header><main class="main-card card"><div class=content><h2 id=目的>目的</h2><ul><li>Go の勉強で Hugo を触ってみたものの自分としては、んー今じゃない感がありました。機能としては十分だし、成熟しつつあるドキュメントも多いんだけども Go をちゃんと学習してからだなと思った次第<ul><li>ちゃんとというのは曖昧で正確に言えば基礎を一通りしてからでってことですね。最初の過程をすっ飛ばしました。</li></ul></li><li>そこで代わりになるものはないかなーできれば Vue か React 関連で。。。っとおもったら vuepress なるものがあるらしいとのことで触ってみた</li></ul><h2 id=触った所感>触った所感</h2><ul><li>わかりやすい。ただその一言ですね。ただ日本語ドキュメントは、Hugo とくらべてあまりない印象<ul><li>コードを書いた際のスニペットもいい感じでした。</li><li>絵文字も見れますしね。</li></ul></li><li>ひとまず導入手順のみ書き残そうと思った次第です</li></ul><h2 id=導入手順>導入手順</h2><h1 id=vuepress>VuePress</h1><p>下記コマンドを実行</p><pre tabindex=0><code>yarn init
 yarn add -D vuepress
-echo '# Hello VuePress' &gt; README.md
-</code></pre>
-
-<p>package.json に追加</p>
-
-<pre><code class="language-json">&quot;scripts&quot;: {
-    &quot;dev&quot;: &quot;vuepress dev&quot;,
-    &quot;build&quot;: &quot;vuepress build&quot;
-  },
-</code></pre>
-
-<pre><code class="language-shell">yarn dev // サーバーを起動しブラウザで確認
-yarn build // buildを行いディレクトリを作成
-touch .vuepress/config.js
-</code></pre>
-
-<p>以下を記述
+echo &#39;# Hello VuePress&#39; &gt; README.md
+</code></pre><p>package.json に追加</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-json data-lang=json><span style=display:flex><span><span style=color:#e6db74>&#34;scripts&#34;</span><span style=color:#960050;background-color:#1e0010>:</span> {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;dev&#34;</span>: <span style=color:#e6db74>&#34;vuepress dev&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;build&#34;</span>: <span style=color:#e6db74>&#34;vuepress build&#34;</span>
+</span></span><span style=display:flex><span>  }<span style=color:#960050;background-color:#1e0010>,</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-shell data-lang=shell><span style=display:flex><span>yarn dev // サーバーを起動しブラウザで確認
+</span></span><span style=display:flex><span>yarn build // buildを行いディレクトリを作成
+</span></span><span style=display:flex><span>touch .vuepress/config.js
+</span></span></code></pre></div><p>以下を記述
 base: &lsquo;/dirName/&rsquo; // GitHub Pages の公開ディレクトリ
-dest: &lsquo;docs/&rsquo;, // build 時の出力先指定</p>
-
-<pre><code class="language-javascript">module.exports = {
-  title: &quot;GitHub Pages product by vuepress&quot;, // 公開ページのタイトル
-  desctription: &quot;VuePress 挑戦&quot;, // ページの説明
-  dest: &quot;docs/&quot; // build字の出力先指定
-}
-</code></pre>
-
-<p>最終的には、サーバーを立ち上げれば<code>Hello World</code>が確認できます。</p>
-
-<p>途中で確認自体はできているんで後半は、GitHub ページで表示するための手順を含めてます。</p>
-
-<p>＃＃ Link</p>
-
-<ul>
-<li><a href="https://vuepress.vuejs.org/">公式サイト</a></li>
-</ul>
-
-</div>
-
-
-        
-<div class="section bottom-menu">
-    
-<hr />
-<p>
-
-
-    
-        <a href="/posts">back</a>
-        
-            &#183;
-        
-    
-
-    
-        
-            <a href="/">
-                Top
-            </a>
-        
-    
-    
-        
-            &#183; 
-            <a href="/about">
-                About
-            </a>
-        
-            &#183; 
-            <a href="/resume">
-                Resume
-            </a>
-        
-            &#183; 
-            <a href="/posts">
-                Posts
-            </a>
-        
-    
-    &#183; 
-    <a href="http://hironeko.github.io">
-        
-    </a>
-
-</p>
-</div>
-
-
-        <div class="section footer"></div>
-    </div>
-</body>
-
-</html>
+dest: &lsquo;docs/&rsquo;, // build 時の出力先指定</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>module</span>.<span style=color:#a6e22e>exports</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>title</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;GitHub Pages product by vuepress&#34;</span>, <span style=color:#75715e>// 公開ページのタイトル
+</span></span></span><span style=display:flex><span>  <span style=color:#a6e22e>desctription</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;VuePress 挑戦&#34;</span>, <span style=color:#75715e>// ページの説明
+</span></span></span><span style=display:flex><span>  <span style=color:#a6e22e>dest</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;docs/&#34;</span> <span style=color:#75715e>// build字の出力先指定
+</span></span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>最終的には、サーバーを立ち上げれば<code>Hello World</code>が確認できます。</p><p>途中で確認自体はできているんで後半は、GitHub ページで表示するための手順を含めてます。</p><p>＃＃ Link</p><ul><li><a href=https://vuepress.vuejs.org/>公式サイト</a></li></ul></div></main><footer class=footer><span>© 2026 hironeko</span>
+<span class=sep>·</span>
+<a class=btn href=https://hironeko.github.io/>Home</a></footer></div><script>(function(){const e=document.documentElement,t="theme",n=window.localStorage?localStorage.getItem(t):null,o=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches;n==="light"?e.setAttribute("data-theme","light"):n==="dark"?e.removeAttribute("data-theme"):o&&e.setAttribute("data-theme","light");const s=document.getElementById("themeToggle");s&&s.addEventListener("click",()=>{const n=e.getAttribute("data-theme")==="light"?"dark":"light";n==="dark"?(e.removeAttribute("data-theme"),window.localStorage&&localStorage.setItem(t,"dark")):(e.setAttribute("data-theme","light"),window.localStorage&&localStorage.setItem(t,"light"))})})()</script></body></html>

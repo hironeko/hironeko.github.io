@@ -1,273 +1,75 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    
-    <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
-
-<title>
-Vuexに挑戦！！ - hironeko desu
-</title>
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/css/main.min.81bbafc4df93b11c1c3e2449464373c384aa4903731b4fc7a77dfcdd979e184f.css" integrity="sha256-gbuvxN&#43;TsRwcPiRJRkNzw4SqSQNzG0/Hp3383ZeeGE8=" crossorigin="anonymous" media="screen">
-
-
-
- 
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Vuexに挑戦！！"/>
-<meta name="twitter:description" content="何事も手を動かすことが大事 Qiita の記事(下記記載)では、いきなりVuexの導入から始まっているがリンクにある gist のページを見るとVueの環境構築から手順があるのでわからない人は参考にしましょう。
-例によって Linter は、今回も抜きます。というのも今回は、構文に敏感に注意するより手を動かして Vue と仲良くなるのが目的なのでそこは、捨てます。実際の開発では、大切な要素であることは忘れずに進めます。
-自分は以下のように設定しました。
-? Project name your_app_name ? Project description A Vue.js project ? Author hironeko &lt;xxxxxxxx@exsample.com&gt; ? Vue build standalone ? Install vue-router? Yes ? Use ESLint to lint your code? No ? Set up unit tests No ? Setup e2e tests with Nightwatch? No ? Should we run `npm install` for you after the project has been created? (recommended) yarn  Vuex を install さっそく install するみたいですね。待ってました。"/>
-
-<meta property="og:title" content="Vuexに挑戦！！" />
-<meta property="og:description" content="何事も手を動かすことが大事 Qiita の記事(下記記載)では、いきなりVuexの導入から始まっているがリンクにある gist のページを見るとVueの環境構築から手順があるのでわからない人は参考にしましょう。
-例によって Linter は、今回も抜きます。というのも今回は、構文に敏感に注意するより手を動かして Vue と仲良くなるのが目的なのでそこは、捨てます。実際の開発では、大切な要素であることは忘れずに進めます。
-自分は以下のように設定しました。
-? Project name your_app_name ? Project description A Vue.js project ? Author hironeko &lt;xxxxxxxx@exsample.com&gt; ? Vue build standalone ? Install vue-router? Yes ? Use ESLint to lint your code? No ? Set up unit tests No ? Setup e2e tests with Nightwatch? No ? Should we run `npm install` for you after the project has been created? (recommended) yarn  Vuex を install さっそく install するみたいですね。待ってました。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://hironeko.github.io/posts/201903/20190330/" />
-<meta property="article:published_time" content="2019-03-30T00:05:43&#43;09:00"/>
-<meta property="article:modified_time" content="2019-03-30T00:05:43&#43;09:00"/>
-
-
-    
-
-    
-    
-    
-    <title>
-        
-        Vuexに挑戦！！
-        
-    </title>
-</head>
-
-<body>
-    <div class="wrap">
-        <div class="section" id="title">Vuexに挑戦！！</div>
-
-        
-<div class="section" id="content">
-    Sat Mar 30, 2019 &#183; 198 words
-    
-    <div class="tag-container">
-        
-        <span class="tag">
-            <a href="http://hironeko.github.io/tags/vue">
-                Vue
-            </a>
-        </span>
-        
-        <span class="tag">
-            <a href="http://hironeko.github.io/tags/vuex">
-                Vuex
-            </a>
-        </span>
-        
-        <span class="tag">
-            <a href="http://hironeko.github.io/tags/%E5%85%A5%E9%96%80">
-                入門
-            </a>
-        </span>
-        
-    </div>
-    
-    <hr/>
-    
-
-<h2 id="何事も手を動かすことが大事">何事も手を動かすことが大事</h2>
-
-<p>Qiita の記事(<a href="#参考サイトと使用ツールリンク">下記記載</a>)では、いきなり<code>Vuex</code>の導入から始まっているがリンクにある gist のページを見ると<code>Vue</code>の環境構築から手順があるのでわからない人は参考にしましょう。</p>
-
-<p>例によって Linter は、今回も抜きます。というのも今回は、構文に敏感に注意するより手を動かして Vue と仲良くなるのが目的なのでそこは、捨てます。実際の開発では、大切な要素であることは忘れずに進めます。</p>
-
-<p>自分は以下のように設定しました。</p>
-
-<pre><code class="language-shell">? Project name your_app_name
-? Project description A Vue.js project
-? Author hironeko &lt;xxxxxxxx@exsample.com&gt;
-? Vue build standalone
-? Install vue-router? Yes
-? Use ESLint to lint your code? No
-? Set up unit tests No
-? Setup e2e tests with Nightwatch? No
-? Should we run `npm install` for you after the project has been created? (recommended) yarn
-</code></pre>
-
-<h2 id="vuex-を-install">Vuex を install</h2>
-
-<p>さっそく install するみたいですね。待ってました。</p>
-
-<pre><code>cd your_app_name
+<!doctype html><html lang=ja><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Vuexに挑戦！！ - hironeko | Webエンジニア / テックリード</title><meta name=description content="PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。"><link rel=canonical href=https://hironeko.github.io/posts/201903/20190330/><meta property="og:type" content="article"><meta property="og:title" content="Vuexに挑戦！！ - hironeko | Webエンジニア / テックリード"><meta property="og:description" content="PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。"><meta property="og:url" content="https://hironeko.github.io/posts/201903/20190330/"><meta property="og:image" content="https://hironeko.github.io/tn.png"><meta property="og:locale" content="ja_JP"><meta property="og:site_name" content="hironeko | Webエンジニア / テックリード"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="Vuexに挑戦！！ - hironeko | Webエンジニア / テックリード"><meta name=twitter:description content="PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。"><meta name=twitter:image content="https://hironeko.github.io/tn.png"><script type=application/ld+json>{"@context":"https://schema.org","@type":"Person","name":"hironeko","jobTitle":"Webエンジニア / テックリード / PdM・PjM","description":"PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。","url":"https://hironeko.github.io/","sameAs":["https://github.com/hironeko"],"knowsAbout":["PHP","Laravel","TypeScript","Vue.js","React","AWS","Docker","Terraform","アジャイル開発","スクラム","テックリード","PdM","PjM"]}</script><style>:root{--bg:#0f172a;--panel:rgba(15, 23, 42, 0.6);--text:#e2e8f0;--muted:#94a3b8;--accent:#22d3ee;--accent-2:#a78bfa;--chip-bg:rgba(148, 163, 184, 0.15);--border:rgba(226, 232, 240, 0.08);--shadow:0 10px 30px rgba(2, 8, 23, 0.6)}[data-theme=light]{--bg:#f8fafc;--panel:rgba(255,255,255,0.75);--text:#0f172a;--muted:#334155;--accent:#0ea5e9;--accent-2:#7c3aed;--chip-bg:rgba(2, 132, 199, 0.08);--border:rgba(15, 23, 42, 0.08);--shadow:0 8px 24px rgba(0,0,0,0.08)}html,body{height:100%}body{margin:0;color:var(--text);background:radial-gradient(1200px 800px at 10% -10%,rgba(34,211,238,.15),transparent 60%),radial-gradient(1e3px 700px at 110% 10%,rgba(167,139,250,.18),transparent 60%),linear-gradient(180deg,var(--bg),var(--bg));font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,hiragino kaku gothic pron,noto sans jp,yu gothic ui,meiryo,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}.container{max-width:1080px;margin:0 auto;padding:64px 20px 96px}.hero{display:grid;grid-template-columns:1fr auto;gap:24px}.title{display:flex;flex-direction:column;gap:6px;justify-content:flex-end}.name{font-size:clamp(28px,5vw,40px);font-weight:800;letter-spacing:.4px}.role{color:var(--muted);font-size:16px}.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.btn{appearance:none;border:1px solid var(--border);color:var(--text);background:linear-gradient(180deg,rgba(255,255,255,6%),rgba(255,255,255,2%));padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;transition:transform 120ms ease,border-color 200ms ease,background 200ms ease;box-shadow:var(--shadow);display:inline-flex;align-items:center;gap:8px}.btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.18)}.btn-accent{border-color:rgba(34,211,238,.35);background:linear-gradient(180deg,rgba(34,211,238,.16),rgba(34,211,238,6%))}.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:var(--shadow)}.card+.card{margin-top:16px}.section-title{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:10px}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:var(--chip-bg);border:1px solid var(--border);font-size:13px}.footer{color:var(--muted);margin-top:28px;display:flex;gap:12px;align-items:center}.sep{opacity:.3}@media print{body{background:#fff;color:#000}.actions,.footer{display:none!important}.card{box-shadow:none;border-color:#ddd;background:#fff}.container{padding:0}}.main-card{margin-top:32px}.main-card .content :first-child{margin-top:0}.main-card .content :last-child{margin-bottom:0}.main-card h2,.main-card h3,.main-card h4{color:var(--text)}.main-card a{color:inherit;text-decoration:underline;text-decoration-color:rgba(34,211,238,.6)}</style></head><body><div class=container id=app><header class=hero><div class=title><div class=name>Vuexに挑戦！！</div><div class=role>PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。</div></div><nav class=actions><a class=btn href=https://hironeko.github.io/>Top</a>
+<a class=btn href=https://hironeko.github.io/about>About</a>
+<a class=btn href=https://hironeko.github.io/resume>Resume</a>
+<a class=btn href=https://hironeko.github.io/posts>Posts</a>
+<button class=btn id=themeToggle>テーマ切替</button></nav></header><main class="main-card card"><div class=content><h2 id=何事も手を動かすことが大事>何事も手を動かすことが大事</h2><p>Qiita の記事(<a href=#%E5%8F%82%E8%80%83%E3%82%B5%E3%82%A4%E3%83%88%E3%81%A8%E4%BD%BF%E7%94%A8%E3%83%84%E3%83%BC%E3%83%AB%E3%83%AA%E3%83%B3%E3%82%AF>下記記載</a>)では、いきなり<code>Vuex</code>の導入から始まっているがリンクにある gist のページを見ると<code>Vue</code>の環境構築から手順があるのでわからない人は参考にしましょう。</p><p>例によって Linter は、今回も抜きます。というのも今回は、構文に敏感に注意するより手を動かして Vue と仲良くなるのが目的なのでそこは、捨てます。実際の開発では、大切な要素であることは忘れずに進めます。</p><p>自分は以下のように設定しました。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-shell data-lang=shell><span style=display:flex><span>? Project name your_app_name
+</span></span><span style=display:flex><span>? Project description A Vue.js project
+</span></span><span style=display:flex><span>? Author hironeko &lt;xxxxxxxx@exsample.com&gt;
+</span></span><span style=display:flex><span>? Vue build standalone
+</span></span><span style=display:flex><span>? Install vue-router? Yes
+</span></span><span style=display:flex><span>? Use ESLint to lint your code? No
+</span></span><span style=display:flex><span>? Set up unit tests No
+</span></span><span style=display:flex><span>? Setup e2e tests with Nightwatch? No
+</span></span><span style=display:flex><span>? Should we run <span style=color:#e6db74>`</span>npm install<span style=color:#e6db74>`</span> <span style=color:#66d9ef>for</span> you after the project has been created? <span style=color:#f92672>(</span>recommended<span style=color:#f92672>)</span> yarn
+</span></span></code></pre></div><h2 id=vuex-を-install>Vuex を install</h2><p>さっそく install するみたいですね。待ってました。</p><pre tabindex=0><code>cd your_app_name
 yarn add vuex
-</code></pre>
-
-<p>install 後にひとまずブラウザで表示確認をするそうです。します！</p>
-
-<pre><code>yarn dev
-</code></pre>
-
-<p>このまま起動しま作業を続けます。変更した際も自動検知して更新がされるので即時確認ができます。</p>
-
-<h2 id="作成するページのベースを作成">作成するページのベースを作成</h2>
-
-<p><code>src/components/Hello.vue</code>はやはり使わないでしょう。これをコピーして作成してますがそこはあえて書きます。</p>
-
-<pre><code class="language-javascript">&lt;template&gt;
-  &lt;div&gt;Formページ&lt;/div&gt;
-&lt;/template&gt;
-
-&lt;script&gt;
-export default {
-  name: &quot;form&quot;,
-  data() {
-    return {
-      msg: &quot;welcome to your vue.js app&quot;
-    }
-  }
-}
-&lt;/script&gt;
-</code></pre>
-
-<p><code>msg</code>に関しては、消してもよかったかなーとおもいつつ一応残しておきます。</p>
-
-<h2 id="モジュールを作成">モジュールを作成</h2>
-
-<p><code>src/components/modules</code>ディレクトリを作成するのだ！作成したらディレクトリ直下に<code>HeadComp.vue</code>を作成。
+</code></pre><p>install 後にひとまずブラウザで表示確認をするそうです。します！</p><pre tabindex=0><code>yarn dev
+</code></pre><p>このまま起動しま作業を続けます。変更した際も自動検知して更新がされるので即時確認ができます。</p><h2 id=作成するページのベースを作成>作成するページのベースを作成</h2><p><code>src/components/Hello.vue</code>はやはり使わないでしょう。これをコピーして作成してますがそこはあえて書きます。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>template</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>div</span><span style=color:#f92672>&gt;</span><span style=color:#a6e22e>Formページ</span><span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/div&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/template&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>script</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>default</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;form&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>data</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>msg</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;welcome to your vue.js app&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/script&gt;</span>
+</span></span></code></pre></div><p><code>msg</code>に関しては、消してもよかったかなーとおもいつつ一応残しておきます。</p><h2 id=モジュールを作成>モジュールを作成</h2><p><code>src/components/modules</code>ディレクトリを作成するのだ！作成したらディレクトリ直下に<code>HeadComp.vue</code>を作成。
 作成したら Form.vue 同様記述します。
-がここで問題が発生<code>そんなmodulesはねええええええ</code>というエラーになったのでディレクトリ名を変更します。</p>
-
-<p><code>src/components/subcomponents</code>
-きっとこれは、アンチなパターンというかこんな名称にすることは本来はないでしょう。ただ学習が優先事項なので今回は、気にしません！</p>
-
-<pre><code class="language-javascript">&lt;template&gt;
-  &lt;h1&gt;{{ title }}&lt;/h1&gt;
-&lt;/template&gt;
-
-&lt;script&gt;
-export default {
-  name: &quot;headComp&quot;,
-  data() {
-    return {
-      title: &quot;感想を入力&quot;
-    }
-  }
-}
-&lt;/script&gt;
-</code></pre>
-
-<p>この作成した module/HeadComp.vue を先ほど作成した Form.vue で使用できるようにします。</p>
-
-<h3 id="form-vue-へ追記">Form.vue へ追記</h3>
-
-<p>作成した<code>HeadComp.vue</code>を使えるように下記のように import します。
-components を追記します。</p>
-
-<pre><code class="language-javascript">&lt;template&gt;
-  &lt;div&gt;
-    Formページ
-    &lt;HeadComp&gt;&lt;/HeadComp&gt;
-  &lt;/div&gt;
-&lt;/template&gt;
-
-&lt;script&gt;
-import HeadComp from &quot;@/components/subcomponents/HeadComp&quot;
-
-export default {
-  name: &quot;form&quot;,
-  data() {
-    return {
-      msg: &quot;welcome to your vue.js app&quot;
-    }
-  },
-  components: {
-    HeadComp
-  }
-}
-&lt;/script&gt;
-</code></pre>
-
-<p>ここから先は次回以降に持ち越す。</p>
-
-<h2 id="参考サイトと使用ツールリンク">参考サイトと使用ツールリンク</h2>
-
-<p><a href="https://qiita.com/_P0cChi_/items/ebf8fbf035b36218a37e">vue.js ＋ Vuex チュートリアル</a>
+がここで問題が発生<code>そんなmodulesはねええええええ</code>というエラーになったのでディレクトリ名を変更します。</p><p><code>src/components/subcomponents</code>
+きっとこれは、アンチなパターンというかこんな名称にすることは本来はないでしょう。ただ学習が優先事項なので今回は、気にしません！</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>template</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>h1</span><span style=color:#f92672>&gt;</span>{{ <span style=color:#a6e22e>title</span> }}<span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/h1&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/template&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>script</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>default</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;headComp&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>data</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>title</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;感想を入力&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/script&gt;</span>
+</span></span></code></pre></div><p>この作成した module/HeadComp.vue を先ほど作成した Form.vue で使用できるようにします。</p><h3 id=formvue-へ追記>Form.vue へ追記</h3><p>作成した<code>HeadComp.vue</code>を使えるように下記のように import します。
+components を追記します。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>template</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>div</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>Formページ</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;</span><span style=color:#a6e22e>HeadComp</span><span style=color:#f92672>&gt;&lt;</span><span style=color:#960050;background-color:#1e0010>/HeadComp&gt;</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/div&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/template&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>script</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> <span style=color:#a6e22e>HeadComp</span> <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#34;@/components/subcomponents/HeadComp&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>default</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;form&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>data</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>msg</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;welcome to your vue.js app&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>components</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>HeadComp</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#960050;background-color:#1e0010>/script&gt;</span>
+</span></span></code></pre></div><p>ここから先は次回以降に持ち越す。</p><h2 id=参考サイトと使用ツールリンク>参考サイトと使用ツールリンク</h2><p><a href=https://qiita.com/_P0cChi_/items/ebf8fbf035b36218a37e>vue.js ＋ Vuex チュートリアル</a>
 <a href="https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?utm_source=chrome-ntp-icon">chrome 拡張機能 Vue.jsdevtools</a>
-<a href="https://gist.github.com/bora-apo/4f9b25e3631818a32077a0a912402ac5#file-vue-cli-build-md">Vue の環境構築手順</a></p>
-
-</div>
-
-
-        
-<div class="section bottom-menu">
-    
-<hr />
-<p>
-
-
-    
-        <a href="/posts">back</a>
-        
-            &#183;
-        
-    
-
-    
-        
-            <a href="/">
-                Top
-            </a>
-        
-    
-    
-        
-            &#183; 
-            <a href="/about">
-                About
-            </a>
-        
-            &#183; 
-            <a href="/resume">
-                Resume
-            </a>
-        
-            &#183; 
-            <a href="/posts">
-                Posts
-            </a>
-        
-    
-    &#183; 
-    <a href="http://hironeko.github.io">
-        
-    </a>
-
-</p>
-</div>
-
-
-        <div class="section footer"></div>
-    </div>
-</body>
-
-</html>
+<a href=https://gist.github.com/bora-apo/4f9b25e3631818a32077a0a912402ac5#file-vue-cli-build-md>Vue の環境構築手順</a></p></div></main><footer class=footer><span>© 2026 hironeko</span>
+<span class=sep>·</span>
+<a class=btn href=https://hironeko.github.io/>Home</a></footer></div><script>(function(){const e=document.documentElement,t="theme",n=window.localStorage?localStorage.getItem(t):null,o=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches;n==="light"?e.setAttribute("data-theme","light"):n==="dark"?e.removeAttribute("data-theme"):o&&e.setAttribute("data-theme","light");const s=document.getElementById("themeToggle");s&&s.addEventListener("click",()=>{const n=e.getAttribute("data-theme")==="light"?"dark":"light";n==="dark"?(e.removeAttribute("data-theme"),window.localStorage&&localStorage.setItem(t,"dark")):(e.setAttribute("data-theme","light"),window.localStorage&&localStorage.setItem(t,"light"))})})()</script></body></html>

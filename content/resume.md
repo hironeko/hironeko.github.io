@@ -1,13 +1,13 @@
 ---
 title: "Resume"
 date: 2025-09-18T00:00:00+09:00
-lastmod: 2025-09-18T00:00:00+09:00
+lastmod: 2026-06-13T00:00:00+09:00
 draft: false
 description: "職務経歴・スキル・実績のまとめ（ポートフォリオ）"
 layout: "resume-v2"
 type: "resume"
 name: "hironeko"
-role: "エンジニアリング / PdM / PjM"
+role: "Webエンジニア / テックリード / PdM・PjM"
 profile: "独学からキャリアをスタートした Web エンジニア。現在はヘルスケア系サービスで技術とプロダクトの統制を担いながら、0→1 の立ち上げやレガシー刷新、スクラムによるチームづくりまで横断的に推進しています。"
 summary:
   - "Web エンジニア歴 10 年超。PdM/PjM/スクラムマスターを兼務しながら、事業フェーズに応じて技術と運営を調律。"
@@ -43,7 +43,7 @@ initiatives:
 experiences:
   - company: "株式会社 O"
     period: "2025年8月〜現在"
-    duration: "2025年9月時点で2ヶ月"
+    duration: "在籍 約10ヶ月（2026年6月時点）"
     role: "ヘルスケア系サービス企業 / テックリード・PdM/PjM"
     team: "小規模クロスファンクショナルチーム"
     stack: ["AWS", "Docker", "PHP", "Laravel", "Terraform", "GitHub Actions", "Slack", "Confluence"]

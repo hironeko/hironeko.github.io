@@ -1,101 +1,138 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Vue on hironeko desu</title>
-    <link>http://hironeko.github.io/tags/vue/</link>
-    <description>Recent content in Vue on hironeko desu</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <lastBuildDate>Wed, 26 Jun 2019 22:53:16 +0900</lastBuildDate>
-    
-	<atom:link href="http://hironeko.github.io/tags/vue/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>vuepressを触ってみた</title>
-      <link>http://hironeko.github.io/posts/201906/20190626/</link>
-      <pubDate>Wed, 26 Jun 2019 22:53:16 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201906/20190626/</guid>
-      <description>目的  Go の勉強で Hugo を触ってみたものの自分としては、んー今じゃない感がありました。機能としては十分だし、成熟しつつあるドキュメントも多いんだけども Go をちゃんと学習してからだなと思った次第  ちゃんとというのは曖昧で正確に言えば基礎を一通りしてからでってことですね。最初の過程をすっ飛ばしました。  そこで代わりになるものはないかなーできれば Vue か React 関連で。。。っとおもったら vuepress なるものがあるらしいとのことで触ってみた  触った所感  わかりやすい。ただその一言ですね。ただ日本語ドキュメントは、Hugo とくらべてあまりない印象  コードを書いた際のスニペットもいい感じでした。 絵文字も見れますしね。  ひとまず導入手順のみ書き残そうと思った次第です  導入手順 VuePress 下記コマンドを実行
-yarn init yarn add -D vuepress echo &#39;# Hello VuePress&#39; &amp;gt; README.md  package.json に追加
-&amp;quot;scripts&amp;quot;: { &amp;quot;dev&amp;quot;: &amp;quot;vuepress dev&amp;quot;, &amp;quot;build&amp;quot;: &amp;quot;vuepress build&amp;quot; },  yarn dev // サーバーを起動しブラウザで確認 yarn build // buildを行いディレクトリを作成 touch .vuepress/config.js  以下を記述 base: &amp;lsquo;/dirName/&amp;rsquo; // GitHub Pages の公開ディレクトリ dest: &amp;lsquo;docs/&amp;rsquo;, // build 時の出力先指定</description>
-    </item>
-    
-    <item>
-      <title>Vuexに挑戦2</title>
-      <link>http://hironeko.github.io/posts/201904/20190401/</link>
-      <pubDate>Mon, 01 Apr 2019 00:09:15 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201904/20190401/</guid>
-      <description>前回の続編 テキストエリアを作成する。ここは、大きく変更はなくお手本の通りに進める。 どうやらエラー文言を出力するように記述するみたですね。
-さっさ先に進めます。 次は、StringComp.vueの作成
-src/components/modules/以下に作成したら、Form.vueで import, components, template に追加を行う。
-今回は、src/components/modules/以下に作成したものは、Form.vueで使うので忘れずに追記ですな。
-イベント ボタンの作成、イベントを発火させるためにv-onディレクティブを使う。
-そのまま写経するのは、簡単だがちゃんと理解は必要だね。
-vue のメソッドを使用するみたですね。なぜ使うの、何が実現できるかくらいは把握すべきなのでちょっと調べます。
-調べているうちにmapActionとmapGettersは、Vuex の学習でかなーーーり重要とわかる。
-コンポーネント内のアクションのディスパッチ 正攻法のやりかたthis.$store.dispatch(&#39;xxx&#39;)で可能だがちゃーーーんと便利なヘルパーを用意してくれているのが Vuex のようですな。それが今回学ぶものの一つmapActionsである。(公式サイト)
-よは、簡単にコンポーネント内のアクションを使おうぜ！と今は、把握しておく。 これを利用する際、必ず Vue インスタンスにstoreを追加しないといけない
-mapGetters も同様 この編集では、mapGetters が使われていないように見えるがこのあとちゃんと使用している。 this.$store.getters[&#39;SOME&#39;]
-store の作成 mapActions を使用するので store を追加する必要がある。先にmain.jsの修正を行うようだ。
-この時点は、storeフォルダすら存在していないため保存したらエラーが発生する。フォルダと index.js を作成した段階でエラーが消える。
-作成の順番が本当に正しいのか不明だけどここでふと思ったのは、mapActions の第一引数は、namespaced になっている。store の index.js で作成している const 名であるわけで、最初に store を作成すべきでは・・・？と思ったが結果動くなら順番なんて関係ないけどもふと気になった。
-すべての実装を行い終わったら画面の確認ボタンを押下すると console にbuttonActionが出力される。なんと！！！！
-実装してて、公式の解説を読んだりしてたけどもなるほどねー感覚的には理解しているがあくまで感覚なのでさらに深めたいですね。何個も作成して
-Vuex 今回の大本命。ここまでの Vuex 自体は、出てはきているがなぜ必要なのか、何をするものなのかって言うのがここで解説をしてくださっている。
-若干疑問なのは、HeadComp の title を computed で mapGetters？別にキャッシュする必要なくない？って思って公式見たらどうやらお作法っぽい
-あと mapgetters の記述が人によって結構異なっている。おおよそは。module-typeってフォルダ以下にファイルを作成してそれらを import してッシ要している感じ。作成したファイルには、export defaultで const を export している感じ</description>
-    </item>
-    
-    <item>
-      <title>Vuexに挑戦！！</title>
-      <link>http://hironeko.github.io/posts/201903/20190330/</link>
-      <pubDate>Sat, 30 Mar 2019 00:05:43 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190330/</guid>
-      <description>何事も手を動かすことが大事 Qiita の記事(下記記載)では、いきなりVuexの導入から始まっているがリンクにある gist のページを見るとVueの環境構築から手順があるのでわからない人は参考にしましょう。
-例によって Linter は、今回も抜きます。というのも今回は、構文に敏感に注意するより手を動かして Vue と仲良くなるのが目的なのでそこは、捨てます。実際の開発では、大切な要素であることは忘れずに進めます。
-自分は以下のように設定しました。
-? Project name your_app_name ? Project description A Vue.js project ? Author hironeko &amp;lt;xxxxxxxx@exsample.com&amp;gt; ? Vue build standalone ? Install vue-router? Yes ? Use ESLint to lint your code? No ? Set up unit tests No ? Setup e2e tests with Nightwatch? No ? Should we run `npm install` for you after the project has been created? (recommended) yarn  Vuex を install さっそく install するみたいですね。待ってました。</description>
-    </item>
-    
-    <item>
-      <title>Vueで1ページアプリ</title>
-      <link>http://hironeko.github.io/posts/201903/20190329/</link>
-      <pubDate>Fri, 29 Mar 2019 00:05:20 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190329/</guid>
-      <description>Vue.js だけでひとまず何かを作成 今回は、時計のアプリケーションを写経。Linter は使用せずです。
-進め方は参考サイトを元に進めました。
-CSS はコピペしたがそれ以外は写経、手に馴染めば何も考えなくても手が勝手に動くようになるものなので。戦地の道も一歩からですね。
-今回のアプリの写経での学び computedの挙動 ただし年月日時分の箇所すかね。
-秒は、method でもいいわけですね。
-例えば、このコードでは、computed にsecondsを methods に移動させます。
-seconds() { return zeroPadding(this.date.getSeconds(), 2) }  としtemplateの方は、seconds &amp;gt; seconds()に変更し再起動しても変化がありません。
-値に変化が起きない限り再計算処理が走らないのが computed です。 computed の使うポイントとしては、キャッシュしたい何かを返す必要がある(再計算する必要が低い)場合に適任
-methods に関しては、算出(計算)結果のキャッシュはされません。
-日本語で説明を書くには、ちょっと通じにくい文章になりますな。
-大雑把に基礎の学習を終えひとまず何かしら作って手に馴染ませる ということで次は、vuex を使用しての学習。以前 component についは、重要と言う話だったがここで実際に手を動かし学習を進める。
-下記参考サイトのvue.js＋Vuexチュートリアルを参考に進める。(1 年前のものなので必要に応じて適宜変更を加えながら進める)
-参考サイト 第一回 Vue.js で Web アプリをつくろう！
-vue.js ＋ Vuex チュートリアル</description>
-    </item>
-    
-    <item>
-      <title>Vueに入門してみよう</title>
-      <link>http://hironeko.github.io/posts/201903/20190326/</link>
-      <pubDate>Tue, 26 Mar 2019 23:14:50 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190326/</guid>
-      <description>Vue をちゃんと入門 触ったことある。けど業務では未使用だし本格的には触っていない。だもんでちゃんと入門してみることにした(復習の意味も込めて)
-参考にするもの 本家を参考にしつつ、無料で実装動画が見れるのでそれを写経をしていこうかと
-Vue はでっかい object？ var app = new Vue({ el: &amp;quot;#app&amp;quot;, data: { message: &amp;quot;Hello Vue!&amp;quot; } })  例えばこれのmessageを変更する場合app.message = &#39;change value&#39;;のようにすれば変更ができる
-でかい object にしか見えない&amp;hellip;..
-ループ 例えばこんな配列があったとします。これを順に表示する場合
-var app = new Vue({ el: &amp;quot;#app&amp;quot;, data: { todos: [ { text: &amp;quot;frist text&amp;quot; }, { text: &amp;quot;second text&amp;quot; }, { text: &amp;quot;thead text&amp;quot; } ] } })  &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt; &amp;lt;ol&amp;gt; &amp;lt;li v-for=&amp;quot;todo in todos&amp;quot;&amp;gt; {{ todo.</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vue on hironeko | Webエンジニア / テックリード</title><link>https://hironeko.github.io/tags/vue/</link><description>Recent content in Vue on hironeko | Webエンジニア / テックリード</description><generator>Hugo</generator><language>ja</language><lastBuildDate>Wed, 26 Jun 2019 22:53:16 +0900</lastBuildDate><atom:link href="https://hironeko.github.io/tags/vue/index.xml" rel="self" type="application/rss+xml"/><item><title>vuepressを触ってみた</title><link>https://hironeko.github.io/posts/201906/20190626/</link><pubDate>Wed, 26 Jun 2019 22:53:16 +0900</pubDate><guid>https://hironeko.github.io/posts/201906/20190626/</guid><description>&lt;h2 id="目的"&gt;目的&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Go の勉強で Hugo を触ってみたものの自分としては、んー今じゃない感がありました。機能としては十分だし、成熟しつつあるドキュメントも多いんだけども Go をちゃんと学習してからだなと思った次第
+&lt;ul&gt;
+&lt;li&gt;ちゃんとというのは曖昧で正確に言えば基礎を一通りしてからでってことですね。最初の過程をすっ飛ばしました。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;そこで代わりになるものはないかなーできれば Vue か React 関連で。。。っとおもったら vuepress なるものがあるらしいとのことで触ってみた&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="触った所感"&gt;触った所感&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;わかりやすい。ただその一言ですね。ただ日本語ドキュメントは、Hugo とくらべてあまりない印象
+&lt;ul&gt;
+&lt;li&gt;コードを書いた際のスニペットもいい感じでした。&lt;/li&gt;
+&lt;li&gt;絵文字も見れますしね。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;ひとまず導入手順のみ書き残そうと思った次第です&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="導入手順"&gt;導入手順&lt;/h2&gt;
+&lt;h1 id="vuepress"&gt;VuePress&lt;/h1&gt;
+&lt;p&gt;下記コマンドを実行&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;yarn init
+yarn add -D vuepress
+echo &amp;#39;# Hello VuePress&amp;#39; &amp;gt; README.md
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;package.json に追加&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-json" data-lang="json"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;scripts&amp;#34;&lt;/span&gt;&lt;span style="color:#960050;background-color:#1e0010"&gt;:&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;#34;dev&amp;#34;&lt;/span&gt;: &lt;span style="color:#e6db74"&gt;&amp;#34;vuepress dev&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;#34;build&amp;#34;&lt;/span&gt;: &lt;span style="color:#e6db74"&gt;&amp;#34;vuepress build&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }&lt;span style="color:#960050;background-color:#1e0010"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;yarn dev // サーバーを起動しブラウザで確認
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;yarn build // buildを行いディレクトリを作成
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;touch .vuepress/config.js
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以下を記述
+base: &amp;lsquo;/dirName/&amp;rsquo; // GitHub Pages の公開ディレクトリ
+dest: &amp;lsquo;docs/&amp;rsquo;, // build 時の出力先指定&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-javascript" data-lang="javascript"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#a6e22e"&gt;module&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;exports&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;title&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;GitHub Pages product by vuepress&amp;#34;&lt;/span&gt;, &lt;span style="color:#75715e"&gt;// 公開ページのタイトル
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;desctription&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;VuePress 挑戦&amp;#34;&lt;/span&gt;, &lt;span style="color:#75715e"&gt;// ページの説明
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;dest&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;docs/&amp;#34;&lt;/span&gt; &lt;span style="color:#75715e"&gt;// build字の出力先指定
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最終的には、サーバーを立ち上げれば&lt;code&gt;Hello World&lt;/code&gt;が確認できます。&lt;/p&gt;</description></item><item><title>Vuexに挑戦2</title><link>https://hironeko.github.io/posts/201904/20190401/</link><pubDate>Mon, 01 Apr 2019 00:09:15 +0900</pubDate><guid>https://hironeko.github.io/posts/201904/20190401/</guid><description>&lt;h2 id="前回の続編"&gt;前回の続編&lt;/h2&gt;
+&lt;p&gt;テキストエリアを作成する。ここは、大きく変更はなくお手本の通りに進める。
+どうやらエラー文言を出力するように記述するみたですね。&lt;/p&gt;
+&lt;p&gt;さっさ先に進めます。
+次は、&lt;code&gt;StringComp.vue&lt;/code&gt;の作成&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;src/components/modules/&lt;/code&gt;以下に作成したら、&lt;code&gt;Form.vue&lt;/code&gt;で import, components, template に追加を行う。&lt;/p&gt;
+&lt;p&gt;今回は、&lt;code&gt;src/components/modules/&lt;/code&gt;以下に作成したものは、&lt;code&gt;Form.vue&lt;/code&gt;で使うので忘れずに追記ですな。&lt;/p&gt;
+&lt;h2 id="イベント"&gt;イベント&lt;/h2&gt;
+&lt;p&gt;ボタンの作成、イベントを発火させるために&lt;code&gt;v-on&lt;/code&gt;ディレクティブを使う。&lt;/p&gt;
+&lt;p&gt;そのまま写経するのは、簡単だがちゃんと理解は必要だね。&lt;/p&gt;
+&lt;p&gt;vue のメソッドを使用するみたですね。なぜ使うの、何が実現できるかくらいは把握すべきなのでちょっと調べます。&lt;/p&gt;
+&lt;p&gt;調べているうちに&lt;code&gt;mapAction&lt;/code&gt;と&lt;code&gt;mapGetters&lt;/code&gt;は、Vuex の学習でかなーーーり重要とわかる。&lt;/p&gt;
+&lt;h4 id="コンポーネント内のアクションのディスパッチ"&gt;コンポーネント内のアクションのディスパッチ&lt;/h4&gt;
+&lt;p&gt;正攻法のやりかた&lt;code&gt;this.$store.dispatch('xxx')&lt;/code&gt;で可能だがちゃーーーんと便利なヘルパーを用意してくれているのが Vuex のようですな。それが今回学ぶものの一つ&lt;code&gt;mapActions&lt;/code&gt;である。(&lt;a href="https://vuex.vuejs.org/ja/guide/actions.html#%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E5%86%85%E3%81%A7%E3%81%AE%E3%82%A2%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E3%83%87%E3%82%A3%E3%82%B9%E3%83%91%E3%83%83%E3%83%81"&gt;公式サイト&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;よは、簡単にコンポーネント内のアクションを使おうぜ！と今は、把握しておく。
+これを利用する際、必ず Vue インスタンスに&lt;code&gt;store&lt;/code&gt;を追加しないといけない&lt;/p&gt;
+&lt;h4 id="mapgetters-も同様"&gt;mapGetters も同様&lt;/h4&gt;
+&lt;p&gt;この編集では、mapGetters が使われていないように見えるがこのあとちゃんと使用している。
+&lt;code&gt;this.$store.getters['SOME']&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id="store-の作成"&gt;store の作成&lt;/h3&gt;
+&lt;p&gt;mapActions を使用するので store を追加する必要がある。先に&lt;code&gt;main.js&lt;/code&gt;の修正を行うようだ。&lt;/p&gt;
+&lt;p&gt;この時点は、&lt;code&gt;store&lt;/code&gt;フォルダすら存在していないため保存したらエラーが発生する。フォルダと index.js を作成した段階でエラーが消える。&lt;/p&gt;
+&lt;p&gt;作成の順番が本当に正しいのか不明だけどここでふと思ったのは、mapActions の第一引数は、namespaced になっている。store の index.js で作成している const 名であるわけで、最初に store を作成すべきでは・・・？と思ったが結果動くなら順番なんて関係ないけどもふと気になった。&lt;/p&gt;
+&lt;p&gt;すべての実装を行い終わったら画面の&lt;code&gt;確認&lt;/code&gt;ボタンを押下すると console に&lt;code&gt;buttonAction&lt;/code&gt;が出力される。なんと！！！！&lt;/p&gt;
+&lt;p&gt;実装してて、公式の解説を読んだりしてたけどもなるほどねー感覚的には理解しているがあくまで感覚なのでさらに深めたいですね。何個も作成して&lt;/p&gt;
+&lt;h2 id="vuex"&gt;Vuex&lt;/h2&gt;
+&lt;p&gt;今回の大本命。ここまでの Vuex 自体は、出てはきているがなぜ必要なのか、何をするものなのかって言うのがここで解説をしてくださっている。&lt;/p&gt;
+&lt;p&gt;若干疑問なのは、HeadComp の title を computed で mapGetters？別にキャッシュする必要なくない？って思って公式見たらどうやらお作法っぽい&lt;/p&gt;
+&lt;p&gt;あと mapgetters の記述が人によって結構異なっている。おおよそは。&lt;code&gt;module-type&lt;/code&gt;ってフォルダ以下にファイルを作成してそれらを import してッシ要している感じ。作成したファイルには、&lt;code&gt;export default&lt;/code&gt;で const を export している感じ&lt;/p&gt;</description></item><item><title>Vuexに挑戦！！</title><link>https://hironeko.github.io/posts/201903/20190330/</link><pubDate>Sat, 30 Mar 2019 00:05:43 +0900</pubDate><guid>https://hironeko.github.io/posts/201903/20190330/</guid><description>&lt;h2 id="何事も手を動かすことが大事"&gt;何事も手を動かすことが大事&lt;/h2&gt;
+&lt;p&gt;Qiita の記事(&lt;a href="#%E5%8F%82%E8%80%83%E3%82%B5%E3%82%A4%E3%83%88%E3%81%A8%E4%BD%BF%E7%94%A8%E3%83%84%E3%83%BC%E3%83%AB%E3%83%AA%E3%83%B3%E3%82%AF"&gt;下記記載&lt;/a&gt;)では、いきなり&lt;code&gt;Vuex&lt;/code&gt;の導入から始まっているがリンクにある gist のページを見ると&lt;code&gt;Vue&lt;/code&gt;の環境構築から手順があるのでわからない人は参考にしましょう。&lt;/p&gt;
+&lt;p&gt;例によって Linter は、今回も抜きます。というのも今回は、構文に敏感に注意するより手を動かして Vue と仲良くなるのが目的なのでそこは、捨てます。実際の開発では、大切な要素であることは忘れずに進めます。&lt;/p&gt;
+&lt;p&gt;自分は以下のように設定しました。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;? Project name your_app_name
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;? Project description A Vue.js project
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;? Author hironeko &amp;lt;xxxxxxxx@exsample.com&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;? Vue build standalone
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;? Install vue-router? Yes
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;? Use ESLint to lint your code? No
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;? Set up unit tests No
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;? Setup e2e tests with Nightwatch? No
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;? Should we run &lt;span style="color:#e6db74"&gt;`&lt;/span&gt;npm install&lt;span style="color:#e6db74"&gt;`&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; you after the project has been created? &lt;span style="color:#f92672"&gt;(&lt;/span&gt;recommended&lt;span style="color:#f92672"&gt;)&lt;/span&gt; yarn
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="vuex-を-install"&gt;Vuex を install&lt;/h2&gt;
+&lt;p&gt;さっそく install するみたいですね。待ってました。&lt;/p&gt;</description></item><item><title>Vueで1ページアプリ</title><link>https://hironeko.github.io/posts/201903/20190329/</link><pubDate>Fri, 29 Mar 2019 00:05:20 +0900</pubDate><guid>https://hironeko.github.io/posts/201903/20190329/</guid><description>&lt;h2 id="vuejs-だけでひとまず何かを作成"&gt;Vue.js だけでひとまず何かを作成&lt;/h2&gt;
+&lt;p&gt;今回は、時計のアプリケーションを写経。Linter は使用せずです。&lt;/p&gt;
+&lt;p&gt;進め方は参考サイトを元に進めました。&lt;/p&gt;
+&lt;p&gt;CSS はコピペしたがそれ以外は写経、手に馴染めば何も考えなくても手が勝手に動くようになるものなので。戦地の道も一歩からですね。&lt;/p&gt;
+&lt;h2 id="今回のアプリの写経での学び"&gt;今回のアプリの写経での学び&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;computed&lt;/code&gt;の挙動
+ただし年月日時分の箇所すかね。&lt;/p&gt;
+&lt;p&gt;秒は、method でもいいわけですね。&lt;/p&gt;
+&lt;p&gt;例えば、このコードでは、computed に&lt;code&gt;seconds&lt;/code&gt;を methods に移動させます。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-javascript" data-lang="javascript"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#a6e22e"&gt;seconds&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;zeroPadding&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;this&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;date&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;getSeconds&lt;/span&gt;(), &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;とし&lt;code&gt;template&lt;/code&gt;の方は、&lt;code&gt;seconds&lt;/code&gt; &amp;gt; &lt;code&gt;seconds()&lt;/code&gt;に変更し再起動しても変化がありません。&lt;/p&gt;
+&lt;p&gt;値に変化が起きない限り再計算処理が走らないのが computed です。
+computed の使うポイントとしては、キャッシュしたい何かを返す必要がある(再計算する必要が低い)場合に適任&lt;/p&gt;
+&lt;p&gt;methods に関しては、算出(計算)結果のキャッシュはされません。&lt;/p&gt;
+&lt;p&gt;日本語で説明を書くには、ちょっと通じにくい文章になりますな。&lt;/p&gt;
+&lt;h2 id="大雑把に基礎の学習を終えひとまず何かしら作って手に馴染ませる"&gt;大雑把に基礎の学習を終えひとまず何かしら作って手に馴染ませる&lt;/h2&gt;
+&lt;p&gt;ということで次は、vuex を使用しての学習。以前 component についは、重要と言う話だったがここで実際に手を動かし学習を進める。&lt;/p&gt;
+&lt;p&gt;下記参考サイトの&lt;code&gt;vue.js＋Vuexチュートリアル&lt;/code&gt;を参考に進める。(1 年前のものなので必要に応じて適宜変更を加えながら進める)&lt;/p&gt;
+&lt;h4 id="参考サイト"&gt;参考サイト&lt;/h4&gt;
+&lt;p&gt;&lt;a href="https://www.monster-dive.com/blog/web_creative/20180608_001789.php"&gt;第一回 Vue.js で Web アプリをつくろう！&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://qiita.com/_P0cChi_/items/ebf8fbf035b36218a37e"&gt;vue.js ＋ Vuex チュートリアル&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Vueに入門してみよう</title><link>https://hironeko.github.io/posts/201903/20190326/</link><pubDate>Tue, 26 Mar 2019 23:14:50 +0900</pubDate><guid>https://hironeko.github.io/posts/201903/20190326/</guid><description>&lt;h2 id="vue-をちゃんと入門"&gt;Vue をちゃんと入門&lt;/h2&gt;
+&lt;p&gt;触ったことある。けど業務では未使用だし本格的には触っていない。だもんでちゃんと入門してみることにした(復習の意味も込めて)&lt;/p&gt;
+&lt;h2 id="参考にするもの"&gt;参考にするもの&lt;/h2&gt;
+&lt;p&gt;本家を参考にしつつ、無料で実装動画が見れるのでそれを写経をしていこうかと&lt;/p&gt;
+&lt;h2 id="vue-はでっかい-object"&gt;Vue はでっかい object？&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-javascript" data-lang="javascript"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;var&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;app&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Vue&lt;/span&gt;({
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;el&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;#app&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;data&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;message&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;Hello Vue!&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;})
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;例えばこれの&lt;code&gt;message&lt;/code&gt;を変更する場合&lt;code&gt;app.message = 'change value';&lt;/code&gt;のようにすれば変更ができる&lt;/p&gt;
+&lt;p&gt;でかい object にしか見えない&amp;hellip;..&lt;/p&gt;
+&lt;h2 id="ループ"&gt;ループ&lt;/h2&gt;
+&lt;p&gt;例えばこんな配列があったとします。これを順に表示する場合&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-javascript" data-lang="javascript"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;var&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;app&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Vue&lt;/span&gt;({
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;el&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;#app&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;data&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;todos&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; [
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; { &lt;span style="color:#a6e22e"&gt;text&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;frist text&amp;#34;&lt;/span&gt; },
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; { &lt;span style="color:#a6e22e"&gt;text&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;second text&amp;#34;&lt;/span&gt; },
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; { &lt;span style="color:#a6e22e"&gt;text&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;thead text&amp;#34;&lt;/span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;})
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-html" data-lang="html"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&amp;lt;&lt;span style="color:#f92672"&gt;div&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;id&lt;/span&gt;&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;app&amp;#34;&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &amp;lt;&lt;span style="color:#f92672"&gt;ol&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &amp;lt;&lt;span style="color:#f92672"&gt;li&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;v-for&lt;/span&gt;&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;todo in todos&amp;#34;&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; {{ todo.text }}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &amp;lt;/&lt;span style="color:#f92672"&gt;li&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &amp;lt;/&lt;span style="color:#f92672"&gt;ol&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&amp;lt;/&lt;span style="color:#f92672"&gt;div&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;こんな感じになります。んー PHP のテンプレートエンジンみたい&amp;hellip;&lt;code&gt;for ... in ...&lt;/code&gt;これは、けっして真新しくもなくもともと JS で存在している&lt;code&gt;for in&lt;/code&gt;と同じ挙動してますね。(あっているのか？)&lt;/p&gt;</description></item></channel></rss>

@@ -1,11 +1,11 @@
 ---
 title: "About"
 name: "hironeko"
-role: "エンジニアリング視点でチームと事業をつなぐ人"
+role: "Webエンジニア / テックリード / PdM・PjM"
 date: 2025-09-18T00:00:00+09:00
-lastmod: 2025-09-18T00:00:00+09:00
+lastmod: 2026-06-13T00:00:00+09:00
 draft: false
-description: "自己紹介、スキル、興味関心などの概要"
+description: "PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。"
 toc: false
 ---
 
@@ -33,4 +33,17 @@ toc: false
 - 技術: Go, Rust などの静的型付け言語、観測性やプラットフォーム領域
 - 趣味: 音楽鑑賞、アニメ、読書、人間観察、DJ
 
-キャリアやプロジェクトについて気軽にご相談ください。
+## 副業・お仕事のご依頼
+
+現在、副業・業務委託でのご依頼を受け付けています。以下のような案件が得意です：
+
+- **Web アプリケーション開発**（PHP / Laravel, TypeScript / Vue / React, Go）
+- **アーキテクチャ設計・技術選定**（スタック見直し、AWS 設計、インフラ自動化）
+- **テックリード・開発支援**（コードレビュー、CI/CD 整備、品質改善）
+- **アジャイル導入・スクラム支援**（イベント設計、PjM 支援、チームビルディング）
+- **レガシーシステム改善**（リプレイス計画、リファクタリング、テスト基盤構築）
+
+ご相談は GitHub または下記メールアドレスまでお気軽にどうぞ。
+
+- **GitHub**: [github.com/hironeko](https://github.com/hironeko)
+- **Email**: [hironeko.sun@gmail.com](mailto:hironeko.sun@gmail.com)

@@ -1,260 +1,48 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    
-    <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
-
-<title>
-Vueに入門してみよう - hironeko desu
-</title>
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/css/main.min.81bbafc4df93b11c1c3e2449464373c384aa4903731b4fc7a77dfcdd979e184f.css" integrity="sha256-gbuvxN&#43;TsRwcPiRJRkNzw4SqSQNzG0/Hp3383ZeeGE8=" crossorigin="anonymous" media="screen">
-
-
-
- 
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Vueに入門してみよう"/>
-<meta name="twitter:description" content="Vue をちゃんと入門 触ったことある。けど業務では未使用だし本格的には触っていない。だもんでちゃんと入門してみることにした(復習の意味も込めて)
-参考にするもの 本家を参考にしつつ、無料で実装動画が見れるのでそれを写経をしていこうかと
-Vue はでっかい object？ var app = new Vue({ el: &quot;#app&quot;, data: { message: &quot;Hello Vue!&quot; } })  例えばこれのmessageを変更する場合app.message = &#39;change value&#39;;のようにすれば変更ができる
-でかい object にしか見えない&hellip;..
-ループ 例えばこんな配列があったとします。これを順に表示する場合
-var app = new Vue({ el: &quot;#app&quot;, data: { todos: [ { text: &quot;frist text&quot; }, { text: &quot;second text&quot; }, { text: &quot;thead text&quot; } ] } })  &lt;div id=&quot;app&quot;&gt; &lt;ol&gt; &lt;li v-for=&quot;todo in todos&quot;&gt; {{ todo."/>
-
-<meta property="og:title" content="Vueに入門してみよう" />
-<meta property="og:description" content="Vue をちゃんと入門 触ったことある。けど業務では未使用だし本格的には触っていない。だもんでちゃんと入門してみることにした(復習の意味も込めて)
-参考にするもの 本家を参考にしつつ、無料で実装動画が見れるのでそれを写経をしていこうかと
-Vue はでっかい object？ var app = new Vue({ el: &quot;#app&quot;, data: { message: &quot;Hello Vue!&quot; } })  例えばこれのmessageを変更する場合app.message = &#39;change value&#39;;のようにすれば変更ができる
-でかい object にしか見えない&hellip;..
-ループ 例えばこんな配列があったとします。これを順に表示する場合
-var app = new Vue({ el: &quot;#app&quot;, data: { todos: [ { text: &quot;frist text&quot; }, { text: &quot;second text&quot; }, { text: &quot;thead text&quot; } ] } })  &lt;div id=&quot;app&quot;&gt; &lt;ol&gt; &lt;li v-for=&quot;todo in todos&quot;&gt; {{ todo." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://hironeko.github.io/posts/201903/20190326/" />
-<meta property="article:published_time" content="2019-03-26T23:14:50&#43;09:00"/>
-<meta property="article:modified_time" content="2019-03-26T23:14:50&#43;09:00"/>
-
-
-    
-
-    
-    
-    
-    <title>
-        
-        Vueに入門してみよう
-        
-    </title>
-</head>
-
-<body>
-    <div class="wrap">
-        <div class="section" id="title">Vueに入門してみよう</div>
-
-        
-<div class="section" id="content">
-    Tue Mar 26, 2019 &#183; 175 words
-    
-    <div class="tag-container">
-        
-        <span class="tag">
-            <a href="http://hironeko.github.io/tags/vue">
-                Vue
-            </a>
-        </span>
-        
-        <span class="tag">
-            <a href="http://hironeko.github.io/tags/%E5%85%A5%E9%96%80">
-                入門
-            </a>
-        </span>
-        
-    </div>
-    
-    <hr/>
-    
-
-<h2 id="vue-をちゃんと入門">Vue をちゃんと入門</h2>
-
-<p>触ったことある。けど業務では未使用だし本格的には触っていない。だもんでちゃんと入門してみることにした(復習の意味も込めて)</p>
-
-<h2 id="参考にするもの">参考にするもの</h2>
-
-<p>本家を参考にしつつ、無料で実装動画が見れるのでそれを写経をしていこうかと</p>
-
-<h2 id="vue-はでっかい-object">Vue はでっかい object？</h2>
-
-<pre><code class="language-javascript">var app = new Vue({
-  el: &quot;#app&quot;,
-  data: {
-    message: &quot;Hello Vue!&quot;
-  }
-})
-</code></pre>
-
-<p>例えばこれの<code>message</code>を変更する場合<code>app.message = 'change value';</code>のようにすれば変更ができる</p>
-
-<p>でかい object にしか見えない&hellip;..</p>
-
-<h2 id="ループ">ループ</h2>
-
-<p>例えばこんな配列があったとします。これを順に表示する場合</p>
-
-<pre><code class="language-javascript">var app = new Vue({
-  el: &quot;#app&quot;,
-  data: {
-    todos: [
-      { text: &quot;frist text&quot; },
-      { text: &quot;second text&quot; },
-      { text: &quot;thead text&quot; }
-    ]
-  }
-})
-</code></pre>
-
-<pre><code class="language-html">&lt;div id=&quot;app&quot;&gt;
-  &lt;ol&gt;
-    &lt;li v-for=&quot;todo in todos&quot;&gt;
-      {{ todo.text }}
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;
-</code></pre>
-
-<p>こんな感じになります。んー PHP のテンプレートエンジンみたい&hellip;<code>for ... in ...</code>これは、けっして真新しくもなくもともと JS で存在している<code>for in</code>と同じ挙動してますね。(あっているのか？)</p>
-
-<p>違和感があるとしたらこの箇所が<code>{}</code>とかで括られていない点くらいですかね。</p>
-
-<h2 id="イベント">イベント</h2>
-
-<p>React でも Vue でも思ったんだけども昔の JS で onClick 属性ってあったと思うんだけど、僕がこの業界に入りたての頃にそんな属性使うのは、やばいっすよって言われた記憶がある&hellip;</p>
-
-<p>さて気を撮り直して早速</p>
-
-<pre><code class="language-javascript">var app = new Vue({
-  el: &quot;#app&quot;,
-  data: {
-    message: &quot;hi Vue!!&quot;
-  },
-  methods: {
-    reverseMessage: () =&gt; {
-      this.message = this.message
-        .split(&quot;&quot;)
-        .reverse()
-        .join(&quot;&quot;)
-    }
-  }
-})
-</code></pre>
-
-<pre><code class="language-html">&lt;div id=&quot;app&quot;&gt;
-  &lt;p&gt;{{ message }}&lt;/p&gt;
-  &lt;button v-on:click=&quot;reverseMessage&quot;&gt;Reverse Message&lt;/button&gt;
-&lt;/div&gt;
-</code></pre>
-
-<p>ここで自分なりの理解と整理</p>
-
-<p><code>new Vue()</code>でインスタンスを作成しそれを代入、中身に関して</p>
-
-<p><code>el</code> element を指しているでしょう(えっへん)。render 先を指定しているイメージ</p>
-
-<p><code>data</code> React で言う State ってイメージにしておこう。もちろんこのプロパティは object が渡されている(表現があっているのか？)</p>
-
-<p><code>methods</code> これも React でも同じような class に書くから違和感は、ない。</p>
-
-<p>PHP の class で言うなら el は説明が難しいが名称が異なるだけでこの object のプロパティであるということ</p>
-
-<h2 id="基本-dom-操作は-vue-任せ">基本 DOM 操作は Vue 任せ</h2>
-
-<p>公式にそう書かれている。まぁー確かにここまでの記述で DOM 操作しているものはない。なんということでしょう。DOM 操作から解放された。</p>
-
-<p>ここでは、ちょっと飛ばすけど<code>v-model</code>という双方向バインディングがかんたんに行えるディレクティブが存在する</p>
-
-<h2 id="次回以降">次回以降</h2>
-
-<p><code>component</code>について学習する。Vue の重要な抽象概念の一つが存在している。ここはかなーり重要だと思うし、<code>Vuex</code>や<code>Nuxt.js</code>でも大切になってくる箇所なのでしっかりと身につけて行きたいですな。</p>
-
-<h2 id="ちょっと小話">ちょっと小話</h2>
-
-<p>名探偵コナン結構好きなんだけども、お腹のベルトから出る<code>ボール</code>と<code>キック力増強シューズ</code>このコラボって人殺しかねないレベルで危険な気がする。</p>
-
-<p>それとスケボー！こいつもやばい。なんせバイクに追いつかれない速さを持っている。</p>
-
-<p>コナン君はとーーーーーっても危険な小学一年生だ。</p>
-
-</div>
-
-
-        
-<div class="section bottom-menu">
-    
-<hr />
-<p>
-
-
-    
-        <a href="/posts">back</a>
-        
-            &#183;
-        
-    
-
-    
-        
-            <a href="/">
-                Top
-            </a>
-        
-    
-    
-        
-            &#183; 
-            <a href="/about">
-                About
-            </a>
-        
-            &#183; 
-            <a href="/resume">
-                Resume
-            </a>
-        
-            &#183; 
-            <a href="/posts">
-                Posts
-            </a>
-        
-    
-    &#183; 
-    <a href="http://hironeko.github.io">
-        
-    </a>
-
-</p>
-</div>
-
-
-        <div class="section footer"></div>
-    </div>
-</body>
-
-</html>
+<!doctype html><html lang=ja><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Vueに入門してみよう - hironeko | Webエンジニア / テックリード</title><meta name=description content="PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。"><link rel=canonical href=https://hironeko.github.io/posts/201903/20190326/><meta property="og:type" content="article"><meta property="og:title" content="Vueに入門してみよう - hironeko | Webエンジニア / テックリード"><meta property="og:description" content="PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。"><meta property="og:url" content="https://hironeko.github.io/posts/201903/20190326/"><meta property="og:image" content="https://hironeko.github.io/tn.png"><meta property="og:locale" content="ja_JP"><meta property="og:site_name" content="hironeko | Webエンジニア / テックリード"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="Vueに入門してみよう - hironeko | Webエンジニア / テックリード"><meta name=twitter:description content="PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。"><meta name=twitter:image content="https://hironeko.github.io/tn.png"><script type=application/ld+json>{"@context":"https://schema.org","@type":"Person","name":"hironeko","jobTitle":"Webエンジニア / テックリード / PdM・PjM","description":"PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。","url":"https://hironeko.github.io/","sameAs":["https://github.com/hironeko"],"knowsAbout":["PHP","Laravel","TypeScript","Vue.js","React","AWS","Docker","Terraform","アジャイル開発","スクラム","テックリード","PdM","PjM"]}</script><style>:root{--bg:#0f172a;--panel:rgba(15, 23, 42, 0.6);--text:#e2e8f0;--muted:#94a3b8;--accent:#22d3ee;--accent-2:#a78bfa;--chip-bg:rgba(148, 163, 184, 0.15);--border:rgba(226, 232, 240, 0.08);--shadow:0 10px 30px rgba(2, 8, 23, 0.6)}[data-theme=light]{--bg:#f8fafc;--panel:rgba(255,255,255,0.75);--text:#0f172a;--muted:#334155;--accent:#0ea5e9;--accent-2:#7c3aed;--chip-bg:rgba(2, 132, 199, 0.08);--border:rgba(15, 23, 42, 0.08);--shadow:0 8px 24px rgba(0,0,0,0.08)}html,body{height:100%}body{margin:0;color:var(--text);background:radial-gradient(1200px 800px at 10% -10%,rgba(34,211,238,.15),transparent 60%),radial-gradient(1e3px 700px at 110% 10%,rgba(167,139,250,.18),transparent 60%),linear-gradient(180deg,var(--bg),var(--bg));font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,hiragino kaku gothic pron,noto sans jp,yu gothic ui,meiryo,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}.container{max-width:1080px;margin:0 auto;padding:64px 20px 96px}.hero{display:grid;grid-template-columns:1fr auto;gap:24px}.title{display:flex;flex-direction:column;gap:6px;justify-content:flex-end}.name{font-size:clamp(28px,5vw,40px);font-weight:800;letter-spacing:.4px}.role{color:var(--muted);font-size:16px}.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.btn{appearance:none;border:1px solid var(--border);color:var(--text);background:linear-gradient(180deg,rgba(255,255,255,6%),rgba(255,255,255,2%));padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;transition:transform 120ms ease,border-color 200ms ease,background 200ms ease;box-shadow:var(--shadow);display:inline-flex;align-items:center;gap:8px}.btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.18)}.btn-accent{border-color:rgba(34,211,238,.35);background:linear-gradient(180deg,rgba(34,211,238,.16),rgba(34,211,238,6%))}.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:var(--shadow)}.card+.card{margin-top:16px}.section-title{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:10px}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:var(--chip-bg);border:1px solid var(--border);font-size:13px}.footer{color:var(--muted);margin-top:28px;display:flex;gap:12px;align-items:center}.sep{opacity:.3}@media print{body{background:#fff;color:#000}.actions,.footer{display:none!important}.card{box-shadow:none;border-color:#ddd;background:#fff}.container{padding:0}}.main-card{margin-top:32px}.main-card .content :first-child{margin-top:0}.main-card .content :last-child{margin-bottom:0}.main-card h2,.main-card h3,.main-card h4{color:var(--text)}.main-card a{color:inherit;text-decoration:underline;text-decoration-color:rgba(34,211,238,.6)}</style></head><body><div class=container id=app><header class=hero><div class=title><div class=name>Vueに入門してみよう</div><div class=role>PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。</div></div><nav class=actions><a class=btn href=https://hironeko.github.io/>Top</a>
+<a class=btn href=https://hironeko.github.io/about>About</a>
+<a class=btn href=https://hironeko.github.io/resume>Resume</a>
+<a class=btn href=https://hironeko.github.io/posts>Posts</a>
+<button class=btn id=themeToggle>テーマ切替</button></nav></header><main class="main-card card"><div class=content><h2 id=vue-をちゃんと入門>Vue をちゃんと入門</h2><p>触ったことある。けど業務では未使用だし本格的には触っていない。だもんでちゃんと入門してみることにした(復習の意味も込めて)</p><h2 id=参考にするもの>参考にするもの</h2><p>本家を参考にしつつ、無料で実装動画が見れるのでそれを写経をしていこうかと</p><h2 id=vue-はでっかい-object>Vue はでっかい object？</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>app</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Vue</span>({
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>el</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;#app&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>data</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>message</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Hello Vue!&#34;</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>})
+</span></span></code></pre></div><p>例えばこれの<code>message</code>を変更する場合<code>app.message = 'change value';</code>のようにすれば変更ができる</p><p>でかい object にしか見えない&mldr;..</p><h2 id=ループ>ループ</h2><p>例えばこんな配列があったとします。これを順に表示する場合</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>app</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Vue</span>({
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>el</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;#app&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>data</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>todos</span><span style=color:#f92672>:</span> [
+</span></span><span style=display:flex><span>      { <span style=color:#a6e22e>text</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;frist text&#34;</span> },
+</span></span><span style=display:flex><span>      { <span style=color:#a6e22e>text</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;second text&#34;</span> },
+</span></span><span style=display:flex><span>      { <span style=color:#a6e22e>text</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;thead text&#34;</span> }
+</span></span><span style=display:flex><span>    ]
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>})
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-html data-lang=html><span style=display:flex><span>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;app&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>ol</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>v-for</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;todo in todos&#34;</span>&gt;
+</span></span><span style=display:flex><span>      {{ todo.text }}
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>  &lt;/<span style=color:#f92672>ol</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span></code></pre></div><p>こんな感じになります。んー PHP のテンプレートエンジンみたい&mldr;<code>for ... in ...</code>これは、けっして真新しくもなくもともと JS で存在している<code>for in</code>と同じ挙動してますね。(あっているのか？)</p><p>違和感があるとしたらこの箇所が<code>{}</code>とかで括られていない点くらいですかね。</p><h2 id=イベント>イベント</h2><p>React でも Vue でも思ったんだけども昔の JS で onClick 属性ってあったと思うんだけど、僕がこの業界に入りたての頃にそんな属性使うのは、やばいっすよって言われた記憶がある&mldr;</p><p>さて気を撮り直して早速</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>app</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Vue</span>({
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>el</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;#app&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>data</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>message</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;hi Vue!!&#34;</span>
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>methods</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>reverseMessage</span><span style=color:#f92672>:</span> () =&gt; {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>message</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>message</span>
+</span></span><span style=display:flex><span>        .<span style=color:#a6e22e>split</span>(<span style=color:#e6db74>&#34;&#34;</span>)
+</span></span><span style=display:flex><span>        .<span style=color:#a6e22e>reverse</span>()
+</span></span><span style=display:flex><span>        .<span style=color:#a6e22e>join</span>(<span style=color:#e6db74>&#34;&#34;</span>)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>})
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-html data-lang=html><span style=display:flex><span>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;app&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>p</span>&gt;{{ message }}&lt;/<span style=color:#f92672>p</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>v-on:click</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;reverseMessage&#34;</span>&gt;Reverse Message&lt;/<span style=color:#f92672>button</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span></code></pre></div><p>ここで自分なりの理解と整理</p><p><code>new Vue()</code>でインスタンスを作成しそれを代入、中身に関して</p><p><code>el</code> element を指しているでしょう(えっへん)。render 先を指定しているイメージ</p><p><code>data</code> React で言う State ってイメージにしておこう。もちろんこのプロパティは object が渡されている(表現があっているのか？)</p><p><code>methods</code> これも React でも同じような class に書くから違和感は、ない。</p><p>PHP の class で言うなら el は説明が難しいが名称が異なるだけでこの object のプロパティであるということ</p><h2 id=基本-dom-操作は-vue-任せ>基本 DOM 操作は Vue 任せ</h2><p>公式にそう書かれている。まぁー確かにここまでの記述で DOM 操作しているものはない。なんということでしょう。DOM 操作から解放された。</p><p>ここでは、ちょっと飛ばすけど<code>v-model</code>という双方向バインディングがかんたんに行えるディレクティブが存在する</p><h2 id=次回以降>次回以降</h2><p><code>component</code>について学習する。Vue の重要な抽象概念の一つが存在している。ここはかなーり重要だと思うし、<code>Vuex</code>や<code>Nuxt.js</code>でも大切になってくる箇所なのでしっかりと身につけて行きたいですな。</p><h2 id=ちょっと小話>ちょっと小話</h2><p>名探偵コナン結構好きなんだけども、お腹のベルトから出る<code>ボール</code>と<code>キック力増強シューズ</code>このコラボって人殺しかねないレベルで危険な気がする。</p><p>それとスケボー！こいつもやばい。なんせバイクに追いつかれない速さを持っている。</p><p>コナン君はとーーーーーっても危険な小学一年生だ。</p></div></main><footer class=footer><span>© 2026 hironeko</span>
+<span class=sep>·</span>
+<a class=btn href=https://hironeko.github.io/>Home</a></footer></div><script>(function(){const e=document.documentElement,t="theme",n=window.localStorage?localStorage.getItem(t):null,o=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches;n==="light"?e.setAttribute("data-theme","light"):n==="dark"?e.removeAttribute("data-theme"):o&&e.setAttribute("data-theme","light");const s=document.getElementById("themeToggle");s&&s.addEventListener("click",()=>{const n=e.getAttribute("data-theme")==="light"?"dark":"light";n==="dark"?(e.removeAttribute("data-theme"),window.localStorage&&localStorage.setItem(t,"dark")):(e.setAttribute("data-theme","light"),window.localStorage&&localStorage.setItem(t,"light"))})})()</script></body></html>

@@ -1,30 +1,25 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Laravel on hironeko desu</title>
-    <link>http://hironeko.github.io/tags/laravel/</link>
-    <description>Recent content in Laravel on hironeko desu</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <lastBuildDate>Thu, 14 Mar 2019 20:20:38 +0900</lastBuildDate>
-    
-	<atom:link href="http://hironeko.github.io/tags/laravel/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Composer でのちょっとした楽</title>
-      <link>http://hironeko.github.io/posts/201903/20190314/</link>
-      <pubDate>Thu, 14 Mar 2019 20:20:38 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190314/</guid>
-      <description>Composer がある環境  例えばLaravelを使用している場合  環境構築ってまぁまぁめんどいことに下のコマンドのような流れのはず
-git clone https:/xxxxxxx composer install cp env-example .env php artisan key:generate php artisan migrate  これすらめんどいわけで。。。 docker 環境だったとしたら docker-compose up -d &amp;ndash;build した時点で shell が走るようにしてればいいんだけども 環境がそれぞれの PC に依存している場合とかだとまぁーめんどいし README に書くのもだるい
-めんどいコマンドは composer.json に書けばいい rails とかだと用意されているんだけど(もちろんプロジェクト単位での追記はあると思うけど)setupコマンドを作っとけばいい
-composer のscriptsって箇所に追記すればいい。例えば下記のように
-&amp;quot;set-up&amp;quot;: [ &amp;quot;composer install&amp;quot;, &amp;quot;cp .env.example .env&amp;quot;, &amp;quot;php artisan key:generate&amp;quot; ]  って書いておけば
-composer set-up  一回で済む話。
-もしまだやったことがなくコマンド都度打つような環境なら最初の段階であらかじめ追記しておいた方がいい。そうしたらドキュメントも一行で済むし、他の作業者が間違えることなく初期環境構築が終えられると思う。できる限り日々小さなことでもめんどーは避けたい。</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Laravel on hironeko | Webエンジニア / テックリード</title><link>https://hironeko.github.io/tags/laravel/</link><description>Recent content in Laravel on hironeko | Webエンジニア / テックリード</description><generator>Hugo</generator><language>ja</language><lastBuildDate>Thu, 14 Mar 2019 20:20:38 +0900</lastBuildDate><atom:link href="https://hironeko.github.io/tags/laravel/index.xml" rel="self" type="application/rss+xml"/><item><title>Composer でのちょっとした楽</title><link>https://hironeko.github.io/posts/201903/20190314/</link><pubDate>Thu, 14 Mar 2019 20:20:38 +0900</pubDate><guid>https://hironeko.github.io/posts/201903/20190314/</guid><description>&lt;h2 id="composer-がある環境"&gt;Composer がある環境&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;例えば&lt;code&gt;Laravel&lt;/code&gt;を使用している場合&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;環境構築ってまぁまぁめんどいことに下のコマンドのような流れのはず&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;git clone https:/xxxxxxx
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;composer install
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;cp env-example .env
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;php artisan key:generate
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;php artisan migrate
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これすらめんどいわけで。。。
+docker 環境だったとしたら docker-compose up -d &amp;ndash;build した時点で shell が走るようにしてればいいんだけども
+環境がそれぞれの PC に依存している場合とかだとまぁーめんどいし README に書くのもだるい&lt;/p&gt;
+&lt;h2 id="めんどいコマンドは-composerjson-に書けばいい"&gt;めんどいコマンドは composer.json に書けばいい&lt;/h2&gt;
+&lt;p&gt;rails とかだと用意されているんだけど(もちろんプロジェクト単位での追記はあると思うけど)&lt;code&gt;setup&lt;/code&gt;コマンドを作っとけばいい&lt;/p&gt;
+&lt;p&gt;composer の&lt;code&gt;scripts&lt;/code&gt;って箇所に追記すればいい。例えば下記のように&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-json" data-lang="json"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;set-up&amp;#34;&lt;/span&gt;&lt;span style="color:#960050;background-color:#1e0010"&gt;:&lt;/span&gt; [
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;composer install&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;cp .env.example .env&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;php artisan key:generate&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;って書いておけば&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;composer set-up
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;一回で済む話。&lt;/p&gt;
+&lt;p&gt;もしまだやったことがなくコマンド都度打つような環境なら最初の段階であらかじめ追記しておいた方がいい。そうしたらドキュメントも一行で済むし、他の作業者が間違えることなく初期環境構築が終えられると思う。できる限り日々小さなことでもめんどーは避けたい。&lt;/p&gt;</description></item></channel></rss>

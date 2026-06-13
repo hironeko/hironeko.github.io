@@ -1,16 +1,17 @@
 baseURL = "https://hironeko.github.io/"
-languageCode = "ja"
-title = "hironeko desu"
+locale = "ja"
+title = "hironeko | Webエンジニア / テックリード"
 publishDir = "docs"
-enableRobotsTXT = true
+enableRobotsTXT = false
 canonifyURLs = true
 
 [params]
-# 検索エンジン向けのサイト全体の説明（各ページのdescriptionが無い場合のフォールバック）
-description = "PHP/Laravel中心のWebエンジニア・hironekoのポートフォリオとブログ"
+description = "PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。"
 author = "hironeko"
-# OGP/Twitterのデフォルト画像（存在するものに合わせておきます）
 images = ["/tn.png"]
+email = "hironeko.sun@gmail.com"
+github = "https://github.com/hironeko"
+freelanceAvailable = true
 
 [sitemap]
   changefreq = "weekly"

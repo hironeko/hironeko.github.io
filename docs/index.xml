@@ -1,424 +1,906 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>hironeko desu</title>
-    <link>http://hironeko.github.io/</link>
-    <description>Recent content on hironeko desu</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <lastBuildDate>Thu, 11 Jul 2019 00:05:36 +0900</lastBuildDate>
-    
-	<atom:link href="http://hironeko.github.io/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>LaravelでAPIのValidationエラーをどこで返すか問題</title>
-      <link>http://hironeko.github.io/posts/201907/201907010/</link>
-      <pubDate>Thu, 11 Jul 2019 00:05:36 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201907/201907010/</guid>
-      <description>個人的見解  Handler でハンドリングして返すのが正しいと思う。 そこ以外でハンドリングするとなると多分 trait を FormRequest で use するとかそんな方法になってしまう。それはそれで正しいとは思うけども本当に正しいのだろうか？と考えた結果Handler.phpで返すことに決めた  実処理 app/Exceptions/Handler.php
-&amp;lt;?php declare(strict_types=1); // 省略 class Handler extends ExceptionHandler { /** * @const string */ const ROUTE_PREFIX = &#39;api&#39;; // 省略 public function render($request, Exception $exception): void { if(collect(explode(&#39;/&#39;, $request-&amp;gt;route()-&amp;gt;getPrefix()))-&amp;gt;first() === self::ROUTE_PREFIX ) { $this-&amp;gt;apiReqponse($exception); } } // 省略 private function apiResponse(Exception $exception): void { if ($exception instanceof ValidationException) { $this-&amp;gt;throw($exception-&amp;gt;errors(), 400); } // 他のexceptionを羅列することが可能 } private function throw(array $errorMessage, int $code): void { throw new HttpResponseException( response()-&amp;gt;json( [ &#39;status&#39; =&amp;gt; &#39;fail&#39;, &#39;code&#39; =&amp;gt; $code, &#39;error_message&#39; =&amp;gt; $errorMessage ], $code ) ); } }  返却値  返却内容は、ぶっちゃけエラーとわかりかつ、フロント側で処理が行いやすいものならなんでもいいかなと思う。  { &#39;status&#39;: &#39;fail, &#39;code&#39;: 400, &#39;error_message&#39;: { &#39;field name&#39;: [ &#39;エラーです&#39; ] } }  余談 こっからは余談ですが、API の実装をしている基本的な返却形式は統一すべきだとおもってますし実際それは、スタンダードな考えだと思っています。今回Validationエラーに関して Handler でハンドリングを行うようにしたことによって統一できました。さらにいうとこれでテストの実装に関してはも形式が同じになったことにより楽になりました。</description>
-    </item>
-    
-    <item>
-      <title>Vueのディレクトリ構成</title>
-      <link>http://hironeko.github.io/posts/201907/20190704/</link>
-      <pubDate>Thu, 04 Jul 2019 01:13:19 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201907/20190704/</guid>
-      <description>今の自分の中で Vue のディレクトリ構成の最適解 そもそも色々と疑問があった。
-なぜ component は毎回個別に import するのか？
-なぜ JS は一個の object でどうにかしようとしているのにすべては詰め込まないのか
-でっかい object だとまぁーメモリやら通信速度やら問題は、あるのはわかっているがそもそも論が始まりそうだし宗教問題に発展してそうな雰囲気
-答えは OSS で生まれるのかも 人気のある FW やライブラリに関しては、いろんな人がいろんな提案し今の最適解を出そうとしているし他人にコードを読んもらうことを意識した書き方をしているためかリーダブルであることが多くとても有意義
-エンジニアリングは、エンジニアのスキルをあげることにも一役買っていると思う。
-答え出なくても draft にはなる 最適解が生まれづらい JS という世界では、現時点でベストであるというだけでも十分かなと思う。
-##　で最初の表題へ戻る
-├── components ├── container ├── lib ├── router └── store  途中段階だけど上記のような流れになるかなと
-いちいち components を import するのはだるいので中規模もしくは、ページ数が少ない、ないし小規模ならばグローバルに登録してしまえって思う。特に管理画面系を作成するならなおのこと思う
-都度 import をする記述が減るって happy だと思う
-また sotre の中も色々考えるけど
-mutations, getters, actions等々分けてもいいわけだし
-なんなら機能単位もしくは、ドメイン単位でサブディレクトリをmodulesみたいな作ってstoreに modules で登録すればいいねって思った
-さすれエンドポイントの file の記述が少なからず減るし 全体的な可読性が高まると思う。
-ヒントというか元になったのは vuetify の管理画面関連の OSS の構成</description>
-    </item>
-    
-    <item>
-      <title>vuepressを触ってみた</title>
-      <link>http://hironeko.github.io/posts/201906/20190626/</link>
-      <pubDate>Wed, 26 Jun 2019 22:53:16 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201906/20190626/</guid>
-      <description>目的  Go の勉強で Hugo を触ってみたものの自分としては、んー今じゃない感がありました。機能としては十分だし、成熟しつつあるドキュメントも多いんだけども Go をちゃんと学習してからだなと思った次第  ちゃんとというのは曖昧で正確に言えば基礎を一通りしてからでってことですね。最初の過程をすっ飛ばしました。  そこで代わりになるものはないかなーできれば Vue か React 関連で。。。っとおもったら vuepress なるものがあるらしいとのことで触ってみた  触った所感  わかりやすい。ただその一言ですね。ただ日本語ドキュメントは、Hugo とくらべてあまりない印象  コードを書いた際のスニペットもいい感じでした。 絵文字も見れますしね。  ひとまず導入手順のみ書き残そうと思った次第です  導入手順 VuePress 下記コマンドを実行
-yarn init yarn add -D vuepress echo &#39;# Hello VuePress&#39; &amp;gt; README.md  package.json に追加
-&amp;quot;scripts&amp;quot;: { &amp;quot;dev&amp;quot;: &amp;quot;vuepress dev&amp;quot;, &amp;quot;build&amp;quot;: &amp;quot;vuepress build&amp;quot; },  yarn dev // サーバーを起動しブラウザで確認 yarn build // buildを行いディレクトリを作成 touch .vuepress/config.js  以下を記述 base: &amp;lsquo;/dirName/&amp;rsquo; // GitHub Pages の公開ディレクトリ dest: &amp;lsquo;docs/&amp;rsquo;, // build 時の出力先指定</description>
-    </item>
-    
-    <item>
-      <title>久々に投稿</title>
-      <link>http://hironeko.github.io/posts/201905/20190529/</link>
-      <pubDate>Wed, 29 May 2019 23:25:59 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201905/20190529/</guid>
-      <description>モチベーション維持が大変 プログラミングが好きで今の仕事をやっている(半分正解)
-技術の探求は大好きなんだけどもめんどくさがりすぎる。
-それと人と微妙に感覚が異なっているのが自分的に納得いかない
-ラバーダッキング的な学習方法が主だからより一層ね
-それはさておき 最近職場で一人でもくもくと開発と PM 的なことを並行して行なっているんだけども その際に Laravel でちょっとしたコマンドを作成した
-repository pattern を採用しているんだけど DDD に寄せている設計で書いてて Laravel の artisan command には repository file の作成 command なんてなくてただただだるい作業が必ず発生するからめんどくて作った話
-ただ参考にしたサイトのコードにちょっと手を加えた程度
-あるとないとではだいぶ違う
-&amp;lt;?php declare(strict_types=1); namespace App\Console\Commands; use Illuminate\Console\Command; /** * CreateReposioryFileCommand class */ class CreateReposioryFileCommand extends Command { /** * @const string repository dir path */ const REPOSITORIES_PATH = &#39;app/Repositories/&#39;; /** * The name and signature of the console command. * * @var string */ protected $signature = &#39;make:repository {repositoryName : The name of repository}&#39;; /** * The console command description.</description>
-    </item>
-    
-    <item>
-      <title>Vuexに挑戦4</title>
-      <link>http://hironeko.github.io/posts/201904/20190409/</link>
-      <pubDate>Tue, 09 Apr 2019 22:27:22 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201904/20190409/</guid>
-      <description>前回までのあらすじ Form の制御って箇所まで行いました。次は、テキストエリアの切り替えです。
-:is とは？ お手本の Qiita の記事には補足がないので初心者は「ん？」となるでしょう。単純にこれは、　Vue が用意している省略機能の一つで完全な構文はv-bind:isです。(間違ってたらすみません)
-こうやって世間の目にさらされる場所に書く際は、間違えがないだろうかとちゃんと調べて動作確認しってことをするため体系的に頭にあったことが正しい知識として登録されることに意味があると思っている。
-あとは、お手本をもとに微妙に変えた書き方(spread operator)などで書きなおしつつ動作確認。
-このブログもそうだけど基本自宅では、VSCode を使用しているんだけど Vue で mapGetters を記述した際に import してくれるのはいいのだがtemplateの中にぶっこまれるのはどうして。。。。
-お手本のまま記述を大方終え動作確認をするとアプリっぽい感じになってきましたね。
-thanks ページの作成 この章で最後ですな。
-お手本通りの実装をすすめます。 ただ個人的にふと思ったのがThanks.vueにて mapActions, mapGetters を import しているけどもこれ消しても動くわけです。何か意図があったのかな？
-単純この file って最後のページだから何かイベント等は、発生しないと思う。
-あと一点rootState.setpCount == 2の箇所。個人的には厳密に判定してほしので===しました。
-いうてここは、数値しか来ないのは、わかっているけども。基本的に業務でも==は使用しないようにしているため。ここも 3 個にした。
-今回の学び 全体像は、掴めた。ただ state 関連は、色々と書き方がある点を知れたのと Vue がなぜ人気があるかなんとなくわかった。
-感想が短い・・・・
-さて次は何をやろうかな。 ちょっとまえに Laravel と Vue の instagram clone の記事がバズってたからそれを考えたは考えたがんー悩みどころだな。ただひたすら時間がかかりそうだ。
-それか今回のアプリのように比較的細かくあーだこーだ書くのはやめて、修正を加えた箇所やお手本と違う方法を試した箇所だけピックアップするようにするか。The memo 的な投稿を一個作成するだけにするか実に悩めかしい。</description>
-    </item>
-    
-    <item>
-      <title>初YYPHP</title>
-      <link>http://hironeko.github.io/posts/201904/20190408/</link>
-      <pubDate>Mon, 08 Apr 2019 22:52:51 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201904/20190408/</guid>
-      <description>当日の流れ 18:30 ~ 集合開始 人数が集まってきたら自己紹介と本日話したいことと聞きたいことなどを一人ずつ言う
-全員終わったら早速雑談開始
-非常に和気藹々の中話がされていく
-とーーーーても楽しい時間だったのは言うまでもない。
-では以下感想
-週明けしましたが先週末の YYPHP の感想 なぜ行ったのか？ ここ数年は人見知りがだいぶ強化されてどこいくのも億劫なのだが今の職場、所属会社に設計に関してなどを相談できる人がいないということでいくことを決意
-何を聞いたのか？ レガシーなシステムの改修について大雑把に聞いた
-メインお題・メンテナンスされていないライブラリを外すには？ 順序立てて削るか一気に削るか？ 解答 そもそも規模と予算による。けども一気に削るのは、よくはない。
-どんなシステム？ 僕：API サーバーでエンドポイントは 100 本くらい(すみません。正確な数字じゃない)
-アドバイス API は、対抗のシステムにも影響があるため画面で確認できるシステムより影響が大きい
-僕：DB 接続が 3 種類存在している。
-みなさん言葉を詰まらせる
-僕：1 万行くらいの file をはじめ 3~4 千行の file はざらにある。
-どよめき
-アドバイス できるだけ細かく分けてやったほうがいい シャドウという方法を知っている？ &amp;gt; No 入出力を確認してそれらが一致するように書き直す方法 (すみません。すでに実践してました。。。。)
-使われていないメソッドや変数に関しては、PHPStorm を使用して取り組んだ方がパフォーマンスがあがるから使った方がいい。
-PHP Inspectionsはいいぞ！！！
-インスタンスを作成する上限はきにしなくていい！ -&amp;gt;これは今最大に判断に迷ってたことなので非常に心強いお言葉だった
-個人の議題に関しての感想 普段現場では、独り言やずーと頭の中で会話している内容が実際に対面で誰かと話せ、かつ大先輩の方々から貴重なご意見をもらえたのは、とても刺激的で感動的だった。
-本来エンジニアならそういう発言や考えの討論、議論があっていいと思うけどもそれらがない環境はとてもつらい。
-けど一歩どこかに足を運べばそこには自分が求めている世界、環境があるのと改めて実感した。 また近いうちに YYPHP へ参加したいと思う
-他の方の議題 アーキテクチャや Vue に関してが多かった 個人的には、クリーンアーキテクチャなどに関して関心があって興味のある議題であったがこれも自分の中でもやもやしてた部分が解消された。
-簡単に言うとアーキテクチャは、何かを解決するためのものであった銀の弾丸ではないということ
-そもそも設計や方法に銀の弾丸は存在してなくてケースバイケースでいいと思われる設計を目指す。</description>
-    </item>
-    
-    <item>
-      <title>Vuexに挑戦3</title>
-      <link>http://hironeko.github.io/posts/201904/20190402/</link>
-      <pubDate>Tue, 02 Apr 2019 00:09:16 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201904/20190402/</guid>
-      <description>前回までのあらすじ HeadComp.vue に mapGetters を導入したところまでは、やったはず。
-今回は、Form.vue に mapGetters の記述を追加から進めます。
-mapGetters には、書き方が色々？ お手本の書き方
-computed: mapGetters(&amp;quot;Form&amp;quot;, { button: &amp;quot;getButton&amp;quot; })  このように書いている。ただ mapGetters について調べているとどうもこの書き方は見かけないぞ・・・？ということになり mapGetters とより仲良くなるために調べました。 ちなみに公式サイト
-ES6 の書き方を使用して(spread operator)の書き方が紹介されている。
-調べ物をしてて最終的に気づくのってやっぱ公式サイトやリファレンスって最強じゃね？って話。さらにいうと実装されている中身をみるのが一番さいつよです。ただいろんなところに記載されているコードは、良くも悪くも書き方の参考として頭の片隅に入れておくのを忘れずに。
-さて実際に自分がこの場面でいいなって思った書き方は以下です。 小さな規模ならわざわざ別名でマッピングする必要もないでしょうと考えました
-computed: { ...mapGetters( &#39;Form&#39;, [&#39;button&#39;] ) }  ただこのファイルで Form という文字が二回出てくる時点でどうなのって思うのも正直なところ。ただしこの書き方をした場合同時にstore/index.jsの方も書き方を変更しないといけない
-例えば下記のように
-getters: { button: (state, getters, rootState) =&amp;gt; state.button[rootState.stepCount] }  getters って必要なのか。。。？ちらっと最後まで見たが現状他のゲッターを受け取るようなことは書いてなかったが。。。ただ root の state へアクセスしたくまた使用したいから使わないけど第二引数に getters を書いていると言うことなのか。
-引数を表にしている人がいた【Vuex】Store の各プロパティ引数メモ
-ちなみに第 4 引数もあってrootGettersとかけるらしい
-root の getters を使用できるってことかな。今その事案が頭に浮かばないから一旦そういうものとして先に進む</description>
-    </item>
-    
-    <item>
-      <title>Vuexに挑戦2</title>
-      <link>http://hironeko.github.io/posts/201904/20190401/</link>
-      <pubDate>Mon, 01 Apr 2019 00:09:15 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201904/20190401/</guid>
-      <description>前回の続編 テキストエリアを作成する。ここは、大きく変更はなくお手本の通りに進める。 どうやらエラー文言を出力するように記述するみたですね。
-さっさ先に進めます。 次は、StringComp.vueの作成
-src/components/modules/以下に作成したら、Form.vueで import, components, template に追加を行う。
-今回は、src/components/modules/以下に作成したものは、Form.vueで使うので忘れずに追記ですな。
-イベント ボタンの作成、イベントを発火させるためにv-onディレクティブを使う。
-そのまま写経するのは、簡単だがちゃんと理解は必要だね。
-vue のメソッドを使用するみたですね。なぜ使うの、何が実現できるかくらいは把握すべきなのでちょっと調べます。
-調べているうちにmapActionとmapGettersは、Vuex の学習でかなーーーり重要とわかる。
-コンポーネント内のアクションのディスパッチ 正攻法のやりかたthis.$store.dispatch(&#39;xxx&#39;)で可能だがちゃーーーんと便利なヘルパーを用意してくれているのが Vuex のようですな。それが今回学ぶものの一つmapActionsである。(公式サイト)
-よは、簡単にコンポーネント内のアクションを使おうぜ！と今は、把握しておく。 これを利用する際、必ず Vue インスタンスにstoreを追加しないといけない
-mapGetters も同様 この編集では、mapGetters が使われていないように見えるがこのあとちゃんと使用している。 this.$store.getters[&#39;SOME&#39;]
-store の作成 mapActions を使用するので store を追加する必要がある。先にmain.jsの修正を行うようだ。
-この時点は、storeフォルダすら存在していないため保存したらエラーが発生する。フォルダと index.js を作成した段階でエラーが消える。
-作成の順番が本当に正しいのか不明だけどここでふと思ったのは、mapActions の第一引数は、namespaced になっている。store の index.js で作成している const 名であるわけで、最初に store を作成すべきでは・・・？と思ったが結果動くなら順番なんて関係ないけどもふと気になった。
-すべての実装を行い終わったら画面の確認ボタンを押下すると console にbuttonActionが出力される。なんと！！！！
-実装してて、公式の解説を読んだりしてたけどもなるほどねー感覚的には理解しているがあくまで感覚なのでさらに深めたいですね。何個も作成して
-Vuex 今回の大本命。ここまでの Vuex 自体は、出てはきているがなぜ必要なのか、何をするものなのかって言うのがここで解説をしてくださっている。
-若干疑問なのは、HeadComp の title を computed で mapGetters？別にキャッシュする必要なくない？って思って公式見たらどうやらお作法っぽい
-あと mapgetters の記述が人によって結構異なっている。おおよそは。module-typeってフォルダ以下にファイルを作成してそれらを import してッシ要している感じ。作成したファイルには、export defaultで const を export している感じ</description>
-    </item>
-    
-    <item>
-      <title>英語学習の方針</title>
-      <link>http://hironeko.github.io/posts/201903/20190331/</link>
-      <pubDate>Sun, 31 Mar 2019 23:24:33 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190331/</guid>
-      <description>なぜするのか？ 今している仕事で英語は、最悪英語がわからなくてもどうにかなるのが事実。だけどより高度な内容だったり、新たなツール、最新の情報のキャッチアップ、そもそものコードを読むにあたり、OSS 活動を行う上でなどでとても重要なスキルだから学習をする
-方針・方法は？ これまた単純で 0 から学習を始めるのでまずは、えっそんなことから？って思う人がいるかもしれないことから始める。
- 生活の一部に英語を取り込む。   もちろんこれは、仕事以外の私生活での話   好きな映画を英語字幕てひたすら鑑賞する   通勤時などは、洋書を読む。読む洋書は、童話など   1.を具体的に言うと自宅では、幼児向けの動画(歌)をひたすら流す。   アニメを見る時間は別ですがね！   2.に慣れてきたら好きな歌手の歌詞を和訳したりして遊ぶ。子供向け新聞や英字新聞を読んでみるようにしてみる  行うにあたって まず、英語を勉強しているんだという概念をどこかに置いてくることにする。その圧が発生した時点で長く続かなくなる。なので上にあげてことはいきなりやり始めるのではなく、少しずつ少しずつ取り入れていく
-2.とかであげている点は、まぁー自分が好きなものを読んだり見たりするから飽きは来なそうだけども。好きなことで自然と継続して身近なものにすると言うのが今回の目標ではある。
-なぜこれを書いたのか メモする癖はあれどどこになにを書いたかを忘れるときがある。もしくは、そこにたどり着くまでがめんどくさくて諦めるってことが多いのでこのブログ(?)に記載しこれをいつでも振り返るようにする。もちろん追記もしていくことでしょう。
-さて近いうちに何かしらの洋書をブックオフに買いに行こうと思う。
-それとこのブログにて進捗報告等は、気が向けばしていく。</description>
-    </item>
-    
-    <item>
-      <title>Vuexに挑戦！！</title>
-      <link>http://hironeko.github.io/posts/201903/20190330/</link>
-      <pubDate>Sat, 30 Mar 2019 00:05:43 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190330/</guid>
-      <description>何事も手を動かすことが大事 Qiita の記事(下記記載)では、いきなりVuexの導入から始まっているがリンクにある gist のページを見るとVueの環境構築から手順があるのでわからない人は参考にしましょう。
-例によって Linter は、今回も抜きます。というのも今回は、構文に敏感に注意するより手を動かして Vue と仲良くなるのが目的なのでそこは、捨てます。実際の開発では、大切な要素であることは忘れずに進めます。
-自分は以下のように設定しました。
-? Project name your_app_name ? Project description A Vue.js project ? Author hironeko &amp;lt;xxxxxxxx@exsample.com&amp;gt; ? Vue build standalone ? Install vue-router? Yes ? Use ESLint to lint your code? No ? Set up unit tests No ? Setup e2e tests with Nightwatch? No ? Should we run `npm install` for you after the project has been created? (recommended) yarn  Vuex を install さっそく install するみたいですね。待ってました。</description>
-    </item>
-    
-    <item>
-      <title>Vueで1ページアプリ</title>
-      <link>http://hironeko.github.io/posts/201903/20190329/</link>
-      <pubDate>Fri, 29 Mar 2019 00:05:20 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190329/</guid>
-      <description>Vue.js だけでひとまず何かを作成 今回は、時計のアプリケーションを写経。Linter は使用せずです。
-進め方は参考サイトを元に進めました。
-CSS はコピペしたがそれ以外は写経、手に馴染めば何も考えなくても手が勝手に動くようになるものなので。戦地の道も一歩からですね。
-今回のアプリの写経での学び computedの挙動 ただし年月日時分の箇所すかね。
-秒は、method でもいいわけですね。
-例えば、このコードでは、computed にsecondsを methods に移動させます。
-seconds() { return zeroPadding(this.date.getSeconds(), 2) }  としtemplateの方は、seconds &amp;gt; seconds()に変更し再起動しても変化がありません。
-値に変化が起きない限り再計算処理が走らないのが computed です。 computed の使うポイントとしては、キャッシュしたい何かを返す必要がある(再計算する必要が低い)場合に適任
-methods に関しては、算出(計算)結果のキャッシュはされません。
-日本語で説明を書くには、ちょっと通じにくい文章になりますな。
-大雑把に基礎の学習を終えひとまず何かしら作って手に馴染ませる ということで次は、vuex を使用しての学習。以前 component についは、重要と言う話だったがここで実際に手を動かし学習を進める。
-下記参考サイトのvue.js＋Vuexチュートリアルを参考に進める。(1 年前のものなので必要に応じて適宜変更を加えながら進める)
-参考サイト 第一回 Vue.js で Web アプリをつくろう！
-vue.js ＋ Vuex チュートリアル</description>
-    </item>
-    
-    <item>
-      <title>Jenkinsのハマりポイントとanyenvを入れた</title>
-      <link>http://hironeko.github.io/posts/201903/20190328/</link>
-      <pubDate>Thu, 28 Mar 2019 22:37:37 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190328/</guid>
-      <description>Jenkins でのハマった箇所の備忘録 今回困ったポイント
-蓋を開けたらそうだよねって話だったけど
-Jenkins ユーザーで job に必要なものを準備 Jenkins を導入したあとに job で使うために言語の Version 管理ツールを入れる必要があった。Jenkins 初心者の自分は、さてはてどう切り替えるんだ？ ひとまずぐぐる。結果まず最初に行うこと
-root で操作
-cat /etc/passwd  passwdは、一般ユーザーでも見れるから root である必要はないんだが。。。 以下のように出力される。
-.... jenkins:x:996:994:Jenkins Automation Server:/var/lib/jenkins:/bin/false  この結果の/bin/falseの箇所を手動で修正してもいいんだけどやるならちゃんとコマンドで実行する
-chsh jenkins -s /bin/bash  自分が導入した際の Jenkins の shell の path が/bin/bashだったので合わせた(正しいのか・・・？)
-shell を変更したあとに下記コマンドでユーザーを切り替える
-sudo su - jenkins  ここにたどり着くのに少々時間がかかってしまった&amp;hellip;&amp;hellip;
-anyenv をいれる Githubのページにある README を読めば導入はできるが注意点が必要
-git clone https://github.com/anyenv/anyenv ~/.anyenv echo &#39;export PATH=&amp;quot;$HOME/.anyenv/bin:$PATH&amp;quot;&#39; &amp;gt;&amp;gt; ~/.anyenv echo &#39;eval &amp;quot;$(anyenv init -)&amp;quot;&#39; &amp;gt;&amp;gt; ~/.</description>
-    </item>
-    
-    <item>
-      <title>Jenkinsを入れてみる</title>
-      <link>http://hironeko.github.io/posts/201903/20190327/</link>
-      <pubDate>Wed, 27 Mar 2019 22:53:29 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190327/</guid>
-      <description>なぜ Jenkins なのか 今いる職場で使用してた Jenkins が謎に動作不能に陥ったため選択肢としてひとまずの Jenkins となったから
-並行している管理画面のリプレイスの環境は、比較的にモダンな感じで CircleCi を使用している。
-言うても現状は、push の際に PHPUnit が走るようにしてあるだけであるが。
-そこで知見をためたら全部に適用させていきたいとは思っているが、現状 CircleCi に対しての知見がたまっておらず、今まで使用してた Jenkins でいいよねって話になったためである。
-前置きはこれにておしまい
-CentOS への Install これも何番煎じかわからないけどここに書けばいざという時に自分で振り返れるから。
-Install から自動起動までのコマンドは下記
-sudo -y install java-1.8.0-openjdk wget -0 /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key sudo -y install jenkins sudo systemctl start jenkins sudo chkconfig jenkins on  さぁーあとは、IP:8080 でブラウザからアクセスして確認です。
-ここから設定をおこなっていくのだが下記コマンドで初期パスワードを確認せねば
-sudo cat /var/lib/jenkins/secrets/initialAdminPassword
-出力された文字列をぺぺぺって貼り付けてボタン押下
-これ終わり。
-あとは普段入れている plugin などを導入して完了
-なぜ Jenkins が動作不能になったのか不明 実際自分が設定したわけでもなく管理してたわけでもなくっていう状況なのでまさに秘伝のタレ化してたのですわ。Jenkis の悪いところでもある属人化という負債ですね。
-運用方法を改善すればそんなことなく Jenkins と仲良く年をとっていけるわけですがね。まぁーそんあ甘くないと言うことですね。</description>
-    </item>
-    
-    <item>
-      <title>Vueに入門してみよう</title>
-      <link>http://hironeko.github.io/posts/201903/20190326/</link>
-      <pubDate>Tue, 26 Mar 2019 23:14:50 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190326/</guid>
-      <description>Vue をちゃんと入門 触ったことある。けど業務では未使用だし本格的には触っていない。だもんでちゃんと入門してみることにした(復習の意味も込めて)
-参考にするもの 本家を参考にしつつ、無料で実装動画が見れるのでそれを写経をしていこうかと
-Vue はでっかい object？ var app = new Vue({ el: &amp;quot;#app&amp;quot;, data: { message: &amp;quot;Hello Vue!&amp;quot; } })  例えばこれのmessageを変更する場合app.message = &#39;change value&#39;;のようにすれば変更ができる
-でかい object にしか見えない&amp;hellip;..
-ループ 例えばこんな配列があったとします。これを順に表示する場合
-var app = new Vue({ el: &amp;quot;#app&amp;quot;, data: { todos: [ { text: &amp;quot;frist text&amp;quot; }, { text: &amp;quot;second text&amp;quot; }, { text: &amp;quot;thead text&amp;quot; } ] } })  &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt; &amp;lt;ol&amp;gt; &amp;lt;li v-for=&amp;quot;todo in todos&amp;quot;&amp;gt; {{ todo.</description>
-    </item>
-    
-    <item>
-      <title>ReactでイベントとStateの再入門してみた</title>
-      <link>http://hironeko.github.io/posts/201903/20190325/</link>
-      <pubDate>Mon, 25 Mar 2019 01:02:21 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190325/</guid>
-      <description>イベント入門 import React from &amp;quot;react&amp;quot; class App extends React.Component { render() { retrun() /* ここに描く処理 */ } }  大枠は上記に記載している内容。以降は、フォーカスして復習をする
-&amp;lt;button onClick={() =&amp;gt; { console.log(&amp;quot;First Event!!&amp;quot;) }} &amp;gt; 初めてのイベント &amp;lt;/button&amp;gt;  するとブラウザの developer tools の console で確認ができる
-State 入門 何かの動作にたいして何かを変えるようにする動作がアプリケーションには必須。
-この動作に合わせて変更される値のことを React だと State と呼ばれる。
-React は、classを作成する際にReact.Componentをextendsして作成します。その際constructor(props) { ....}を記述し、stateを定義します
-定義したstateをrender内にて使用する際は、this.stateで代入したオブジェクトを使用できます(ただこの使用方法は基本しないと思います)
-this.state.定義したプロパティ名の形で使用すると認識しておく
-では、何かのイベントで state の値を更新(変更)する場合は？？ this.setSate({プロパティ名:変更する値})となります
-注意として
-this.state = {定義済みプロパティ:値}, this.state.name = &#39;値&#39;という方法では、行いません。
-同じイベントでクリックされるものによって更新する値が違うだけの場合 class 内にメソッドとして作成するといいことがあるなので実際に書いてみようと思う。今回は、イベントは一個だがメソッドを作成してみる
-// .... class App extends React.</description>
-    </item>
-    
-    <item>
-      <title>JSの復習</title>
-      <link>http://hironeko.github.io/posts/201903/20190324/</link>
-      <pubDate>Sun, 24 Mar 2019 23:10:42 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190324/</guid>
-      <description>React と Vue 最近は業務で使用している PHP 以外だとGoの勉強をしているがJSについてもスキルをあげたいのが正直な話だ。
-よって並行して勉強することとにする
-##　なぜするのか？
-自分のいくつかあるウィークポイントの一つにモダンな JS に対しての経験値が引くことがあげられる。
-どのように進めるのか？ 基本的にマルチタスクって生産性が低くなるので好きではないんだけども
-Goの勉強をしながら気晴らしにJSの学習をすることにする
-最終的に基礎的な概念や知識の理解、把握が追いつた段階で
-Goを API サーバーとして使用し、ReactとVue両方とも同じものを作成することにした。
-どんなものを作成するかはまだ決めてないが、よくある Todo 系は、たぶん実用的とは言えないのでそれは、学習の過程に盛り込むことにする
-最終的なゴール どちらの FW でも業務で使用したとしても問題ないレベルをゴールとする。
-次回以降 順に初歩的なことから忘備録として発信していく</description>
-    </item>
-    
-    <item>
-      <title>Resume</title>
-      <link>http://hironeko.github.io/resume/</link>
-      <pubDate>Tue, 19 Mar 2019 23:10:29 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/resume/</guid>
-      <description>職務経歴(概要) Web アプリケーション開発  PHP5.5 ~ 7.2, Ruby2.4, JavaScript あわせて 4 年(下記教育含む)  主に PHP の開発を中心に従事 直近の職場では、PHPUnit の導入、Docker を用いての開発、コードレビュー、コーディングルールを取り入れました。   教育  中途採用向けエンジニア研修プログラム作成 メンターとして教育担当を約 2 年  担当したのは、PHP 研修フロー全てに関わり、体制等の基盤を構築   職務経歴 株式会社 G(現職)  メイン事業：SES SES 出向・中途教育・受託開発 受託開発  派遣社員管理システム(3 人) 自身がメインとなり開発 PHP, Laravel  SES 出向先概要(降順)
- ランダムマッチングアプリの開発(4 人)
- 担当業務 既存プログラムの大幅改修、管理ツールのリプレイス  Laravel, 独自フレームワーク, Silex, React + Redux  SQL のチューニング  Web 予約サービスの再構築開発(プロジェクト全体 14 人：チームメンバー 4 人)</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>http://hironeko.github.io/about/</link>
-      <pubDate>Tue, 19 Mar 2019 22:46:42 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/about/</guid>
-      <description>元ニート 元ニートから独学でエンジニアになった人
- DJ したり、お水の世界にいたり、職人したり、サッカー歴 11 年くらい
- 趣味：音楽鑑賞、アニメ、読書、人間観察
-  業務で使用している主言語は、PHP
-学習したい言語 : [Go, Rust]</description>
-    </item>
-    
-    <item>
-      <title>hugoに挑戦</title>
-      <link>http://hironeko.github.io/posts/201903/20190317/</link>
-      <pubDate>Sun, 17 Mar 2019 20:24:48 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190317/</guid>
-      <description> はてなブログ  最初は、はてなブログが再開したがせっかくGo の勉強を始めたのでhugo でやってみようかなとただし 0 から始めるとどうせやらなくなるからひとまず既存の theme を使用してやろうかなと思う。  今回の theme  zenです。Github
- 選んだ理由
- どがつくほどシンプルであるから。   </description>
-    </item>
-    
-    <item>
-      <title>Composer でのちょっとした楽</title>
-      <link>http://hironeko.github.io/posts/201903/20190314/</link>
-      <pubDate>Thu, 14 Mar 2019 20:20:38 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190314/</guid>
-      <description>Composer がある環境  例えばLaravelを使用している場合  環境構築ってまぁまぁめんどいことに下のコマンドのような流れのはず
-git clone https:/xxxxxxx composer install cp env-example .env php artisan key:generate php artisan migrate  これすらめんどいわけで。。。 docker 環境だったとしたら docker-compose up -d &amp;ndash;build した時点で shell が走るようにしてればいいんだけども 環境がそれぞれの PC に依存している場合とかだとまぁーめんどいし README に書くのもだるい
-めんどいコマンドは composer.json に書けばいい rails とかだと用意されているんだけど(もちろんプロジェクト単位での追記はあると思うけど)setupコマンドを作っとけばいい
-composer のscriptsって箇所に追記すればいい。例えば下記のように
-&amp;quot;set-up&amp;quot;: [ &amp;quot;composer install&amp;quot;, &amp;quot;cp .env.example .env&amp;quot;, &amp;quot;php artisan key:generate&amp;quot; ]  って書いておけば
-composer set-up  一回で済む話。
-もしまだやったことがなくコマンド都度打つような環境なら最初の段階であらかじめ追記しておいた方がいい。そうしたらドキュメントも一行で済むし、他の作業者が間違えることなく初期環境構築が終えられると思う。できる限り日々小さなことでもめんどーは避けたい。</description>
-    </item>
-    
-    <item>
-      <title>レガシーなPHPシステムにPHPUnitを入れてみる</title>
-      <link>http://hironeko.github.io/posts/201903/20190313/</link>
-      <pubDate>Wed, 13 Mar 2019 20:19:32 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190313/</guid>
-      <description> 目的  単体テストがなく、なんの動作保証もない実装がすぐにローンチされている環境をなくしたい 色々とメンテナンスされていないライブラリを消し去りたい 他にも色々と理由はあった・・・・気がするけど主にこのへん  現状  レガシーのシステムなので PHP の version はもちろんサポ外ですよ
- なので極力対象のシステムが動く環境で検証実装 既存の秘伝のタレで作成されるvagrant環境を参考にdockerの環境構築に着手した しかし大きな問題が発生。メンテされていない、ドキュメントも少ない、安全な保証なしってことで消し去りたいライブラリを入れられないって問題。あまり時間も取られたくないのでひとまず秘伝のタレでできている vagrant 環境で実装することに※実際みる限り問題なく動いてはいるはず。  単体テストを使用しようとした痕跡はあるけどもそれ自体がテストとして成立してないものなので、即全削除。0 からの実装が確定
-  調査・事前準備  該当の PHP version で動く PHPUnit と DbUnit の組み合わせで検証プロトタイプの作成 その後秘伝のタレの vagrant 環境で動作確認  先々考えるとしんどい  理由  PHPUnit, DbUnit の version を PHP の version に伴ってあげると path が変わる。 そこを考慮して実装しないと世代アップにも時間が取られることになる。   次のブログで導入手順を書く  PHP : 5.6.* PHPUnit : 5.5.* DbUnit : 2.0.* という環境です。  </description>
-    </item>
-    
-    <item>
-      <title>大阪旅行2日目</title>
-      <link>http://hironeko.github.io/posts/201903/20190312/</link>
-      <pubDate>Tue, 12 Mar 2019 20:18:06 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190312/</guid>
-      <description> 2 日目  朝起きてホテルのビュッフェを食し大満足  難波  チェックアウト後に向かったのは、難波 - 着いて驚いたのは、なんちゃら筋って名の着く道がただひたすら人でごった返しててすごかった。 - そのまま心斎橋方面というか通過までしたけども歩いてみての感動は、やはりグリコ、道頓堀でした。 - んで昼は、お目当の加寿屋 法善寺店へ。 - クッソ並んだ。出入り口がものすごく狭いカウンターの店なので一定数を同時に入れ替え的な回し方なので待たざるおえない。たぶん飯でこれほど並んで待ったのは、初かも？けど結果美味しかった。 [https://tabelog.com/osaka/A2701/A270202/27045072/:embed:cite]  あべのハルカス  次に向かったのがあべのハルカス。
- 高所恐怖症の自分には、終始屁っ放り腰でしたね。まさかトイレがあんま怖いものだったとは。。。。 あべのハルカスから次の目的地の新世界を見下ろし(くっそ小さく感じた)。前日に行ったユニバも拝めたね。ただ大阪城ってどこや！！！！！って終始言い続けていた。結果大阪城の正確な位置とか知らんというね。  新世界の前に動物園が天皇の誕生日で無料開放されていたのでせっかくだからみて回ってみることに。
- 大阪の人って動物に対しても普通に突っ込むんだね。聞いてていいな〜って思った。東京ってなんか人間味にかけるというか気取ってるというかそんな雰囲気がすごく強いから大阪の雰囲気はとても新鮮で居心地がよかった。 ちなみに突っ込まれていたのは、気が立っているお猿さんでしたね。   新世界  ひとまずここは、東京でいうとどこが当てはまるのかは不明だが面白い
- 前日教わったエロシリーズのガチャガチャを一回やり、ひとまずみかんの網みたいなおパンティをゲット たこ焼き 塩マヨネーズ味のたこ焼きとオーソドックスなたこ焼きを食した。 どちらも美味しくて良き んで新世界の名物?である通天閣へ  おっさんがただひたすら長渕剛を熱唱
- しかもオンステージは、通天閣真下の路上の真ん中。だれも気に留めず車もクラクション鳴らさず、おっさんがただひたすら熱唱しているという絵面はシュールだったけど爆笑してしまった  少し早いけど夕飯的なノリで横綱というお店にて串揚げを食す。アスパラの大きさに驚きまぁーーーー本場の串揚げを食せて満足し、電気街の日本橋へ
- まさか大阪でダッチワイフ鑑賞するとは思わなかった。
-  大阪駅へ  はやいもので時間はあっという間でなんだかんだ帰りの新幹線の時間が近づいてきてしまった。  551 の肉まんを一箱買い。新幹線で東京へ   最後に  初めてづくしの大阪旅行でしたが十二分に楽しめたと思う。 また大阪へ行って行けなかった新喜劇なども行ってみたい。 その前に次は、福岡や京都かなー  </description>
-    </item>
-    
-    <item>
-      <title>初大阪旅行</title>
-      <link>http://hironeko.github.io/posts/201903/20190311/</link>
-      <pubDate>Mon, 11 Mar 2019 20:16:39 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190311/</guid>
-      <description>人生初大阪  土曜の早朝(新幹線始発)で大阪へ  2 時間半くらいで大阪へ到着。 新幹線乗って駅弁食べて速攻爆睡したので気づいたら大阪に到着っていう流れだった。  着いてからこれまた初のユニバへ直行
- 一回乗り換えして九条まで行きユニバへ到着 道中驚いたのは、なんと朝から公園で漫才をしている芸人さんがいたこと(よしもと西梅田劇場横)  道中聞こえてくるのはひたすら関西弁。自分自身大阪は初だけども周りに大阪出身の人が多すぎて慣れていたがまぁああああああどこもかしこも関西弁で聞いてて面白かった。
-  初ユニバ  ユニバに着いて速攻向かったのは、お目当のハリーポッターさんです。すんげーのなんの。アトラクションで自然と手を振り、拍手したのは初体験。
- 何がいいって演出やアトラクションの完成度。普通に錯覚を起こした。ここから二時間くらいはすごいすごいしかいうてなかったと思う。  この日に乗れたアトラクションは、ハリーポッター、スパイダーマン、ルパン三世、ミニオンと目玉どころを乗れたのはよかった。
- どれもアトラクションのクオリティがすごくこりゃみなさん文句言わずに並びますよと思った。 普段からテーマパーク系には、全く興味持たないし並んだりするってのが大嫌いなのだがディズニーとユニバは、並んでいいと思った。   金銭感覚  同伴者である彼女の親友さんカップルと夕飯に行ったんだが。お会計の価格に驚いた。
- 関東圏だと二人で 12,000 円くらいの食事って結構頻繁に多くてあまり驚かないんだけど大人 4 人でお酒飲んでそこそこ食べて 12,000 円代で収まって驚いていたのだが関西圏の人からするとそれでも「高い」らしい・・・ 普通に考えたら一人あたり 3,000 円なのだけども、3,000 円の食事代ってたっっかいよね。普段ランチでは、600 円前後で抑えるようにしているんだから 5 日分の食事代ってことになる。  翌日には、さらに色々と驚きばかりの大阪旅行になった。
-  ホテル  今回、JR 東海？のホテル + ユニバチケット + 新幹線往復のセットコースを使用したんですが二人合計で 7 万弱でした。これが安いのか高いのかはまぁーーーーわからないけどもホテルの所在地が市内に比較的に近くて駅近だった。朝食ビュッフェは別料金だったけど追加支払いしてよかったと思う。ただ初大阪だったので朝から盛大に大阪飯を狙うという選択肢を考えてもよかったかもしれない。  2 日目  別で書こうと思う。  誰も見なくても振り返りの材料としてのブログ  再開のブログが他人からすればどうでもいい大阪旅行というね。 今後</description>
-    </item>
-    
-    <item>
-      <title>ブログ再開</title>
-      <link>http://hironeko.github.io/posts/201903/20190310/</link>
-      <pubDate>Sun, 10 Mar 2019 04:38:56 +0900</pubDate>
-      
-      <guid>http://hironeko.github.io/posts/201903/20190310/</guid>
-      <description> 主に書いていくこと  エンジニアっぽいこと アニメの考察や感想 趣味など  ブログを再開する理由  アウトプットが少ないからブログでアウトプットしていくため  書いている人について  一応エンジニア(怠け者の極みである) アニメが好き 音楽が好き 金儲けが好き  ひとまず続けてみようと思う </description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Top on hironeko | Webエンジニア / テックリード</title><link>https://hironeko.github.io/</link><description>Recent content in Top on hironeko | Webエンジニア / テックリード</description><generator>Hugo</generator><language>ja</language><lastBuildDate>Sat, 13 Jun 2026 00:00:00 +0900</lastBuildDate><atom:link href="https://hironeko.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>About</title><link>https://hironeko.github.io/about/</link><pubDate>Thu, 18 Sep 2025 00:00:00 +0900</pubDate><guid>https://hironeko.github.io/about/</guid><description>&lt;h2 id="プロフィール"&gt;プロフィール&lt;/h2&gt;
+&lt;p&gt;独学からキャリアをスタートした元ニートの Web エンジニア。2015 年にエンジニアとしてのキャリアを開始し、現在はヘルスケア系サービスでテックリード兼 PdM/PjM として、開発統制・協業設計・採用までマルチハットで携わっています。10 年を超える開発経験を通じて、0→1 の立ち上げ、プロセス改善、ステークホルダーを巻き込んだ意思決定を得意としています。&lt;/p&gt;
+&lt;h2 id="得意領域"&gt;得意領域&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;PHP / Laravel を中心にした Web アプリケーション開発とアーキテクチャ設計&lt;/li&gt;
+&lt;li&gt;PdM・PjM・スクラムマスターを兼務しながらチームをリードするアジャイル推進&lt;/li&gt;
+&lt;li&gt;テスト文化・レビュー文化の定着による品質改善と開発体験の向上&lt;/li&gt;
+&lt;li&gt;レガシーシステムのリファクタリングやリプレイスによる継続的改善&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="最近の取り組み"&gt;最近の取り組み&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;ヘルスケア領域プロダクトの統制と段階的リプレイス計画の策定・推進&lt;/li&gt;
+&lt;li&gt;社内スケジュールおよび仕様統制、情シス的対応を兼ねたステークホルダー調整&lt;/li&gt;
+&lt;li&gt;AWS 運用改善・テスト戦略再構築・コードレビューによる品質担保&lt;/li&gt;
+&lt;li&gt;0→1 プロジェクトやモノレポ化、CI/CD パイプライン再設計、学習コミュニティ運営&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="興味関心"&gt;興味・関心&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;学習: スクラム / アジャイル、プロダクトマネジメント、組織づくり、ドメイン駆動設計&lt;/li&gt;
+&lt;li&gt;技術: Go, Rust などの静的型付け言語、観測性やプラットフォーム領域&lt;/li&gt;
+&lt;li&gt;趣味: 音楽鑑賞、アニメ、読書、人間観察、DJ&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="副業お仕事のご依頼"&gt;副業・お仕事のご依頼&lt;/h2&gt;
+&lt;p&gt;現在、副業・業務委託でのご依頼を受け付けています。以下のような案件が得意です：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Web アプリケーション開発&lt;/strong&gt;（PHP / Laravel, TypeScript / Vue / React, Go）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;アーキテクチャ設計・技術選定&lt;/strong&gt;（スタック見直し、AWS 設計、インフラ自動化）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;テックリード・開発支援&lt;/strong&gt;（コードレビュー、CI/CD 整備、品質改善）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;アジャイル導入・スクラム支援&lt;/strong&gt;（イベント設計、PjM 支援、チームビルディング）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;レガシーシステム改善&lt;/strong&gt;（リプレイス計画、リファクタリング、テスト基盤構築）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;ご相談は GitHub または下記メールアドレスまでお気軽にどうぞ。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;GitHub&lt;/strong&gt;: &lt;a href="https://github.com/hironeko"&gt;github.com/hironeko&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Email&lt;/strong&gt;: &lt;a href="mailto:hironeko.sun@gmail.com"&gt;hironeko.sun@gmail.com&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>Resume</title><link>https://hironeko.github.io/resume/</link><pubDate>Thu, 18 Sep 2025 00:00:00 +0900</pubDate><guid>https://hironeko.github.io/resume/</guid><description/></item><item><title>LaravelでAPIのValidationエラーをどこで返すか問題</title><link>https://hironeko.github.io/posts/201907/201907010/</link><pubDate>Thu, 11 Jul 2019 00:05:36 +0900</pubDate><guid>https://hironeko.github.io/posts/201907/201907010/</guid><description>&lt;h2 id="個人的見解"&gt;個人的見解&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Handler でハンドリングして返すのが正しいと思う。&lt;/li&gt;
+&lt;li&gt;そこ以外でハンドリングするとなると多分 trait を FormRequest で use するとかそんな方法になってしまう。それはそれで正しいとは思うけども本当に正しいのだろうか？と考えた結果&lt;code&gt;Handler.php&lt;/code&gt;で返すことに決めた&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="実処理"&gt;実処理&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;app/Exceptions/Handler.php&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-php" data-lang="php"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;&amp;lt;?&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;php&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;declare&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;strict_types&lt;/span&gt;&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// 省略
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Handler&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;extends&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;ExceptionHandler&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * @const string
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;const&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;ROUTE_PREFIX&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;api&amp;#39;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 省略
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;function&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;render&lt;/span&gt;($request, &lt;span style="color:#a6e22e"&gt;Exception&lt;/span&gt; $exception)&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;void&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;collect&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;explode&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#39;/&amp;#39;&lt;/span&gt;, $request&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;route&lt;/span&gt;()&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;getPrefix&lt;/span&gt;()))&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;first&lt;/span&gt;() &lt;span style="color:#f92672"&gt;===&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;self&lt;/span&gt;&lt;span style="color:#f92672"&gt;::&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;ROUTE_PREFIX&lt;/span&gt; ) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;apiReqponse&lt;/span&gt;($exception);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 省略
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;private&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;function&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;apiResponse&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;Exception&lt;/span&gt; $exception)&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;void&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; ($exception &lt;span style="color:#a6e22e"&gt;instanceof&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;ValidationException&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;throw&lt;/span&gt;($exception&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;errors&lt;/span&gt;(), &lt;span style="color:#ae81ff"&gt;400&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 他のexceptionを羅列することが可能
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;private&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;function&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;throw&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;array&lt;/span&gt; $errorMessage, &lt;span style="color:#a6e22e"&gt;int&lt;/span&gt; $code)&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;void&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;throw&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;HttpResponseException&lt;/span&gt;(
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;response&lt;/span&gt;()&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;json&lt;/span&gt;(
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; [
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;status&amp;#39;&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&amp;gt;&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;fail&amp;#39;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;code&amp;#39;&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&amp;gt;&lt;/span&gt; $code,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;error_message&amp;#39;&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&amp;gt;&lt;/span&gt; $errorMessage
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ],
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; $code
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; )
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; );
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="返却値"&gt;返却値&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;返却内容は、ぶっちゃけエラーとわかりかつ、フロント側で処理が行いやすいものならなんでもいいかなと思う。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-json" data-lang="json"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;&amp;#39;status&amp;#39;:&lt;/span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;&amp;#39;fail,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;&amp;#39;code&amp;#39;:&lt;/span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;400,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;&amp;#39;error_message&amp;#39;:&lt;/span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;&amp;#39;field&lt;/span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;name&amp;#39;:&lt;/span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;&amp;#39;エラーです&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#960050;background-color:#1e0010"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="余談"&gt;余談&lt;/h2&gt;
+&lt;p&gt;こっからは余談ですが、API の実装をしている基本的な返却形式は統一すべきだとおもってますし実際それは、スタンダードな考えだと思っています。今回&lt;code&gt;Validationエラー&lt;/code&gt;に関して Handler でハンドリングを行うようにしたことによって統一できました。さらにいうとこれでテストの実装に関してはも形式が同じになったことにより楽になりました。&lt;/p&gt;</description></item><item><title>Vueのディレクトリ構成</title><link>https://hironeko.github.io/posts/201907/20190704/</link><pubDate>Thu, 04 Jul 2019 01:13:19 +0900</pubDate><guid>https://hironeko.github.io/posts/201907/20190704/</guid><description>&lt;h1 id="今の自分の中で-vue-のディレクトリ構成の最適解"&gt;今の自分の中で Vue のディレクトリ構成の最適解&lt;/h1&gt;
+&lt;p&gt;そもそも色々と疑問があった。&lt;/p&gt;
+&lt;p&gt;なぜ component は毎回個別に import するのか？&lt;/p&gt;
+&lt;p&gt;なぜ JS は一個の object でどうにかしようとしているのにすべては詰め込まないのか&lt;/p&gt;
+&lt;p&gt;でっかい object だとまぁーメモリやら通信速度やら問題は、あるのはわかっているがそもそも論が始まりそうだし宗教問題に発展してそうな雰囲気&lt;/p&gt;
+&lt;h2 id="答えは-oss-で生まれるのかも"&gt;答えは OSS で生まれるのかも&lt;/h2&gt;
+&lt;p&gt;人気のある FW やライブラリに関しては、いろんな人がいろんな提案し今の最適解を出そうとしているし他人にコードを読んもらうことを意識した書き方をしているためかリーダブルであることが多くとても有意義&lt;/p&gt;
+&lt;p&gt;エンジニアリングは、エンジニアのスキルをあげることにも一役買っていると思う。&lt;/p&gt;
+&lt;h2 id="答え出なくても-draft-にはなる"&gt;答え出なくても draft にはなる&lt;/h2&gt;
+&lt;p&gt;最適解が生まれづらい JS という世界では、現時点でベストであるというだけでも十分かなと思う。&lt;/p&gt;
+&lt;p&gt;##　で最初の表題へ戻る&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;├── components
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;├── container
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;├── lib
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;├── router
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;└── store
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;途中段階だけど上記のような流れになるかなと&lt;/p&gt;
+&lt;p&gt;いちいち components を import するのはだるいので中規模もしくは、ページ数が少ない、ないし小規模ならばグローバルに登録してしまえって思う。特に管理画面系を作成するならなおのこと思う&lt;/p&gt;
+&lt;p&gt;都度 import をする記述が減るって happy だと思う&lt;/p&gt;
+&lt;p&gt;また sotre の中も色々考えるけど&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mutations&lt;/code&gt;, &lt;code&gt;getters&lt;/code&gt;, &lt;code&gt;actions&lt;/code&gt;等々分けてもいいわけだし&lt;/p&gt;
+&lt;p&gt;なんなら機能単位もしくは、ドメイン単位でサブディレクトリを&lt;code&gt;modules&lt;/code&gt;みたいな作って&lt;code&gt;store&lt;/code&gt;に modules で登録すればいいねって思った&lt;/p&gt;
+&lt;p&gt;さすれエンドポイントの file の記述が少なからず減るし
+全体的な可読性が高まると思う。&lt;/p&gt;
+&lt;h2 id="ヒントというか元になったのは"&gt;ヒントというか元になったのは&lt;/h2&gt;
+&lt;p&gt;vuetify の管理画面関連の OSS の構成&lt;/p&gt;</description></item><item><title>vuepressを触ってみた</title><link>https://hironeko.github.io/posts/201906/20190626/</link><pubDate>Wed, 26 Jun 2019 22:53:16 +0900</pubDate><guid>https://hironeko.github.io/posts/201906/20190626/</guid><description>&lt;h2 id="目的"&gt;目的&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Go の勉強で Hugo を触ってみたものの自分としては、んー今じゃない感がありました。機能としては十分だし、成熟しつつあるドキュメントも多いんだけども Go をちゃんと学習してからだなと思った次第
+&lt;ul&gt;
+&lt;li&gt;ちゃんとというのは曖昧で正確に言えば基礎を一通りしてからでってことですね。最初の過程をすっ飛ばしました。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;そこで代わりになるものはないかなーできれば Vue か React 関連で。。。っとおもったら vuepress なるものがあるらしいとのことで触ってみた&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="触った所感"&gt;触った所感&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;わかりやすい。ただその一言ですね。ただ日本語ドキュメントは、Hugo とくらべてあまりない印象
+&lt;ul&gt;
+&lt;li&gt;コードを書いた際のスニペットもいい感じでした。&lt;/li&gt;
+&lt;li&gt;絵文字も見れますしね。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;ひとまず導入手順のみ書き残そうと思った次第です&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="導入手順"&gt;導入手順&lt;/h2&gt;
+&lt;h1 id="vuepress"&gt;VuePress&lt;/h1&gt;
+&lt;p&gt;下記コマンドを実行&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;yarn init
+yarn add -D vuepress
+echo &amp;#39;# Hello VuePress&amp;#39; &amp;gt; README.md
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;package.json に追加&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-json" data-lang="json"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;scripts&amp;#34;&lt;/span&gt;&lt;span style="color:#960050;background-color:#1e0010"&gt;:&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;#34;dev&amp;#34;&lt;/span&gt;: &lt;span style="color:#e6db74"&gt;&amp;#34;vuepress dev&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;#34;build&amp;#34;&lt;/span&gt;: &lt;span style="color:#e6db74"&gt;&amp;#34;vuepress build&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }&lt;span style="color:#960050;background-color:#1e0010"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;yarn dev // サーバーを起動しブラウザで確認
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;yarn build // buildを行いディレクトリを作成
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;touch .vuepress/config.js
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以下を記述
+base: &amp;lsquo;/dirName/&amp;rsquo; // GitHub Pages の公開ディレクトリ
+dest: &amp;lsquo;docs/&amp;rsquo;, // build 時の出力先指定&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-javascript" data-lang="javascript"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#a6e22e"&gt;module&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;exports&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;title&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;GitHub Pages product by vuepress&amp;#34;&lt;/span&gt;, &lt;span style="color:#75715e"&gt;// 公開ページのタイトル
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;desctription&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;VuePress 挑戦&amp;#34;&lt;/span&gt;, &lt;span style="color:#75715e"&gt;// ページの説明
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;dest&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;docs/&amp;#34;&lt;/span&gt; &lt;span style="color:#75715e"&gt;// build字の出力先指定
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最終的には、サーバーを立ち上げれば&lt;code&gt;Hello World&lt;/code&gt;が確認できます。&lt;/p&gt;</description></item><item><title>久々に投稿</title><link>https://hironeko.github.io/posts/201905/20190529/</link><pubDate>Wed, 29 May 2019 23:25:59 +0900</pubDate><guid>https://hironeko.github.io/posts/201905/20190529/</guid><description>&lt;h2 id="モチベーション維持が大変"&gt;モチベーション維持が大変&lt;/h2&gt;
+&lt;p&gt;プログラミングが好きで今の仕事をやっている(半分正解)&lt;/p&gt;
+&lt;p&gt;技術の探求は大好きなんだけどもめんどくさがりすぎる。&lt;/p&gt;
+&lt;p&gt;それと人と微妙に感覚が異なっているのが自分的に納得いかない&lt;/p&gt;
+&lt;p&gt;ラバーダッキング的な学習方法が主だからより一層ね&lt;/p&gt;
+&lt;h3 id="それはさておき"&gt;それはさておき&lt;/h3&gt;
+&lt;p&gt;最近職場で一人でもくもくと開発と PM 的なことを並行して行なっているんだけども
+その際に Laravel でちょっとしたコマンドを作成した&lt;/p&gt;
+&lt;p&gt;repository pattern を採用しているんだけど DDD に寄せている設計で書いてて
+Laravel の artisan command には repository file の作成 command なんてなくてただただだるい作業が必ず発生するからめんどくて作った話&lt;/p&gt;
+&lt;p&gt;ただ参考にしたサイトのコードにちょっと手を加えた程度&lt;/p&gt;
+&lt;p&gt;あるとないとではだいぶ違う&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-php" data-lang="php"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;&amp;lt;?&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;php&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;declare&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;strict_types&lt;/span&gt;&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;namespace&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;App\Console\Commands&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;use&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Illuminate\Console\Command&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * CreateReposioryFileCommand class
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;CreateReposioryFileCommand&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;extends&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Command&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * @const string repository dir path
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;const&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;REPOSITORIES_PATH&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;app/Repositories/&amp;#39;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * The name and signature of the console command.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; *
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * @var string
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;protected&lt;/span&gt; $signature &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;make:repository {repositoryName : The name of repository}&amp;#39;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * The console command description.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; *
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * @var string
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;protected&lt;/span&gt; $description &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;Create repository files&amp;#39;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * @var string
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;private&lt;/span&gt; $fileName;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * @var string
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;private&lt;/span&gt; $dirName;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * @var string
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;private&lt;/span&gt; $repositroyFileName;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * @var string
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;private&lt;/span&gt; $interfaceFileName;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * Create a new command instance.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; *
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * @return void
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;function&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;__construct&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;parent&lt;/span&gt;&lt;span style="color:#f92672"&gt;::&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;__construct&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * Execute the console command.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; *
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * @return mixed
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;function&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;handle&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;fileName&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;argument&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#39;repositoryName&amp;#39;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (&lt;span style="color:#a6e22e"&gt;is_null&lt;/span&gt;($this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;fileName&lt;/span&gt;)) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;error&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#39;Repository Name invalid&amp;#39;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;dirName&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;ask&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#39;new directory name. or use directory name&amp;#39;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (&lt;span style="color:#a6e22e"&gt;is_null&lt;/span&gt;($this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;dirName&lt;/span&gt;)) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;error&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#39;Directory required!&amp;#39;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (&lt;span style="color:#f92672"&gt;!&lt;/span&gt;$this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;isExistDirectory&lt;/span&gt;()) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;createDirectory&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;repositroyFileName&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;self&lt;/span&gt;&lt;span style="color:#f92672"&gt;::&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;REPOSITORIES_PATH&lt;/span&gt; &lt;span style="color:#f92672"&gt;.&lt;/span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;dirName&lt;/span&gt; &lt;span style="color:#f92672"&gt;.&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;/&amp;#39;&lt;/span&gt; &lt;span style="color:#f92672"&gt;.&lt;/span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;fileName&lt;/span&gt; &lt;span style="color:#f92672"&gt;.&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;Repository.php&amp;#39;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;interfaceFileName&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;self&lt;/span&gt;&lt;span style="color:#f92672"&gt;::&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;REPOSITORIES_PATH&lt;/span&gt; &lt;span style="color:#f92672"&gt;.&lt;/span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;dirName&lt;/span&gt; &lt;span style="color:#f92672"&gt;.&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;/&amp;#39;&lt;/span&gt; &lt;span style="color:#f92672"&gt;.&lt;/span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;fileName&lt;/span&gt; &lt;span style="color:#f92672"&gt;.&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;Interface.php&amp;#39;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; ($this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;isExistFiles&lt;/span&gt;()) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;error&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#39;already exist&amp;#39;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;creatRepositoryFile&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;createInterFaceFile&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;info&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#39;create successfully&amp;#39;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * Repositoryのfileを作成する
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * @return void
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;private&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;function&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;creatRepositoryFile&lt;/span&gt;()&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;void&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; $content &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;&amp;lt;?php&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\n&lt;/span&gt;&lt;span style="color:#e6db74"&gt;declare(strict_types=1);&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\n\n&lt;/span&gt;&lt;span style="color:#e6db74"&gt;namespace App&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\\&lt;/span&gt;&lt;span style="color:#e6db74"&gt;Repositories&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\\&lt;/span&gt;&lt;span style="color:#e6db74"&gt;$this-&amp;gt;dirName&lt;/span&gt;&lt;span style="color:#e6db74"&gt;;&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\n\n&lt;/span&gt;&lt;span style="color:#e6db74"&gt;final class &lt;/span&gt;&lt;span style="color:#e6db74"&gt;$this-&amp;gt;fileName&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;.&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;Repository implements &lt;/span&gt;&lt;span style="color:#e6db74"&gt;$this-&amp;gt;fileName&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;.&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;Interface&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\n&lt;/span&gt;&lt;span style="color:#e6db74"&gt;{&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\n&lt;/span&gt;&lt;span style="color:#e6db74"&gt;}&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\n&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;file_put_contents&lt;/span&gt;($this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;repositroyFileName&lt;/span&gt;, $content);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * Interfaceのfileを作成する
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * @return void
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;private&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;function&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;createInterFaceFile&lt;/span&gt;()&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;void&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; $content &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;&amp;lt;?php&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\n&lt;/span&gt;&lt;span style="color:#e6db74"&gt;declare(strict_type=1);&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\n\n&lt;/span&gt;&lt;span style="color:#e6db74"&gt;namespace App&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\\&lt;/span&gt;&lt;span style="color:#e6db74"&gt;Repositories&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\\&lt;/span&gt;&lt;span style="color:#e6db74"&gt;$this-&amp;gt;dirName&lt;/span&gt;&lt;span style="color:#e6db74"&gt;;&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\n\n&lt;/span&gt;&lt;span style="color:#e6db74"&gt;interface &lt;/span&gt;&lt;span style="color:#e6db74"&gt;$this-&amp;gt;fileName&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;.&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;Interface&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\n&lt;/span&gt;&lt;span style="color:#e6db74"&gt;{&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\n&lt;/span&gt;&lt;span style="color:#e6db74"&gt;}&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\n&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;file_put_contents&lt;/span&gt;($this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;interfaceFileName&lt;/span&gt;, $content);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * 同名fileの確認
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; *
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * @return bool
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;private&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;function&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;isExistFiles&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (&lt;span style="color:#a6e22e"&gt;file_exists&lt;/span&gt;($this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;repositroyFileName&lt;/span&gt;) &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;file_exists&lt;/span&gt;($this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;interfaceFileName&lt;/span&gt;)) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;false&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * directoryの存在確認
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; *
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * @return bool
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;private&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;function&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;isExistDirectory&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (&lt;span style="color:#a6e22e"&gt;file_exists&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;self&lt;/span&gt;&lt;span style="color:#f92672"&gt;::&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;REPOSITORIES_PATH&lt;/span&gt; &lt;span style="color:#f92672"&gt;.&lt;/span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;dirName&lt;/span&gt;)) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;false&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * 指定名でdirectoryの作成
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; *
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; * @return void
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;private&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;function&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;createDirectory&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;mkdir&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;self&lt;/span&gt;&lt;span style="color:#f92672"&gt;::&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;REPOSITORIES_PATH&lt;/span&gt; &lt;span style="color:#f92672"&gt;.&lt;/span&gt; $this&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;dirName&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;0755&lt;/span&gt;, &lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;です。&lt;/p&gt;</description></item><item><title>Vuexに挑戦4</title><link>https://hironeko.github.io/posts/201904/20190409/</link><pubDate>Tue, 09 Apr 2019 22:27:22 +0900</pubDate><guid>https://hironeko.github.io/posts/201904/20190409/</guid><description>&lt;h2 id="前回までのあらすじ"&gt;前回までのあらすじ&lt;/h2&gt;
+&lt;p&gt;Form の制御って箇所まで行いました。次は、テキストエリアの切り替えです。&lt;/p&gt;
+&lt;h2 id="is-とは"&gt;:is とは？&lt;/h2&gt;
+&lt;p&gt;お手本の Qiita の記事には補足がないので初心者は「ん？」となるでしょう。単純にこれは、　 Vue が用意している省略機能の一つで完全な構文は&lt;code&gt;v-bind:is&lt;/code&gt;です。(間違ってたらすみません)&lt;/p&gt;
+&lt;p&gt;こうやって世間の目にさらされる場所に書く際は、間違えがないだろうかとちゃんと調べて動作確認しってことをするため体系的に頭にあったことが正しい知識として登録されることに意味があると思っている。&lt;/p&gt;
+&lt;p&gt;あとは、お手本をもとに微妙に変えた書き方(spread operator)などで書きなおしつつ動作確認。&lt;/p&gt;
+&lt;p&gt;このブログもそうだけど基本自宅では、VSCode を使用しているんだけど Vue で mapGetters を記述した際に import してくれるのはいいのだが&lt;code&gt;template&lt;/code&gt;の中にぶっこまれるのはどうして。。。。&lt;/p&gt;
+&lt;p&gt;お手本のまま記述を大方終え動作確認をするとアプリっぽい感じになってきましたね。&lt;/p&gt;
+&lt;h2 id="thanks-ページの作成"&gt;thanks ページの作成&lt;/h2&gt;
+&lt;p&gt;この章で最後ですな。&lt;/p&gt;
+&lt;p&gt;お手本通りの実装をすすめます。
+ただ個人的にふと思ったのが&lt;code&gt;Thanks.vue&lt;/code&gt;にて mapActions, mapGetters を import しているけどもこれ消しても動くわけです。何か意図があったのかな？&lt;/p&gt;
+&lt;p&gt;単純この file って最後のページだから何かイベント等は、発生しないと思う。&lt;/p&gt;
+&lt;p&gt;あと一点&lt;code&gt;rootState.setpCount == 2&lt;/code&gt;の箇所。個人的には厳密に判定してほしので&lt;code&gt;===&lt;/code&gt;しました。&lt;/p&gt;
+&lt;p&gt;いうてここは、数値しか来ないのは、わかっているけども。基本的に業務でも&lt;code&gt;==&lt;/code&gt;は使用しないようにしているため。ここも 3 個にした。&lt;/p&gt;
+&lt;h2 id="今回の学び"&gt;今回の学び&lt;/h2&gt;
+&lt;p&gt;全体像は、掴めた。ただ state 関連は、色々と書き方がある点を知れたのと Vue がなぜ人気があるかなんとなくわかった。&lt;/p&gt;
+&lt;p&gt;感想が短い・・・・&lt;/p&gt;
+&lt;h2 id="さて次は何をやろうかな"&gt;さて次は何をやろうかな。&lt;/h2&gt;
+&lt;p&gt;ちょっとまえに Laravel と Vue の instagram clone の記事がバズってたからそれを考えたは考えたがんー悩みどころだな。ただひたすら時間がかかりそうだ。&lt;/p&gt;
+&lt;p&gt;それか今回のアプリのように比較的細かくあーだこーだ書くのはやめて、修正を加えた箇所やお手本と違う方法を試した箇所だけピックアップするようにするか。The memo 的な投稿を一個作成するだけにするか実に悩めかしい。&lt;/p&gt;</description></item><item><title>初YYPHP</title><link>https://hironeko.github.io/posts/201904/20190408/</link><pubDate>Mon, 08 Apr 2019 22:52:51 +0900</pubDate><guid>https://hironeko.github.io/posts/201904/20190408/</guid><description>&lt;h2 id="当日の流れ"&gt;当日の流れ&lt;/h2&gt;
+&lt;p&gt;18:30 ~ 集合開始
+人数が集まってきたら自己紹介と本日話したいことと聞きたいことなどを一人ずつ言う&lt;/p&gt;
+&lt;p&gt;全員終わったら早速雑談開始&lt;/p&gt;
+&lt;p&gt;非常に和気藹々の中話がされていく&lt;/p&gt;
+&lt;p&gt;とーーーーても楽しい時間だったのは言うまでもない。&lt;/p&gt;
+&lt;p&gt;では以下感想&lt;/p&gt;
+&lt;h2 id="週明けしましたが先週末の-yyphp-の感想"&gt;週明けしましたが先週末の YYPHP の感想&lt;/h2&gt;
+&lt;h3 id="なぜ行ったのか"&gt;なぜ行ったのか？&lt;/h3&gt;
+&lt;p&gt;ここ数年は人見知りがだいぶ強化されてどこいくのも億劫なのだが今の職場、所属会社に設計に関してなどを相談できる人がいないということでいくことを決意&lt;/p&gt;
+&lt;h3 id="何を聞いたのか"&gt;何を聞いたのか？&lt;/h3&gt;
+&lt;p&gt;レガシーなシステムの改修について大雑把に聞いた&lt;/p&gt;
+&lt;h4 id="メインお題メンテナンスされていないライブラリを外すには-順序立てて削るか一気に削るか"&gt;メインお題・メンテナンスされていないライブラリを外すには？ 順序立てて削るか一気に削るか？&lt;/h4&gt;
+&lt;p&gt;解答
+そもそも規模と予算による。けども一気に削るのは、よくはない。&lt;/p&gt;
+&lt;p&gt;どんなシステム？
+僕：API サーバーでエンドポイントは 100 本くらい(すみません。正確な数字じゃない)&lt;/p&gt;
+&lt;p&gt;アドバイス
+API は、対抗のシステムにも影響があるため画面で確認できるシステムより影響が大きい&lt;/p&gt;
+&lt;p&gt;僕：DB 接続が 3 種類存在している。&lt;/p&gt;
+&lt;p&gt;みなさん言葉を詰まらせる&lt;/p&gt;
+&lt;p&gt;僕：1 万行くらいの file をはじめ 3~4 千行の file はざらにある。&lt;/p&gt;
+&lt;p&gt;どよめき&lt;/p&gt;
+&lt;p&gt;アドバイス
+できるだけ細かく分けてやったほうがいい
+シャドウという方法を知っている？ &amp;gt; No
+入出力を確認してそれらが一致するように書き直す方法
+(すみません。すでに実践してました。。。。)&lt;/p&gt;
+&lt;p&gt;使われていないメソッドや変数に関しては、PHPStorm を使用して取り組んだ方がパフォーマンスがあがるから使った方がいい。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;PHP Inspections&lt;/code&gt;はいいぞ！！！&lt;/p&gt;
+&lt;p&gt;インスタンスを作成する上限はきにしなくていい！
+-&amp;gt;これは今最大に判断に迷ってたことなので非常に心強いお言葉だった&lt;/p&gt;
+&lt;h2 id="個人の議題に関しての感想"&gt;個人の議題に関しての感想&lt;/h2&gt;
+&lt;p&gt;普段現場では、独り言やずーと頭の中で会話している内容が実際に対面で誰かと話せ、かつ大先輩の方々から貴重なご意見をもらえたのは、とても刺激的で感動的だった。&lt;/p&gt;
+&lt;p&gt;本来エンジニアならそういう発言や考えの討論、議論があっていいと思うけどもそれらがない環境はとてもつらい。&lt;/p&gt;
+&lt;p&gt;けど一歩どこかに足を運べばそこには自分が求めている世界、環境があるのと改めて実感した。
+また近いうちに YYPHP へ参加したいと思う&lt;/p&gt;
+&lt;h2 id="他の方の議題"&gt;他の方の議題&lt;/h2&gt;
+&lt;h3 id="アーキテクチャや-vue-に関してが多かった"&gt;アーキテクチャや Vue に関してが多かった&lt;/h3&gt;
+&lt;p&gt;個人的には、クリーンアーキテクチャなどに関して関心があって興味のある議題であったがこれも自分の中でもやもやしてた部分が解消された。&lt;/p&gt;
+&lt;p&gt;簡単に言うとアーキテクチャは、何かを解決するためのものであった&lt;code&gt;銀の弾丸&lt;/code&gt;ではないということ&lt;/p&gt;
+&lt;p&gt;そもそも設計や方法に銀の弾丸は存在してなくてケースバイケースでいいと思われる設計を目指す。&lt;/p&gt;
+&lt;p&gt;けどその設計も息が長いわけでなく数ヶ月後、数年後には、これあかんわってなると思う。&lt;/p&gt;</description></item><item><title>Vuexに挑戦3</title><link>https://hironeko.github.io/posts/201904/20190402/</link><pubDate>Tue, 02 Apr 2019 00:09:16 +0900</pubDate><guid>https://hironeko.github.io/posts/201904/20190402/</guid><description>&lt;h2 id="前回までのあらすじ"&gt;前回までのあらすじ&lt;/h2&gt;
+&lt;p&gt;HeadComp.vue に mapGetters を導入したところまでは、やったはず。&lt;/p&gt;
+&lt;p&gt;今回は、Form.vue に mapGetters の記述を追加から進めます。&lt;/p&gt;
+&lt;h2 id="mapgetters-には書き方が色々"&gt;mapGetters には、書き方が色々？&lt;/h2&gt;
+&lt;p&gt;お手本の書き方&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-javascript" data-lang="javascript"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#a6e22e"&gt;computed&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;mapGetters&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;Form&amp;#34;&lt;/span&gt;, {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;button&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;getButton&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;})
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;このように書いている。ただ mapGetters について調べているとどうもこの書き方は見かけないぞ・・・？ということになり mapGetters とより仲良くなるために調べました。
+ちなみに&lt;a href="https://vuex.vuejs.org/ja/guide/getters.html#mapgetters-%E3%83%98%E3%83%AB%E3%83%91%E3%83%BC"&gt;公式サイト&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;ES6 の書き方を使用して(&lt;code&gt;spread operator&lt;/code&gt;)の書き方が紹介されている。&lt;/p&gt;
+&lt;p&gt;調べ物をしてて最終的に気づくのってやっぱ公式サイトやリファレンスって最強じゃね？って話。さらにいうと実装されている中身をみるのが一番さいつよです。ただいろんなところに記載されているコードは、良くも悪くも書き方の参考として頭の片隅に入れておくのを忘れずに。&lt;/p&gt;
+&lt;p&gt;さて実際に自分がこの場面でいいなって思った書き方は以下です。
+小さな規模ならわざわざ別名でマッピングする必要もないでしょうと考えました&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-javascript" data-lang="javascript"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#a6e22e"&gt;computed&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ...&lt;span style="color:#a6e22e"&gt;mapGetters&lt;/span&gt;(
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;Form&amp;#39;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; [&lt;span style="color:#e6db74"&gt;&amp;#39;button&amp;#39;&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; )
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ただこのファイルで Form という文字が二回出てくる時点でどうなのって思うのも正直なところ。ただしこの書き方をした場合同時に&lt;code&gt;store/index.js&lt;/code&gt;の方も書き方を変更しないといけない&lt;/p&gt;
+&lt;p&gt;例えば下記のように&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-javascript" data-lang="javascript"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#a6e22e"&gt;getters&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;button&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; (&lt;span style="color:#a6e22e"&gt;state&lt;/span&gt;, &lt;span style="color:#a6e22e"&gt;getters&lt;/span&gt;, &lt;span style="color:#a6e22e"&gt;rootState&lt;/span&gt;) =&amp;gt; &lt;span style="color:#a6e22e"&gt;state&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;button&lt;/span&gt;[&lt;span style="color:#a6e22e"&gt;rootState&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;stepCount&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;getters って必要なのか。。。？ちらっと最後まで見たが現状他のゲッターを受け取るようなことは書いてなかったが。。。ただ root の state へアクセスしたくまた使用したいから使わないけど第二引数に getters を書いていると言うことなのか。&lt;/p&gt;
+&lt;p&gt;引数を表にしている人がいた&lt;a href="https://qiita.com/youmitsu/items/bcfe0c2c32da3914e189"&gt;【Vuex】Store の各プロパティ引数メモ&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;ちなみに第 4 引数もあって&lt;code&gt;rootGetters&lt;/code&gt;とかけるらしい&lt;/p&gt;
+&lt;p&gt;root の getters を使用できるってことかな。今その事案が頭に浮かばないから一旦そういうものとして先に進む&lt;/p&gt;
+&lt;h2 id="form-の制御"&gt;Form の制御&lt;/h2&gt;
+&lt;p&gt;最初は、まず見本通りに進めます。&lt;/p&gt;
+&lt;p&gt;ここも面白い箇所かなと個人的には感じてます。&lt;/p&gt;
+&lt;p&gt;先ほどと同様な書き方で進めます。&lt;/p&gt;</description></item><item><title>Vuexに挑戦2</title><link>https://hironeko.github.io/posts/201904/20190401/</link><pubDate>Mon, 01 Apr 2019 00:09:15 +0900</pubDate><guid>https://hironeko.github.io/posts/201904/20190401/</guid><description>&lt;h2 id="前回の続編"&gt;前回の続編&lt;/h2&gt;
+&lt;p&gt;テキストエリアを作成する。ここは、大きく変更はなくお手本の通りに進める。
+どうやらエラー文言を出力するように記述するみたですね。&lt;/p&gt;
+&lt;p&gt;さっさ先に進めます。
+次は、&lt;code&gt;StringComp.vue&lt;/code&gt;の作成&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;src/components/modules/&lt;/code&gt;以下に作成したら、&lt;code&gt;Form.vue&lt;/code&gt;で import, components, template に追加を行う。&lt;/p&gt;
+&lt;p&gt;今回は、&lt;code&gt;src/components/modules/&lt;/code&gt;以下に作成したものは、&lt;code&gt;Form.vue&lt;/code&gt;で使うので忘れずに追記ですな。&lt;/p&gt;
+&lt;h2 id="イベント"&gt;イベント&lt;/h2&gt;
+&lt;p&gt;ボタンの作成、イベントを発火させるために&lt;code&gt;v-on&lt;/code&gt;ディレクティブを使う。&lt;/p&gt;
+&lt;p&gt;そのまま写経するのは、簡単だがちゃんと理解は必要だね。&lt;/p&gt;
+&lt;p&gt;vue のメソッドを使用するみたですね。なぜ使うの、何が実現できるかくらいは把握すべきなのでちょっと調べます。&lt;/p&gt;
+&lt;p&gt;調べているうちに&lt;code&gt;mapAction&lt;/code&gt;と&lt;code&gt;mapGetters&lt;/code&gt;は、Vuex の学習でかなーーーり重要とわかる。&lt;/p&gt;
+&lt;h4 id="コンポーネント内のアクションのディスパッチ"&gt;コンポーネント内のアクションのディスパッチ&lt;/h4&gt;
+&lt;p&gt;正攻法のやりかた&lt;code&gt;this.$store.dispatch('xxx')&lt;/code&gt;で可能だがちゃーーーんと便利なヘルパーを用意してくれているのが Vuex のようですな。それが今回学ぶものの一つ&lt;code&gt;mapActions&lt;/code&gt;である。(&lt;a href="https://vuex.vuejs.org/ja/guide/actions.html#%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E5%86%85%E3%81%A7%E3%81%AE%E3%82%A2%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E3%83%87%E3%82%A3%E3%82%B9%E3%83%91%E3%83%83%E3%83%81"&gt;公式サイト&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;よは、簡単にコンポーネント内のアクションを使おうぜ！と今は、把握しておく。
+これを利用する際、必ず Vue インスタンスに&lt;code&gt;store&lt;/code&gt;を追加しないといけない&lt;/p&gt;
+&lt;h4 id="mapgetters-も同様"&gt;mapGetters も同様&lt;/h4&gt;
+&lt;p&gt;この編集では、mapGetters が使われていないように見えるがこのあとちゃんと使用している。
+&lt;code&gt;this.$store.getters['SOME']&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id="store-の作成"&gt;store の作成&lt;/h3&gt;
+&lt;p&gt;mapActions を使用するので store を追加する必要がある。先に&lt;code&gt;main.js&lt;/code&gt;の修正を行うようだ。&lt;/p&gt;
+&lt;p&gt;この時点は、&lt;code&gt;store&lt;/code&gt;フォルダすら存在していないため保存したらエラーが発生する。フォルダと index.js を作成した段階でエラーが消える。&lt;/p&gt;
+&lt;p&gt;作成の順番が本当に正しいのか不明だけどここでふと思ったのは、mapActions の第一引数は、namespaced になっている。store の index.js で作成している const 名であるわけで、最初に store を作成すべきでは・・・？と思ったが結果動くなら順番なんて関係ないけどもふと気になった。&lt;/p&gt;
+&lt;p&gt;すべての実装を行い終わったら画面の&lt;code&gt;確認&lt;/code&gt;ボタンを押下すると console に&lt;code&gt;buttonAction&lt;/code&gt;が出力される。なんと！！！！&lt;/p&gt;
+&lt;p&gt;実装してて、公式の解説を読んだりしてたけどもなるほどねー感覚的には理解しているがあくまで感覚なのでさらに深めたいですね。何個も作成して&lt;/p&gt;
+&lt;h2 id="vuex"&gt;Vuex&lt;/h2&gt;
+&lt;p&gt;今回の大本命。ここまでの Vuex 自体は、出てはきているがなぜ必要なのか、何をするものなのかって言うのがここで解説をしてくださっている。&lt;/p&gt;
+&lt;p&gt;若干疑問なのは、HeadComp の title を computed で mapGetters？別にキャッシュする必要なくない？って思って公式見たらどうやらお作法っぽい&lt;/p&gt;
+&lt;p&gt;あと mapgetters の記述が人によって結構異なっている。おおよそは。&lt;code&gt;module-type&lt;/code&gt;ってフォルダ以下にファイルを作成してそれらを import してッシ要している感じ。作成したファイルには、&lt;code&gt;export default&lt;/code&gt;で const を export している感じ&lt;/p&gt;</description></item><item><title>英語学習の方針</title><link>https://hironeko.github.io/posts/201903/20190331/</link><pubDate>Sun, 31 Mar 2019 23:24:33 +0900</pubDate><guid>https://hironeko.github.io/posts/201903/20190331/</guid><description>&lt;h2 id="なぜするのか"&gt;なぜするのか？&lt;/h2&gt;
+&lt;p&gt;今している仕事で英語は、最悪英語がわからなくてもどうにかなるのが事実。だけどより高度な内容だったり、新たなツール、最新の情報のキャッチアップ、そもそものコードを読むにあたり、OSS 活動を行う上でなどでとても重要なスキルだから学習をする&lt;/p&gt;
+&lt;h2 id="方針方法は"&gt;方針・方法は？&lt;/h2&gt;
+&lt;p&gt;これまた単純で 0 から学習を始めるのでまずは、えっそんなことから？って思う人がいるかもしれないことから始める。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;生活の一部に英語を取り込む。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;もちろんこれは、仕事以外の私生活での話&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;好きな映画を英語字幕てひたすら鑑賞する&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;通勤時などは、洋書を読む。読む洋書は、童話など&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start="3"&gt;
+&lt;li&gt;1.を具体的に言うと自宅では、幼児向けの動画(歌)をひたすら流す。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;アニメを見る時間は別ですがね！&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start="4"&gt;
+&lt;li&gt;2.に慣れてきたら好きな歌手の歌詞を和訳したりして遊ぶ。子供向け新聞や英字新聞を読んでみるようにしてみる&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="行うにあたって"&gt;行うにあたって&lt;/h2&gt;
+&lt;p&gt;まず、英語を勉強しているんだという概念をどこかに置いてくることにする。その圧が発生した時点で長く続かなくなる。なので上にあげてことはいきなりやり始めるのではなく、少しずつ少しずつ取り入れていく&lt;/p&gt;
+&lt;p&gt;2.とかであげている点は、まぁー自分が好きなものを読んだり見たりするから飽きは来なそうだけども。好きなことで自然と継続して身近なものにすると言うのが今回の目標ではある。&lt;/p&gt;
+&lt;h2 id="なぜこれを書いたのか"&gt;なぜこれを書いたのか&lt;/h2&gt;
+&lt;p&gt;メモする癖はあれどどこになにを書いたかを忘れるときがある。もしくは、そこにたどり着くまでがめんどくさくて諦めるってことが多いのでこのブログ(?)に記載しこれをいつでも振り返るようにする。もちろん追記もしていくことでしょう。&lt;/p&gt;
+&lt;p&gt;さて近いうちに何かしらの洋書をブックオフに買いに行こうと思う。&lt;/p&gt;
+&lt;p&gt;それとこのブログにて進捗報告等は、気が向けばしていく。&lt;/p&gt;</description></item><item><title>Vuexに挑戦！！</title><link>https://hironeko.github.io/posts/201903/20190330/</link><pubDate>Sat, 30 Mar 2019 00:05:43 +0900</pubDate><guid>https://hironeko.github.io/posts/201903/20190330/</guid><description>&lt;h2 id="何事も手を動かすことが大事"&gt;何事も手を動かすことが大事&lt;/h2&gt;
+&lt;p&gt;Qiita の記事(&lt;a href="#%E5%8F%82%E8%80%83%E3%82%B5%E3%82%A4%E3%83%88%E3%81%A8%E4%BD%BF%E7%94%A8%E3%83%84%E3%83%BC%E3%83%AB%E3%83%AA%E3%83%B3%E3%82%AF"&gt;下記記載&lt;/a&gt;)では、いきなり&lt;code&gt;Vuex&lt;/code&gt;の導入から始まっているがリンクにある gist のページを見ると&lt;code&gt;Vue&lt;/code&gt;の環境構築から手順があるのでわからない人は参考にしましょう。&lt;/p&gt;
+&lt;p&gt;例によって Linter は、今回も抜きます。というのも今回は、構文に敏感に注意するより手を動かして Vue と仲良くなるのが目的なのでそこは、捨てます。実際の開発では、大切な要素であることは忘れずに進めます。&lt;/p&gt;
+&lt;p&gt;自分は以下のように設定しました。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;? Project name your_app_name
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;? Project description A Vue.js project
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;? Author hironeko &amp;lt;xxxxxxxx@exsample.com&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;? Vue build standalone
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;? Install vue-router? Yes
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;? Use ESLint to lint your code? No
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;? Set up unit tests No
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;? Setup e2e tests with Nightwatch? No
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;? Should we run &lt;span style="color:#e6db74"&gt;`&lt;/span&gt;npm install&lt;span style="color:#e6db74"&gt;`&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; you after the project has been created? &lt;span style="color:#f92672"&gt;(&lt;/span&gt;recommended&lt;span style="color:#f92672"&gt;)&lt;/span&gt; yarn
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="vuex-を-install"&gt;Vuex を install&lt;/h2&gt;
+&lt;p&gt;さっそく install するみたいですね。待ってました。&lt;/p&gt;</description></item><item><title>Vueで1ページアプリ</title><link>https://hironeko.github.io/posts/201903/20190329/</link><pubDate>Fri, 29 Mar 2019 00:05:20 +0900</pubDate><guid>https://hironeko.github.io/posts/201903/20190329/</guid><description>&lt;h2 id="vuejs-だけでひとまず何かを作成"&gt;Vue.js だけでひとまず何かを作成&lt;/h2&gt;
+&lt;p&gt;今回は、時計のアプリケーションを写経。Linter は使用せずです。&lt;/p&gt;
+&lt;p&gt;進め方は参考サイトを元に進めました。&lt;/p&gt;
+&lt;p&gt;CSS はコピペしたがそれ以外は写経、手に馴染めば何も考えなくても手が勝手に動くようになるものなので。戦地の道も一歩からですね。&lt;/p&gt;
+&lt;h2 id="今回のアプリの写経での学び"&gt;今回のアプリの写経での学び&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;computed&lt;/code&gt;の挙動
+ただし年月日時分の箇所すかね。&lt;/p&gt;
+&lt;p&gt;秒は、method でもいいわけですね。&lt;/p&gt;
+&lt;p&gt;例えば、このコードでは、computed に&lt;code&gt;seconds&lt;/code&gt;を methods に移動させます。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-javascript" data-lang="javascript"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#a6e22e"&gt;seconds&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;zeroPadding&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;this&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;date&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;getSeconds&lt;/span&gt;(), &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;とし&lt;code&gt;template&lt;/code&gt;の方は、&lt;code&gt;seconds&lt;/code&gt; &amp;gt; &lt;code&gt;seconds()&lt;/code&gt;に変更し再起動しても変化がありません。&lt;/p&gt;
+&lt;p&gt;値に変化が起きない限り再計算処理が走らないのが computed です。
+computed の使うポイントとしては、キャッシュしたい何かを返す必要がある(再計算する必要が低い)場合に適任&lt;/p&gt;
+&lt;p&gt;methods に関しては、算出(計算)結果のキャッシュはされません。&lt;/p&gt;
+&lt;p&gt;日本語で説明を書くには、ちょっと通じにくい文章になりますな。&lt;/p&gt;
+&lt;h2 id="大雑把に基礎の学習を終えひとまず何かしら作って手に馴染ませる"&gt;大雑把に基礎の学習を終えひとまず何かしら作って手に馴染ませる&lt;/h2&gt;
+&lt;p&gt;ということで次は、vuex を使用しての学習。以前 component についは、重要と言う話だったがここで実際に手を動かし学習を進める。&lt;/p&gt;
+&lt;p&gt;下記参考サイトの&lt;code&gt;vue.js＋Vuexチュートリアル&lt;/code&gt;を参考に進める。(1 年前のものなので必要に応じて適宜変更を加えながら進める)&lt;/p&gt;
+&lt;h4 id="参考サイト"&gt;参考サイト&lt;/h4&gt;
+&lt;p&gt;&lt;a href="https://www.monster-dive.com/blog/web_creative/20180608_001789.php"&gt;第一回 Vue.js で Web アプリをつくろう！&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://qiita.com/_P0cChi_/items/ebf8fbf035b36218a37e"&gt;vue.js ＋ Vuex チュートリアル&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Jenkinsのハマりポイントとanyenvを入れた</title><link>https://hironeko.github.io/posts/201903/20190328/</link><pubDate>Thu, 28 Mar 2019 22:37:37 +0900</pubDate><guid>https://hironeko.github.io/posts/201903/20190328/</guid><description>&lt;h2 id="jenkins-でのハマった箇所の備忘録"&gt;Jenkins でのハマった箇所の備忘録&lt;/h2&gt;
+&lt;p&gt;今回困ったポイント&lt;/p&gt;
+&lt;p&gt;蓋を開けたらそうだよねって話だったけど&lt;/p&gt;
+&lt;h3 id="jenkins-ユーザーで-job-に必要なものを準備"&gt;Jenkins ユーザーで job に必要なものを準備&lt;/h3&gt;
+&lt;p&gt;Jenkins を導入したあとに job で使うために言語の Version 管理ツールを入れる必要があった。Jenkins 初心者の自分は、&lt;code&gt;さてはてどう切り替えるんだ？&lt;/code&gt; ひとまずぐぐる。結果まず最初に行うこと&lt;/p&gt;
+&lt;p&gt;root で操作&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;cat /etc/passwd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;passwd&lt;/code&gt;は、一般ユーザーでも見れるから root である必要はないんだが。。。
+以下のように出力される。&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;....
+jenkins:x:996:994:Jenkins Automation Server:/var/lib/jenkins:/bin/false
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;この結果の&lt;code&gt;/bin/false&lt;/code&gt;の箇所を手動で修正してもいいんだけどやるならちゃんとコマンドで実行する&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;chsh jenkins -s /bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;自分が導入した際の Jenkins の shell の path が&lt;code&gt;/bin/bash&lt;/code&gt;だったので合わせた(正しいのか・・・？)&lt;/p&gt;
+&lt;p&gt;shell を変更したあとに下記コマンドでユーザーを切り替える&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo su - jenkins
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ここにたどり着くのに少々時間がかかってしまった&amp;hellip;&amp;hellip;&lt;/p&gt;
+&lt;h3 id="anyenv-をいれる"&gt;anyenv をいれる&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://github.com/anyenv/anyenv"&gt;Github&lt;/a&gt;のページにある README を読めば導入はできるが注意点が必要&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;git clone https://github.com/anyenv/anyenv ~/.anyenv
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;echo &lt;span style="color:#e6db74"&gt;&amp;#39;export PATH=&amp;#34;$HOME/.anyenv/bin:$PATH&amp;#34;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; ~/.anyenv
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;echo &lt;span style="color:#e6db74"&gt;&amp;#39;eval &amp;#34;$(anyenv init -)&amp;#34;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; ~/.your_profile
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;exec $SHELL -l
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;この導入の後が問題、README だとそのまま&lt;code&gt;anyenv&lt;/code&gt;が使えるようになっているんだけど下記コマンドが必要
+&lt;code&gt;anyenv install --init&lt;/code&gt;
+これでやっと使えるようになる&lt;/p&gt;</description></item><item><title>Jenkinsを入れてみる</title><link>https://hironeko.github.io/posts/201903/20190327/</link><pubDate>Wed, 27 Mar 2019 22:53:29 +0900</pubDate><guid>https://hironeko.github.io/posts/201903/20190327/</guid><description>&lt;h2 id="なぜ-jenkins-なのか"&gt;なぜ Jenkins なのか&lt;/h2&gt;
+&lt;p&gt;今いる職場で使用してた Jenkins が謎に動作不能に陥ったため選択肢としてひとまずの Jenkins となったから&lt;/p&gt;
+&lt;p&gt;並行している管理画面のリプレイスの環境は、比較的にモダンな感じで CircleCi を使用している。&lt;/p&gt;
+&lt;p&gt;言うても現状は、push の際に PHPUnit が走るようにしてあるだけであるが。&lt;/p&gt;
+&lt;p&gt;そこで知見をためたら全部に適用させていきたいとは思っているが、現状 CircleCi に対しての知見がたまっておらず、今まで使用してた Jenkins でいいよねって話になったためである。&lt;/p&gt;
+&lt;p&gt;前置きはこれにておしまい&lt;/p&gt;
+&lt;h2 id="centos-への-install"&gt;CentOS への Install&lt;/h2&gt;
+&lt;p&gt;これも何番煎じかわからないけどここに書けばいざという時に自分で振り返れるから。&lt;/p&gt;
+&lt;p&gt;Install から自動起動までのコマンドは下記&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo -y install java-1.8.0-openjdk
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;wget -0 /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo -y install jenkins
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo systemctl start jenkins
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo chkconfig jenkins on
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;さぁーあとは、IP:8080 でブラウザからアクセスして確認です。&lt;/p&gt;
+&lt;p&gt;ここから設定をおこなっていくのだが下記コマンドで初期パスワードを確認せねば&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo cat /var/lib/jenkins/secrets/initialAdminPassword&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;出力された文字列をぺぺぺって貼り付けてボタン押下&lt;/p&gt;
+&lt;p&gt;これ終わり。&lt;/p&gt;
+&lt;p&gt;あとは普段入れている plugin などを導入して完了&lt;/p&gt;
+&lt;h2 id="なぜ-jenkins-が動作不能になったのか不明"&gt;なぜ Jenkins が動作不能になったのか不明&lt;/h2&gt;
+&lt;p&gt;実際自分が設定したわけでもなく管理してたわけでもなくっていう状況なのでまさに秘伝のタレ化してたのですわ。Jenkis の悪いところでもある属人化という負債ですね。&lt;/p&gt;
+&lt;p&gt;運用方法を改善すればそんなことなく Jenkins と仲良く年をとっていけるわけですがね。まぁーそんあ甘くないと言うことですね。&lt;/p&gt;
+&lt;p&gt;そもそもこのタイミングで CircleCi に変えろって話ではありますが。&lt;/p&gt;</description></item><item><title>Vueに入門してみよう</title><link>https://hironeko.github.io/posts/201903/20190326/</link><pubDate>Tue, 26 Mar 2019 23:14:50 +0900</pubDate><guid>https://hironeko.github.io/posts/201903/20190326/</guid><description>&lt;h2 id="vue-をちゃんと入門"&gt;Vue をちゃんと入門&lt;/h2&gt;
+&lt;p&gt;触ったことある。けど業務では未使用だし本格的には触っていない。だもんでちゃんと入門してみることにした(復習の意味も込めて)&lt;/p&gt;
+&lt;h2 id="参考にするもの"&gt;参考にするもの&lt;/h2&gt;
+&lt;p&gt;本家を参考にしつつ、無料で実装動画が見れるのでそれを写経をしていこうかと&lt;/p&gt;
+&lt;h2 id="vue-はでっかい-object"&gt;Vue はでっかい object？&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-javascript" data-lang="javascript"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;var&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;app&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Vue&lt;/span&gt;({
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;el&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;#app&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;data&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;message&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;Hello Vue!&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;})
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;例えばこれの&lt;code&gt;message&lt;/code&gt;を変更する場合&lt;code&gt;app.message = 'change value';&lt;/code&gt;のようにすれば変更ができる&lt;/p&gt;
+&lt;p&gt;でかい object にしか見えない&amp;hellip;..&lt;/p&gt;
+&lt;h2 id="ループ"&gt;ループ&lt;/h2&gt;
+&lt;p&gt;例えばこんな配列があったとします。これを順に表示する場合&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-javascript" data-lang="javascript"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;var&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;app&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Vue&lt;/span&gt;({
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;el&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;#app&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;data&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;todos&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; [
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; { &lt;span style="color:#a6e22e"&gt;text&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;frist text&amp;#34;&lt;/span&gt; },
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; { &lt;span style="color:#a6e22e"&gt;text&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;second text&amp;#34;&lt;/span&gt; },
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; { &lt;span style="color:#a6e22e"&gt;text&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;thead text&amp;#34;&lt;/span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;})
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-html" data-lang="html"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&amp;lt;&lt;span style="color:#f92672"&gt;div&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;id&lt;/span&gt;&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;app&amp;#34;&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &amp;lt;&lt;span style="color:#f92672"&gt;ol&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &amp;lt;&lt;span style="color:#f92672"&gt;li&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;v-for&lt;/span&gt;&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;todo in todos&amp;#34;&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; {{ todo.text }}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &amp;lt;/&lt;span style="color:#f92672"&gt;li&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &amp;lt;/&lt;span style="color:#f92672"&gt;ol&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&amp;lt;/&lt;span style="color:#f92672"&gt;div&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;こんな感じになります。んー PHP のテンプレートエンジンみたい&amp;hellip;&lt;code&gt;for ... in ...&lt;/code&gt;これは、けっして真新しくもなくもともと JS で存在している&lt;code&gt;for in&lt;/code&gt;と同じ挙動してますね。(あっているのか？)&lt;/p&gt;</description></item><item><title>ReactでイベントとStateの再入門してみた</title><link>https://hironeko.github.io/posts/201903/20190325/</link><pubDate>Mon, 25 Mar 2019 01:02:21 +0900</pubDate><guid>https://hironeko.github.io/posts/201903/20190325/</guid><description>&lt;h2 id="イベント入門"&gt;イベント入門&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-javascript" data-lang="javascript"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;import&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;React&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;from&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;react&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;App&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;extends&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;React&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;Component&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;render&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;retrun&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;/* ここに描く処理 */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;大枠は上記に記載している内容。以降は、フォーカスして復習をする&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-javascript" data-lang="javascript"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;button&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;onClick&lt;/span&gt;&lt;span style="color:#f92672"&gt;=&lt;/span&gt;{() =&amp;gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;console&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;log&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;First Event!!&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;初めてのイベント&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;&lt;span style="color:#960050;background-color:#1e0010"&gt;/button&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;するとブラウザの developer tools の console で確認ができる&lt;/p&gt;
+&lt;h2 id="state-入門"&gt;State 入門&lt;/h2&gt;
+&lt;p&gt;何かの動作にたいして何かを変えるようにする動作がアプリケーションには必須。&lt;/p&gt;
+&lt;p&gt;この動作に合わせて変更される値のことを React だと State と呼ばれる。&lt;/p&gt;
+&lt;p&gt;React は、&lt;code&gt;class&lt;/code&gt;を作成する際に&lt;code&gt;React.Component&lt;/code&gt;を&lt;code&gt;extends&lt;/code&gt;して作成します。その際&lt;code&gt;constructor(props) { ....}&lt;/code&gt;を記述し、&lt;code&gt;state&lt;/code&gt;を定義します&lt;/p&gt;
+&lt;p&gt;定義した&lt;code&gt;state&lt;/code&gt;を&lt;code&gt;render&lt;/code&gt;内にて使用する際は、&lt;code&gt;this.state&lt;/code&gt;で代入したオブジェクトを使用できます(ただこの使用方法は基本しないと思います)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;this.state.定義したプロパティ名&lt;/code&gt;の形で使用すると認識しておく&lt;/p&gt;
+&lt;h3 id="では何かのイベントで-state-の値を更新変更する場合は"&gt;では、何かのイベントで state の値を更新(変更)する場合は？？&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;this.setSate({プロパティ名:変更する値})&lt;/code&gt;となります&lt;/p&gt;
+&lt;p&gt;注意として&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;this.state = {定義済みプロパティ:値}&lt;/code&gt;, &lt;code&gt;this.state.name = '値'&lt;/code&gt;という方法では、行いません。&lt;/p&gt;
+&lt;p&gt;同じイベントでクリックされるものによって更新する値が違うだけの場合 class 内にメソッドとして作成するといいことがあるなので実際に書いてみようと思う。今回は、イベントは一個だがメソッドを作成してみる&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-javascript" data-lang="javascript"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// ....
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;App&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;extends&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;React&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;Component&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;constructor&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;props&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;super&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;props&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;this&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;state&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; {&lt;span style="color:#a6e22e"&gt;value&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;test&amp;#39;&lt;/span&gt;};
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;handleClick&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;value&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;this&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;setState&lt;/span&gt;({&lt;span style="color:#a6e22e"&gt;value&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;value&lt;/span&gt;});
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;render&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; (
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;div&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;button&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;onClick&lt;/span&gt;&lt;span style="color:#f92672"&gt;=&lt;/span&gt;{() =&amp;gt; {}&lt;span style="color:#66d9ef"&gt;this&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;handleClick&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#39;変更&amp;#39;&lt;/span&gt;)}&lt;span style="color:#f92672"&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span style="color:#960050;background-color:#1e0010"&gt;/button&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;&lt;span style="color:#960050;background-color:#1e0010"&gt;/div&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; )
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// ....
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;的な感じでしょうか？これに少し手を加えれば tutorial で出てくるカウントアップの作成が可能ですね&lt;/p&gt;</description></item><item><title>JSの復習</title><link>https://hironeko.github.io/posts/201903/20190324/</link><pubDate>Sun, 24 Mar 2019 23:10:42 +0900</pubDate><guid>https://hironeko.github.io/posts/201903/20190324/</guid><description>&lt;h2 id="react-と-vue"&gt;React と Vue&lt;/h2&gt;
+&lt;p&gt;最近は業務で使用している PHP 以外だと&lt;code&gt;Go&lt;/code&gt;の勉強をしているが&lt;code&gt;JS&lt;/code&gt;についてもスキルをあげたいのが正直な話だ。&lt;/p&gt;
+&lt;p&gt;よって並行して勉強することとにする&lt;/p&gt;
+&lt;p&gt;##　なぜするのか？&lt;/p&gt;
+&lt;p&gt;自分のいくつかあるウィークポイントの一つにモダンな JS に対しての経験値が引くことがあげられる。&lt;/p&gt;
+&lt;h2 id="どのように進めるのか"&gt;どのように進めるのか？&lt;/h2&gt;
+&lt;p&gt;基本的にマルチタスクって生産性が低くなるので好きではないんだけども&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Go&lt;/code&gt;の勉強をしながら気晴らしに&lt;code&gt;JS&lt;/code&gt;の学習をすることにする&lt;/p&gt;
+&lt;p&gt;最終的に基礎的な概念や知識の理解、把握が追いつた段階で&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Go&lt;/code&gt;を API サーバーとして使用し、&lt;code&gt;React&lt;/code&gt;と&lt;code&gt;Vue&lt;/code&gt;両方とも同じものを作成することにした。&lt;/p&gt;
+&lt;p&gt;どんなものを作成するかはまだ決めてないが、よくある Todo 系は、たぶん実用的とは言えないのでそれは、学習の過程に盛り込むことにする&lt;/p&gt;
+&lt;h2 id="最終的なゴール"&gt;最終的なゴール&lt;/h2&gt;
+&lt;p&gt;どちらの FW でも業務で使用したとしても問題ないレベルをゴールとする。&lt;/p&gt;
+&lt;h2 id="次回以降"&gt;次回以降&lt;/h2&gt;
+&lt;p&gt;順に初歩的なことから忘備録として発信していく&lt;/p&gt;</description></item><item><title>hugoに挑戦</title><link>https://hironeko.github.io/posts/201903/20190317/</link><pubDate>Sun, 17 Mar 2019 20:24:48 +0900</pubDate><guid>https://hironeko.github.io/posts/201903/20190317/</guid><description>&lt;h2 id="はてなブログ"&gt;はてなブログ&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;最初は、はてなブログが再開したがせっかく&lt;code&gt;Go&lt;/code&gt; の勉強を始めたので&lt;code&gt;hugo&lt;/code&gt; でやってみようかなとただし 0 から始めるとどうせやらなくなるからひとまず既存の theme を使用してやろうかなと思う。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="今回の-theme"&gt;今回の theme&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;zen&lt;/code&gt;です。&lt;a href="https://github.com/frjo/hugo-theme-zen"&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;選んだ理由&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;どがつくほどシンプルであるから。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>Composer でのちょっとした楽</title><link>https://hironeko.github.io/posts/201903/20190314/</link><pubDate>Thu, 14 Mar 2019 20:20:38 +0900</pubDate><guid>https://hironeko.github.io/posts/201903/20190314/</guid><description>&lt;h2 id="composer-がある環境"&gt;Composer がある環境&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;例えば&lt;code&gt;Laravel&lt;/code&gt;を使用している場合&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;環境構築ってまぁまぁめんどいことに下のコマンドのような流れのはず&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;git clone https:/xxxxxxx
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;composer install
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;cp env-example .env
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;php artisan key:generate
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;php artisan migrate
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これすらめんどいわけで。。。
+docker 環境だったとしたら docker-compose up -d &amp;ndash;build した時点で shell が走るようにしてればいいんだけども
+環境がそれぞれの PC に依存している場合とかだとまぁーめんどいし README に書くのもだるい&lt;/p&gt;
+&lt;h2 id="めんどいコマンドは-composerjson-に書けばいい"&gt;めんどいコマンドは composer.json に書けばいい&lt;/h2&gt;
+&lt;p&gt;rails とかだと用意されているんだけど(もちろんプロジェクト単位での追記はあると思うけど)&lt;code&gt;setup&lt;/code&gt;コマンドを作っとけばいい&lt;/p&gt;
+&lt;p&gt;composer の&lt;code&gt;scripts&lt;/code&gt;って箇所に追記すればいい。例えば下記のように&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-json" data-lang="json"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;set-up&amp;#34;&lt;/span&gt;&lt;span style="color:#960050;background-color:#1e0010"&gt;:&lt;/span&gt; [
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;composer install&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;cp .env.example .env&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;php artisan key:generate&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;って書いておけば&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;composer set-up
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;一回で済む話。&lt;/p&gt;
+&lt;p&gt;もしまだやったことがなくコマンド都度打つような環境なら最初の段階であらかじめ追記しておいた方がいい。そうしたらドキュメントも一行で済むし、他の作業者が間違えることなく初期環境構築が終えられると思う。できる限り日々小さなことでもめんどーは避けたい。&lt;/p&gt;</description></item><item><title>レガシーなPHPシステムにPHPUnitを入れてみる</title><link>https://hironeko.github.io/posts/201903/20190313/</link><pubDate>Wed, 13 Mar 2019 20:19:32 +0900</pubDate><guid>https://hironeko.github.io/posts/201903/20190313/</guid><description>&lt;h2 id="目的"&gt;目的&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;単体テストがなく、なんの動作保証もない実装がすぐにローンチされている環境をなくしたい&lt;/li&gt;
+&lt;li&gt;色々とメンテナンスされていないライブラリを消し去りたい&lt;/li&gt;
+&lt;li&gt;他にも色々と理由はあった・・・・気がするけど主にこのへん&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="現状"&gt;現状&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;レガシーのシステムなので PHP の version はもちろんサポ外ですよ&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;なので極力対象のシステムが動く環境で検証実装&lt;/li&gt;
+&lt;li&gt;既存の秘伝のタレで作成される&lt;code&gt;vagrant&lt;/code&gt;環境を参考に&lt;code&gt;docker&lt;/code&gt;の環境構築に着手した
+&lt;ul&gt;
+&lt;li&gt;しかし大きな問題が発生。メンテされていない、ドキュメントも少ない、安全な保証なしってことで消し去りたいライブラリを入れられないって問題。あまり時間も取られたくないのでひとまず秘伝のタレでできている vagrant 環境で実装することに※実際みる限り問題なく動いてはいるはず。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;単体テストを使用しようとした痕跡はあるけどもそれ自体がテストとして成立してないものなので、即全削除。0 からの実装が確定&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="調査事前準備"&gt;調査・事前準備&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;該当の PHP version で動く PHPUnit と DbUnit の組み合わせで検証プロトタイプの作成&lt;/li&gt;
+&lt;li&gt;その後秘伝のタレの vagrant 環境で動作確認&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="先々考えるとしんどい"&gt;先々考えるとしんどい&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;理由
+&lt;ul&gt;
+&lt;li&gt;PHPUnit, DbUnit の version を PHP の version に伴ってあげると path が変わる。&lt;/li&gt;
+&lt;li&gt;そこを考慮して実装しないと世代アップにも時間が取られることになる。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="次のブログで導入手順を書く"&gt;次のブログで導入手順を書く&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;PHP : 5.6.*&lt;/li&gt;
+&lt;li&gt;PHPUnit : 5.5.*&lt;/li&gt;
+&lt;li&gt;DbUnit : 2.0.*
+という環境です。&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>大阪旅行2日目</title><link>https://hironeko.github.io/posts/201903/20190312/</link><pubDate>Tue, 12 Mar 2019 20:18:06 +0900</pubDate><guid>https://hironeko.github.io/posts/201903/20190312/</guid><description>&lt;h2 id="2-日目"&gt;2 日目&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;朝起きてホテルのビュッフェを食し大満足&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="難波"&gt;難波&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;チェックアウト後に向かったのは、&lt;code&gt;難波&lt;/code&gt; - 着いて驚いたのは、なんちゃら筋って名の着く道がただひたすら人でごった返しててすごかった。 - そのまま心斎橋方面というか通過までしたけども歩いてみての感動は、やはり&lt;code&gt;グリコ、道頓堀&lt;/code&gt;でした。 - んで昼は、お目当の&lt;code&gt;加寿屋 法善寺店&lt;/code&gt;へ。 - クッソ並んだ。出入り口がものすごく狭いカウンターの店なので一定数を同時に入れ替え的な回し方なので待たざるおえない。たぶん飯でこれほど並んで待ったのは、初かも？けど結果美味しかった。
+[https://tabelog.com/osaka/A2701/A270202/27045072/:embed:cite]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="あべのハルカス"&gt;あべのハルカス&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;次に向かったのが&lt;code&gt;あべのハルカス&lt;/code&gt;。
+&lt;ul&gt;
+&lt;li&gt;高所恐怖症の自分には、終始屁っ放り腰でしたね。まさかトイレがあんま怖いものだったとは。。。。&lt;/li&gt;
+&lt;li&gt;あべのハルカスから次の目的地の新世界を見下ろし(くっそ小さく感じた)。前日に行ったユニバも拝めたね。ただ大阪城ってどこや！！！！！って終始言い続けていた。結果大阪城の正確な位置とか知らんというね。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;新世界の前に動物園が天皇の誕生日で無料開放されていたのでせっかくだからみて回ってみることに。
+&lt;ul&gt;
+&lt;li&gt;大阪の人って動物に対しても普通に突っ込むんだね。聞いてていいな〜って思った。東京ってなんか人間味にかけるというか気取ってるというかそんな雰囲気がすごく強いから大阪の雰囲気はとても新鮮で居心地がよかった。&lt;/li&gt;
+&lt;li&gt;ちなみに突っ込まれていたのは、気が立っているお猿さんでしたね。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="新世界"&gt;新世界&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;ひとまずここは、東京でいうとどこが当てはまるのかは不明だが面白い&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;前日教わった&lt;code&gt;エロ&lt;/code&gt;シリーズのガチャガチャを一回やり、ひとまずみかんの網みたいなおパンティをゲット&lt;/li&gt;
+&lt;li&gt;たこ焼き
+&lt;ul&gt;
+&lt;li&gt;塩マヨネーズ味のたこ焼きとオーソドックスなたこ焼きを食した。&lt;/li&gt;
+&lt;li&gt;どちらも美味しくて良き&lt;/li&gt;
+&lt;li&gt;んで新世界の名物?である通天閣へ&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;おっさんがただひたすら長渕剛を熱唱&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;しかもオンステージは、通天閣真下の路上の真ん中。だれも気に留めず車もクラクション鳴らさず、おっさんがただひたすら熱唱しているという絵面はシュールだったけど爆笑してしまった&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;少し早いけど夕飯的なノリで&lt;code&gt;横綱&lt;/code&gt;というお店にて串揚げを食す。アスパラの大きさに驚きまぁーーーー本場の串揚げを食せて満足し、電気街の日本橋へ&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;まさか大阪でダッチワイフ鑑賞するとは思わなかった。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="大阪駅へ"&gt;大阪駅へ&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;はやいもので時間はあっという間でなんだかんだ帰りの新幹線の時間が近づいてきてしまった。
+&lt;ul&gt;
+&lt;li&gt;551 の肉まんを一箱買い。新幹線で東京へ&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="最後に"&gt;最後に&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;初めてづくしの大阪旅行でしたが十二分に楽しめたと思う。&lt;/li&gt;
+&lt;li&gt;また大阪へ行って行けなかった新喜劇なども行ってみたい。&lt;/li&gt;
+&lt;li&gt;その前に次は、福岡や京都かなー&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>初大阪旅行</title><link>https://hironeko.github.io/posts/201903/20190311/</link><pubDate>Mon, 11 Mar 2019 20:16:39 +0900</pubDate><guid>https://hironeko.github.io/posts/201903/20190311/</guid><description>&lt;h2 id="人生初大阪"&gt;人生初大阪&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;土曜の早朝(新幹線始発)で大阪へ&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;2 時間半くらいで大阪へ到着。&lt;/li&gt;
+&lt;li&gt;新幹線乗って駅弁食べて速攻爆睡したので気づいたら大阪に到着っていう流れだった。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;着いてからこれまた初のユニバへ直行&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一回乗り換えして九条まで行きユニバへ到着&lt;/li&gt;
+&lt;li&gt;道中驚いたのは、なんと朝から公園で漫才をしている芸人さんがいたこと(よしもと西梅田劇場横)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;道中聞こえてくるのはひたすら関西弁。自分自身大阪は初だけども周りに大阪出身の人が多すぎて慣れていたがまぁああああああどこもかしこも関西弁で聞いてて面白かった。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="初ユニバ"&gt;初ユニバ&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;ユニバに着いて速攻向かったのは、お目当のハリーポッターさんです。すんげーのなんの。アトラクションで自然と手を振り、拍手したのは初体験。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;何がいいって演出やアトラクションの完成度。普通に錯覚を起こした。ここから二時間くらいはすごいすごいしかいうてなかったと思う。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;この日に乗れたアトラクションは、ハリーポッター、スパイダーマン、ルパン三世、ミニオンと目玉どころを乗れたのはよかった。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;どれもアトラクションのクオリティがすごくこりゃみなさん文句言わずに並びますよと思った。&lt;/li&gt;
+&lt;li&gt;普段からテーマパーク系には、全く興味持たないし並んだりするってのが大嫌いなのだがディズニーとユニバは、並んでいいと思った。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="金銭感覚"&gt;金銭感覚&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;同伴者である彼女の親友さんカップルと夕飯に行ったんだが。お会計の価格に驚いた。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;関東圏だと二人で 12,000 円くらいの食事って結構頻繁に多くてあまり驚かないんだけど大人 4 人でお酒飲んでそこそこ食べて 12,000 円代で収まって驚いていたのだが関西圏の人からするとそれでも&lt;code&gt;「高い」&lt;/code&gt;らしい・・・&lt;/li&gt;
+&lt;li&gt;普通に考えたら一人あたり 3,000 円なのだけども、3,000 円の食事代ってたっっかいよね。普段ランチでは、600 円前後で抑えるようにしているんだから 5 日分の食事代ってことになる。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;翌日には、さらに色々と驚きばかりの大阪旅行になった。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="ホテル"&gt;ホテル&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;今回、JR 東海？のホテル + ユニバチケット + 新幹線往復のセットコースを使用したんですが二人合計で 7 万弱でした。これが安いのか高いのかはまぁーーーーわからないけどもホテルの所在地が市内に比較的に近くて駅近だった。朝食ビュッフェは別料金だったけど追加支払いしてよかったと思う。ただ初大阪だったので朝から盛大に大阪飯を狙うという選択肢を考えてもよかったかもしれない。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="2-日目"&gt;2 日目&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;別で書こうと思う。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="誰も見なくても振り返りの材料としてのブログ"&gt;誰も見なくても振り返りの材料としてのブログ&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;再開のブログが他人からすればどうでもいい大阪旅行というね。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;今後&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Laravel jp カンファレンス の内容も書こうと思う&lt;/li&gt;
+&lt;li&gt;個人で友人があったら便利だということでスロットの期待値計算システムでも作っている話でも&lt;/li&gt;
+&lt;li&gt;自分が学習がてら使用した Qiita の記事等々も紹介できたらいいかな&lt;/li&gt;
+&lt;li&gt;今在籍している会社内の研修用の Laravel の学習教材(自分が作成した)を Vue や PHPUnit を追記したら再度 GitHub で公開できたらいいなーと考えている&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;以上です&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>ブログ再開</title><link>https://hironeko.github.io/posts/201903/20190310/</link><pubDate>Sun, 10 Mar 2019 04:38:56 +0900</pubDate><guid>https://hironeko.github.io/posts/201903/20190310/</guid><description>&lt;h2 id="主に書いていくこと"&gt;主に書いていくこと&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;エンジニアっぽいこと&lt;/li&gt;
+&lt;li&gt;アニメの考察や感想&lt;/li&gt;
+&lt;li&gt;趣味など&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="ブログを再開する理由"&gt;ブログを再開する理由&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;アウトプットが少ないからブログでアウトプットしていくため&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="書いている人について"&gt;書いている人について&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;一応エンジニア(怠け者の極みである)&lt;/li&gt;
+&lt;li&gt;アニメが好き&lt;/li&gt;
+&lt;li&gt;音楽が好き&lt;/li&gt;
+&lt;li&gt;金儲けが好き&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="ひとまず続けてみようと思う"&gt;ひとまず続けてみようと思う&lt;/h2&gt;</description></item></channel></rss>

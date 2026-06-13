@@ -1,269 +1,222 @@
-<!doctype html>
-<!-- build: 2025-09-22 -->
-<html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Posts - hironeko desu</title>
-    <meta name="description" content="記事一覧" />
-    <style>
-
-      :root {
-        --bg: #0f172a;
-        --panel: rgba(15, 23, 42, 0.6);
-        --text: #e2e8f0;
-        --muted: #94a3b8;
-        --accent: #22d3ee;
-        --accent-2: #a78bfa;
-        --chip-bg: rgba(148, 163, 184, 0.15);
-        --border: rgba(226, 232, 240, 0.08);
-        --shadow: 0 10px 30px rgba(2, 8, 23, 0.6);
-      }
-      [data-theme="light"] {
-        --bg: #f8fafc;
-        --panel: rgba(255,255,255,0.75);
-        --text: #0f172a;
-        --muted: #334155;
-        --accent: #0ea5e9;
-        --accent-2: #7c3aed;
-        --chip-bg: rgba(2, 132, 199, 0.08);
-        --border: rgba(15, 23, 42, 0.08);
-        --shadow: 0 8px 24px rgba(0,0,0,0.08);
-      }
-      html, body { height: 100%; }
-      body {
-        margin: 0;
-        color: var(--text);
-        background:
-          radial-gradient(1200px 800px at 10% -10%, rgba(34, 211, 238, 0.15), transparent 60%),
-          radial-gradient(1000px 700px at 110% 10%, rgba(167, 139, 250, 0.18), transparent 60%),
-          linear-gradient(180deg, var(--bg), var(--bg));
-        font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", "Meiryo", Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-      }
-      .container { max-width: 1080px; margin: 0 auto; padding: 64px 20px 96px; }
-      .hero { display: grid; grid-template-columns: 1fr auto; gap: 24px; }
-      .title { display: flex; flex-direction: column; gap: 6px; justify-content: flex-end; }
-      .name { font-size: clamp(28px, 5vw, 40px); font-weight: 800; letter-spacing: .4px; }
-      .role { color: var(--muted); font-size: 16px; }
-      .actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
-      .btn { appearance: none; border: 1px solid var(--border); color: var(--text); background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); padding: 10px 14px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 14px; transition: transform 120ms ease, border-color 200ms ease, background 200ms ease; box-shadow: var(--shadow); display: inline-flex; align-items: center; gap: 8px; }
-      .btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.18); }
-      .list-card { margin-top: 32px; background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 24px 24px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: var(--shadow); }
-      .section-title { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 18px; }
-      .post-list { display: grid; gap: 16px; }
-      .post-item { border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; background: rgba(15,23,42,0.35); box-shadow: var(--shadow); transition: transform 120ms ease, border-color 200ms ease; }
-      [data-theme="light"] .post-item { background: rgba(255,255,255,0.85); }
-      .post-item:hover { transform: translateY(-2px); border-color: rgba(34,211,238,0.3); }
-      .post-title { font-size: 18px; font-weight: 700; margin: 0; }
-      .post-meta { color: var(--muted); font-size: 13px; margin-top: 6px; display: flex; gap: 12px; flex-wrap: wrap; }
-      .post-summary { margin-top: 12px; color: var(--text); }
-      .footer { color: var(--muted); margin-top: 28px; display: flex; gap: 12px; align-items: center; }
-      .sep { opacity: .3; }
-      @media print {
-        body { background: #fff; color: #000; }
-        .actions, .footer { display: none !important; }
-        .list-card { box-shadow: none; border-color: #ddd; background: #fff; }
-        .container { padding: 0; }
-      }
-
-    </style>
-  </head>
-  <body>
-    <div class="container" id="app">
-      <header class="hero">
-        <div class="title">
-          <div class="name">Posts</div>
-          <div class="role">記事一覧</div>
-        </div>
-        <nav class="actions">
-          <a class="btn" href="/">Top</a>
-          <a class="btn" href="/about/">About</a>
-          <a class="btn" href="/resume/">Resume</a>
-          <a class="btn" href="/posts/">Posts</a>
-          <button class="btn" id="themeToggle">テーマ切替</button>
-        </nav>
-      </header>
-      <main class="list-card">
-        <div class="section-title">Posts</div>
-        <div class="post-list">
-          <article class="post-item">
-            <a class="post-title" href="/posts/201907/201907010/">LaravelでAPIのValidationエラーをどこで返すか問題</a>
-            <div class="post-meta">2019年7月11日 · Tags: blog, story</div>
-            <p class="post-summary">- Handler でハンドリングして返すのが正しいと思う。</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201907/20190704/">Vueのディレクトリ構成</a>
-            <div class="post-meta">2019年7月4日 · Tags: blog, story</div>
-            <p class="post-summary">そもそも色々と疑問があった。</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201906/20190626/">vuepressを触ってみた</a>
-            <div class="post-meta">2019年6月26日 · Tags: vuepress, vue</div>
-            <p class="post-summary">- Go の勉強で Hugo を触ってみたものの自分としては、んー今じゃない感がありました。機能としては十分だし、成熟しつつあるドキュメントも多いんだけども Go をちゃんと学習してからだなと思った次第</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201905/20190529/">久々に投稿</a>
-            <div class="post-meta">2019年5月29日 · Tags: blog, story</div>
-            <p class="post-summary">プログラミングが好きで今の仕事をやっている(半分正解)</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201904/2019040x5/">NowでDeployを味わう</a>
-            <div class="post-meta">2019年4月22日 · Tags: Now, deploy</div>
-            <p class="post-summary">- now とは、nuxt.js や next.js を作成した会社(元々はコミュニティ)ZEIT が運営しているサービス</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201904/2019040x4/">2019040x4</a>
-            <div class="post-meta">2019年4月17日 · Tags: blog, story</div>
-            <p class="post-summary">学ぶべきことは、どんな業種でも当たり前であるということは変わらず</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201904/20190409/">Vuexに挑戦4</a>
-            <div class="post-meta">2019年4月9日 · Tags: Vuex, 入門</div>
-            <p class="post-summary">Form の制御って箇所まで行いました。次は、テキストエリアの切り替えです。</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201904/20190408/">初YYPHP</a>
-            <div class="post-meta">2019年4月8日 · Tags: YYPHP, 勉強会</div>
-            <p class="post-summary">18:30 ~ 集合開始</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201904/2019040x3/">YYPHP</a>
-            <div class="post-meta">2019年4月5日 · Tags: YYPHP, 勉強会</div>
-            <p class="post-summary">以前 twitter にて設計等に関して呟いたらどう？という話をしていただいたので早速きてみた。</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201904/2019040x2/">次のアプリ</a>
-            <div class="post-meta">2019年4月3日 · Tags: Vue, Laravel</div>
-            <p class="post-summary">前回までは、[こちらの記事](https://qiita.com/_P0cChi_/items/ebf8fbf035b36218a37e)にお世話になりました。</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201904/20190402/">Vuexに挑戦3</a>
-            <div class="post-meta">2019年4月2日 · Tags: Vuex, 入門</div>
-            <p class="post-summary">HeadComp.vue に mapGetters を導入したところまでは、やったはず。</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201904/20190401/">Vuexに挑戦2</a>
-            <div class="post-meta">2019年4月1日 · Tags: Vue, Vuex, 入門</div>
-            <p class="post-summary">テキストエリアを作成する。ここは、大きく変更はなくお手本の通りに進める。</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201903/20190331/">英語学習の方針</a>
-            <div class="post-meta">2019年3月31日 · Tags: 英語学習</div>
-            <p class="post-summary">今している仕事で英語は、最悪英語がわからなくてもどうにかなるのが事実。だけどより高度な内容だったり、新たなツール、最新の情報のキャッチアップ、そもそものコードを読むにあたり、OSS 活動を行う上でなどでとても重要なスキルだから学習をする</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201903/20190330/">Vuexに挑戦！！</a>
-            <div class="post-meta">2019年3月30日 · Tags: Vue, Vuex, 入門</div>
-            <p class="post-summary">Qiita の記事([下記記載](#参考サイトと使用ツールリンク))では、いきなり`Vuex`の導入から始まっているがリンクにある gist のページを見ると`Vue`の環境構築から手順があるのでわからない人は参考にしましょう。</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201903/20190329/">Vueで1ページアプリ</a>
-            <div class="post-meta">2019年3月29日 · Tags: Vue, Vuex</div>
-            <p class="post-summary">今回は、時計のアプリケーションを写経。Linter は使用せずです。</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201903/20190328/">Jenkinsのハマりポイントとanyenvを入れた</a>
-            <div class="post-meta">2019年3月28日 · Tags: Jenkins, 初期設定, anyenv</div>
-            <p class="post-summary">今回困ったポイント</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201903/20190327/">Jenkinsを入れてみる</a>
-            <div class="post-meta">2019年3月27日 · Tags: Jenkins, 導入</div>
-            <p class="post-summary">今いる職場で使用してた Jenkins が謎に動作不能に陥ったため選択肢としてひとまずの Jenkins となったから</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201903/20190326/">Vueに入門してみよう</a>
-            <div class="post-meta">2019年3月26日 · Tags: Vue, 入門</div>
-            <p class="post-summary">触ったことある。けど業務では未使用だし本格的には触っていない。だもんでちゃんと入門してみることにした(復習の意味も込めて)</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201903/201903xx2/">Goへ入門</a>
-            <div class="post-meta">2019年3月25日 · Tags: Go, 入門</div>
-            <p class="post-summary">最近 PHP 自体に対してのモチベが低いため別言語を触ってプログラミングに対してのモチベをあげるためってのもある</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201903/20190325/">ReactでイベントとStateの再入門してみた</a>
-            <div class="post-meta">2019年3月25日 · Tags: JavaScript, React, 入門, Event, State</div>
-            <p class="post-summary">```javascript</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201903/201903xx/">ご無沙汰ですReactさん</a>
-            <div class="post-meta">2019年3月25日 · Tags: JavaScript, React</div>
-            <p class="post-summary">業務で使用したことはないが何回か入門をおこなって少しは、理解できるようにしてたがコードを読む分にはさほど困ってないが実装となるとこれはこまる。</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201903/20190324/">JSの復習</a>
-            <div class="post-meta">2019年3月24日 · Tags: blog, story</div>
-            <p class="post-summary">最近は業務で使用している PHP 以外だと`Go`の勉強をしているが`JS`についてもスキルをあげたいのが正直な話だ。</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201903/20190318/">Laravue</a>
-            <div class="post-meta">2019年3月19日 · Tags: 勉強会</div>
-            <p class="post-summary">- 目的</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201903/20190317/">hugoに挑戦</a>
-            <div class="post-meta">2019年3月17日 · Tags: hugo</div>
-            <p class="post-summary">- 最初は、はてなブログが再開したがせっかく`Go` の勉強を始めたので`hugo` でやってみようかなとただし 0 から始めるとどうせやらなくなるからひとまず既存の theme を使用してやろうかなと思う。</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201903/20190314/">Composer でのちょっとした楽</a>
-            <div class="post-meta">2019年3月14日 · Tags: PHP, Laravel</div>
-            <p class="post-summary">- 例えば`Laravel`を使用している場合</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201903/20190313/">レガシーなPHPシステムにPHPUnitを入れてみる</a>
-            <div class="post-meta">2019年3月13日 · Tags: PHP, PHPUnit</div>
-            <p class="post-summary">- 単体テストがなく、なんの動作保証もない実装がすぐにローンチされている環境をなくしたい</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201903/20190312/">大阪旅行2日目</a>
-            <div class="post-meta">2019年3月12日 · Tags: 旅行</div>
-            <p class="post-summary">- 朝起きてホテルのビュッフェを食し大満足</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201903/20190311/">初大阪旅行</a>
-            <div class="post-meta">2019年3月11日 · Tags: 旅行</div>
-            <p class="post-summary">- 土曜の早朝(新幹線始発)で大阪へ</p>
-          </article>
-          <article class="post-item">
-            <a class="post-title" href="/posts/201903/20190310/">ブログ再開</a>
-            <div class="post-meta">2019年3月10日</div>
-            <p class="post-summary">- エンジニアっぽいこと</p>
-          </article>
-        </div>
-      </main>
-      <footer class="footer">
-        <span>© 2025 hironeko</span>
-        <span class="sep">·</span>
-        <a class="btn" href="/">Home</a>
-      </footer>
-    </div>
-    <script>
-      (function() {
-        const root = document.documentElement;
-        const key = 'theme';
-        const stored = window.localStorage ? localStorage.getItem(key) : null;
-        const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-        if (stored === 'light') root.setAttribute('data-theme', 'light');
-        else if (stored === 'dark') root.removeAttribute('data-theme');
-        else if (prefersLight) root.setAttribute('data-theme', 'light');
-        const btn = document.getElementById('themeToggle');
-        if (btn) {
-          btn.addEventListener('click', () => {
-            const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-            if (next === 'dark') {
-              root.removeAttribute('data-theme');
-              if (window.localStorage) localStorage.setItem(key, 'dark');
-            } else {
-              root.setAttribute('data-theme', 'light');
-              if (window.localStorage) localStorage.setItem(key, 'light');
-            }
-          });
-        }
-      })();
-    </script>
-  </body>
-</html>
+<!doctype html><html lang=ja><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Posts - hironeko | Webエンジニア / テックリード</title><meta name=description content="PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。"><link rel=canonical href=https://hironeko.github.io/posts/><meta property="og:type" content="article"><meta property="og:title" content="Posts - hironeko | Webエンジニア / テックリード"><meta property="og:description" content="PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。"><meta property="og:url" content="https://hironeko.github.io/posts/"><meta property="og:image" content="https://hironeko.github.io/tn.png"><meta property="og:locale" content="ja_JP"><meta property="og:site_name" content="hironeko | Webエンジニア / テックリード"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="Posts - hironeko | Webエンジニア / テックリード"><meta name=twitter:description content="PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。"><meta name=twitter:image content="https://hironeko.github.io/tn.png"><script type=application/ld+json>{"@context":"https://schema.org","@type":"Person","name":"hironeko","jobTitle":"Webエンジニア / テックリード / PdM・PjM","description":"PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。","url":"https://hironeko.github.io/","sameAs":["https://github.com/hironeko"],"knowsAbout":["PHP","Laravel","TypeScript","Vue.js","React","AWS","Docker","Terraform","アジャイル開発","スクラム","テックリード","PdM","PjM"]}</script><style>:root{--bg:#0f172a;--panel:rgba(15, 23, 42, 0.6);--text:#e2e8f0;--muted:#94a3b8;--accent:#22d3ee;--accent-2:#a78bfa;--chip-bg:rgba(148, 163, 184, 0.15);--border:rgba(226, 232, 240, 0.08);--shadow:0 10px 30px rgba(2, 8, 23, 0.6)}[data-theme=light]{--bg:#f8fafc;--panel:rgba(255,255,255,0.75);--text:#0f172a;--muted:#334155;--accent:#0ea5e9;--accent-2:#7c3aed;--chip-bg:rgba(2, 132, 199, 0.08);--border:rgba(15, 23, 42, 0.08);--shadow:0 8px 24px rgba(0,0,0,0.08)}html,body{height:100%}body{margin:0;color:var(--text);background:radial-gradient(1200px 800px at 10% -10%,rgba(34,211,238,.15),transparent 60%),radial-gradient(1e3px 700px at 110% 10%,rgba(167,139,250,.18),transparent 60%),linear-gradient(180deg,var(--bg),var(--bg));font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,hiragino kaku gothic pron,noto sans jp,yu gothic ui,meiryo,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}.container{max-width:1080px;margin:0 auto;padding:64px 20px 96px}.hero{display:grid;grid-template-columns:1fr auto;gap:24px}.title{display:flex;flex-direction:column;gap:6px;justify-content:flex-end}.name{font-size:clamp(28px,5vw,40px);font-weight:800;letter-spacing:.4px}.role{color:var(--muted);font-size:16px}.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.btn{appearance:none;border:1px solid var(--border);color:var(--text);background:linear-gradient(180deg,rgba(255,255,255,6%),rgba(255,255,255,2%));padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;transition:transform 120ms ease,border-color 200ms ease,background 200ms ease;box-shadow:var(--shadow);display:inline-flex;align-items:center;gap:8px}.btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.18)}.btn-accent{border-color:rgba(34,211,238,.35);background:linear-gradient(180deg,rgba(34,211,238,.16),rgba(34,211,238,6%))}.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:var(--shadow)}.card+.card{margin-top:16px}.section-title{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:10px}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:var(--chip-bg);border:1px solid var(--border);font-size:13px}.footer{color:var(--muted);margin-top:28px;display:flex;gap:12px;align-items:center}.sep{opacity:.3}@media print{body{background:#fff;color:#000}.actions,.footer{display:none!important}.card{box-shadow:none;border-color:#ddd;background:#fff}.container{padding:0}}.list-card{margin-top:32px}.post-list{display:grid;gap:16px;margin-top:24px}.post-item{border:1px solid var(--border);border-radius:14px;padding:16px 18px;background:rgba(15,23,42,.35);box-shadow:var(--shadow);transition:transform 120ms ease,border-color 200ms ease}[data-theme=light] .post-item{background:rgba(255,255,255,.85)}.post-item:hover{transform:translateY(-2px);border-color:rgba(34,211,238,.3)}.post-title{font-size:18px;font-weight:700;margin:0}.post-meta{color:var(--muted);font-size:13px;margin-top:6px;display:flex;gap:12px;flex-wrap:wrap}.post-summary{margin-top:12px;color:var(--text)}.more{margin-top:24px;display:flex;gap:10px;justify-content:flex-end}.more a{text-decoration:none}</style></head><body><div class=container id=app><header class=hero><div class=title><div class=name>Posts</div><div class=role>PHP/Laravel・AWS中心のWebエンジニア / テックリード。10年超の開発経験をもとに副業・業務委託のご依頼を受け付けています。</div></div><nav class=actions><a class=btn href=https://hironeko.github.io/>Top</a>
+<a class=btn href=https://hironeko.github.io/about>About</a>
+<a class=btn href=https://hironeko.github.io/resume>Resume</a>
+<a class=btn href=https://hironeko.github.io/posts>Posts</a>
+<button class=btn id=themeToggle>テーマ切替</button></nav></header><main class="list-card card"><div class=section-title>Posts</div><div class=post-list><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201907/201907010/>LaravelでAPIのValidationエラーをどこで返すか問題</a><div class=post-meta><span>2019年7月11日</span>
+<span>Tags: blog, story</span></div><p class=post-summary>個人的見解 Handler でハンドリングして返すのが正しいと思う。 そこ以外でハンドリングするとなると多分 trait を FormRequest で use するとかそんな方法になってしまう。それはそれで正しいとは思うけども本当に正しいのだろうか？と考えた結果Handler.phpで返すことに決めた 実処理 app/Exceptions/Handler.php
+&lt;?php declare(strict_types=1); // 省略 class Handler extends ExceptionHandler { /** * @const string */ const ROUTE_PREFIX = 'api'; // 省略 public function render($request, Exception $exception): void { if(collect(explode('/', $request->route()->getPrefix()))->first() === self::ROUTE_PREFIX ) { $this->apiReqponse($exception); } } // 省略 private function apiResponse(Exception $exception): void { if ($exception instanceof ValidationException) { $this->throw($exception->errors(), 400); } // 他のexceptionを羅列することが可能 } private function throw(array $errorMessage, int $code): void { throw new HttpResponseException( response()->json( [ 'status' => 'fail', 'code' => $code, 'error_message' => $errorMessage ], $code ) ); } } 返却値 返却内容は、ぶっちゃけエラーとわかりかつ、フロント側で処理が行いやすいものならなんでもいいかなと思う。 { 'status': 'fail, 'code': 400, 'error_message': { 'field name': [ 'エラーです' ] } } 余談 こっからは余談ですが、API の実装をしている基本的な返却形式は統一すべきだとおもってますし実際それは、スタンダードな考えだと思っています。今回Validationエラーに関して Handler でハンドリングを行うようにしたことによって統一できました。さらにいうとこれでテストの実装に関してはも形式が同じになったことにより楽になりました。</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201907/20190704/>Vueのディレクトリ構成</a><div class=post-meta><span>2019年7月4日</span>
+<span>Tags: blog, story</span></div><p class=post-summary>今の自分の中で Vue のディレクトリ構成の最適解 そもそも色々と疑問があった。
+なぜ component は毎回個別に import するのか？
+なぜ JS は一個の object でどうにかしようとしているのにすべては詰め込まないのか
+でっかい object だとまぁーメモリやら通信速度やら問題は、あるのはわかっているがそもそも論が始まりそうだし宗教問題に発展してそうな雰囲気
+答えは OSS で生まれるのかも 人気のある FW やライブラリに関しては、いろんな人がいろんな提案し今の最適解を出そうとしているし他人にコードを読んもらうことを意識した書き方をしているためかリーダブルであることが多くとても有意義
+エンジニアリングは、エンジニアのスキルをあげることにも一役買っていると思う。
+答え出なくても draft にはなる 最適解が生まれづらい JS という世界では、現時点でベストであるというだけでも十分かなと思う。
+##　で最初の表題へ戻る
+├── components ├── container ├── lib ├── router └── store 途中段階だけど上記のような流れになるかなと
+いちいち components を import するのはだるいので中規模もしくは、ページ数が少ない、ないし小規模ならばグローバルに登録してしまえって思う。特に管理画面系を作成するならなおのこと思う
+都度 import をする記述が減るって happy だと思う
+また sotre の中も色々考えるけど
+mutations, getters, actions等々分けてもいいわけだし
+なんなら機能単位もしくは、ドメイン単位でサブディレクトリをmodulesみたいな作ってstoreに modules で登録すればいいねって思った
+さすれエンドポイントの file の記述が少なからず減るし 全体的な可読性が高まると思う。
+ヒントというか元になったのは vuetify の管理画面関連の OSS の構成</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201906/20190626/>vuepressを触ってみた</a><div class=post-meta><span>2019年6月26日</span>
+<span>Tags: vuepress, vue</span></div><p class=post-summary>目的 Go の勉強で Hugo を触ってみたものの自分としては、んー今じゃない感がありました。機能としては十分だし、成熟しつつあるドキュメントも多いんだけども Go をちゃんと学習してからだなと思った次第 ちゃんとというのは曖昧で正確に言えば基礎を一通りしてからでってことですね。最初の過程をすっ飛ばしました。 そこで代わりになるものはないかなーできれば Vue か React 関連で。。。っとおもったら vuepress なるものがあるらしいとのことで触ってみた 触った所感 わかりやすい。ただその一言ですね。ただ日本語ドキュメントは、Hugo とくらべてあまりない印象 コードを書いた際のスニペットもいい感じでした。 絵文字も見れますしね。 ひとまず導入手順のみ書き残そうと思った次第です 導入手順 VuePress 下記コマンドを実行
+yarn init yarn add -D vuepress echo '# Hello VuePress' > README.md package.json に追加
+"scripts": { "dev": "vuepress dev", "build": "vuepress build" }, yarn dev // サーバーを起動しブラウザで確認 yarn build // buildを行いディレクトリを作成 touch .vuepress/config.js 以下を記述 base: &lsquo;/dirName/&rsquo; // GitHub Pages の公開ディレクトリ dest: &lsquo;docs/&rsquo;, // build 時の出力先指定
+module.exports = { title: "GitHub Pages product by vuepress", // 公開ページのタイトル desctription: "VuePress 挑戦", // ページの説明 dest: "docs/" // build字の出力先指定 } 最終的には、サーバーを立ち上げればHello Worldが確認できます。</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201905/20190529/>久々に投稿</a><div class=post-meta><span>2019年5月29日</span>
+<span>Tags: blog, story</span></div><p class=post-summary>モチベーション維持が大変 プログラミングが好きで今の仕事をやっている(半分正解)
+技術の探求は大好きなんだけどもめんどくさがりすぎる。
+それと人と微妙に感覚が異なっているのが自分的に納得いかない
+ラバーダッキング的な学習方法が主だからより一層ね
+それはさておき 最近職場で一人でもくもくと開発と PM 的なことを並行して行なっているんだけども その際に Laravel でちょっとしたコマンドを作成した
+repository pattern を採用しているんだけど DDD に寄せている設計で書いてて Laravel の artisan command には repository file の作成 command なんてなくてただただだるい作業が必ず発生するからめんどくて作った話
+ただ参考にしたサイトのコードにちょっと手を加えた程度
+あるとないとではだいぶ違う
+&lt;?php declare(strict_types=1); namespace App\Console\Commands; use Illuminate\Console\Command; /** * CreateReposioryFileCommand class */ class CreateReposioryFileCommand extends Command { /** * @const string repository dir path */ const REPOSITORIES_PATH = 'app/Repositories/'; /** * The name and signature of the console command. * * @var string */ protected $signature = 'make:repository {repositoryName : The name of repository}'; /** * The console command description. * * @var string */ protected $description = 'Create repository files'; /** * @var string */ private $fileName; /** * @var string */ private $dirName; /** * @var string */ private $repositroyFileName; /** * @var string */ private $interfaceFileName; /** * Create a new command instance. * * @return void */ public function __construct() { parent::__construct(); } /** * Execute the console command. * * @return mixed */ public function handle() { $this->fileName = $this->argument('repositoryName'); if (is_null($this->fileName)) { $this->error('Repository Name invalid'); } $this->dirName = $this->ask('new directory name. or use directory name'); if (is_null($this->dirName)) { $this->error('Directory required!'); } if (!$this->isExistDirectory()) { $this->createDirectory(); } $this->repositroyFileName = self::REPOSITORIES_PATH . $this->dirName . '/' . $this->fileName . 'Repository.php'; $this->interfaceFileName = self::REPOSITORIES_PATH . $this->dirName . '/' . $this->fileName . 'Interface.php'; if ($this->isExistFiles()) { $this->error('already exist'); return; } $this->creatRepositoryFile(); $this->createInterFaceFile(); $this->info('create successfully'); } /** * Repositoryのfileを作成する * @return void */ private function creatRepositoryFile(): void { $content = "&lt;?php\ndeclare(strict_types=1);\n\nnamespace App\\Repositories\\$this->dirName;\n\nfinal class $this->fileName" . "Repository implements $this->fileName" . "Interface\n{\n}\n"; file_put_contents($this->repositroyFileName, $content); } /** * Interfaceのfileを作成する * @return void */ private function createInterFaceFile(): void { $content = "&lt;?php\ndeclare(strict_type=1);\n\nnamespace App\\Repositories\\$this->dirName;\n\ninterface $this->fileName" . "Interface\n{\n}\n"; file_put_contents($this->interfaceFileName, $content); } /** * 同名fileの確認 * * @return bool */ private function isExistFiles() { if (file_exists($this->repositroyFileName) && file_exists($this->interfaceFileName)) { return true; } return false; } /** * directoryの存在確認 * * @return bool */ private function isExistDirectory() { if (file_exists(self::REPOSITORIES_PATH . $this->dirName)) { return true; } return false; } /** * 指定名でdirectoryの作成 * * @return void */ private function createDirectory() { mkdir(self::REPOSITORIES_PATH . $this->dirName, 0755, true); } } です。</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201904/20190409/>Vuexに挑戦4</a><div class=post-meta><span>2019年4月9日</span>
+<span>Tags: Vuex, 入門</span></div><p class=post-summary>前回までのあらすじ Form の制御って箇所まで行いました。次は、テキストエリアの切り替えです。
+:is とは？ お手本の Qiita の記事には補足がないので初心者は「ん？」となるでしょう。単純にこれは、　Vue が用意している省略機能の一つで完全な構文はv-bind:isです。(間違ってたらすみません)
+こうやって世間の目にさらされる場所に書く際は、間違えがないだろうかとちゃんと調べて動作確認しってことをするため体系的に頭にあったことが正しい知識として登録されることに意味があると思っている。
+あとは、お手本をもとに微妙に変えた書き方(spread operator)などで書きなおしつつ動作確認。
+このブログもそうだけど基本自宅では、VSCode を使用しているんだけど Vue で mapGetters を記述した際に import してくれるのはいいのだがtemplateの中にぶっこまれるのはどうして。。。。
+お手本のまま記述を大方終え動作確認をするとアプリっぽい感じになってきましたね。
+thanks ページの作成 この章で最後ですな。
+お手本通りの実装をすすめます。 ただ個人的にふと思ったのがThanks.vueにて mapActions, mapGetters を import しているけどもこれ消しても動くわけです。何か意図があったのかな？
+単純この file って最後のページだから何かイベント等は、発生しないと思う。
+あと一点rootState.setpCount == 2の箇所。個人的には厳密に判定してほしので===しました。
+いうてここは、数値しか来ないのは、わかっているけども。基本的に業務でも==は使用しないようにしているため。ここも 3 個にした。
+今回の学び 全体像は、掴めた。ただ state 関連は、色々と書き方がある点を知れたのと Vue がなぜ人気があるかなんとなくわかった。
+感想が短い・・・・
+さて次は何をやろうかな。 ちょっとまえに Laravel と Vue の instagram clone の記事がバズってたからそれを考えたは考えたがんー悩みどころだな。ただひたすら時間がかかりそうだ。
+それか今回のアプリのように比較的細かくあーだこーだ書くのはやめて、修正を加えた箇所やお手本と違う方法を試した箇所だけピックアップするようにするか。The memo 的な投稿を一個作成するだけにするか実に悩めかしい。</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201904/20190408/>初YYPHP</a><div class=post-meta><span>2019年4月8日</span>
+<span>Tags: YYPHP, 勉強会</span></div><p class=post-summary>当日の流れ 18:30 ~ 集合開始 人数が集まってきたら自己紹介と本日話したいことと聞きたいことなどを一人ずつ言う
+全員終わったら早速雑談開始
+非常に和気藹々の中話がされていく
+とーーーーても楽しい時間だったのは言うまでもない。
+では以下感想
+週明けしましたが先週末の YYPHP の感想 なぜ行ったのか？ ここ数年は人見知りがだいぶ強化されてどこいくのも億劫なのだが今の職場、所属会社に設計に関してなどを相談できる人がいないということでいくことを決意
+何を聞いたのか？ レガシーなシステムの改修について大雑把に聞いた
+メインお題・メンテナンスされていないライブラリを外すには？ 順序立てて削るか一気に削るか？ 解答 そもそも規模と予算による。けども一気に削るのは、よくはない。
+どんなシステム？ 僕：API サーバーでエンドポイントは 100 本くらい(すみません。正確な数字じゃない)
+アドバイス API は、対抗のシステムにも影響があるため画面で確認できるシステムより影響が大きい
+僕：DB 接続が 3 種類存在している。
+みなさん言葉を詰まらせる
+僕：1 万行くらいの file をはじめ 3~4 千行の file はざらにある。
+どよめき
+アドバイス できるだけ細かく分けてやったほうがいい シャドウという方法を知っている？ > No 入出力を確認してそれらが一致するように書き直す方法 (すみません。すでに実践してました。。。。)
+使われていないメソッドや変数に関しては、PHPStorm を使用して取り組んだ方がパフォーマンスがあがるから使った方がいい。
+PHP Inspectionsはいいぞ！！！
+インスタンスを作成する上限はきにしなくていい！ ->これは今最大に判断に迷ってたことなので非常に心強いお言葉だった
+個人の議題に関しての感想 普段現場では、独り言やずーと頭の中で会話している内容が実際に対面で誰かと話せ、かつ大先輩の方々から貴重なご意見をもらえたのは、とても刺激的で感動的だった。
+本来エンジニアならそういう発言や考えの討論、議論があっていいと思うけどもそれらがない環境はとてもつらい。
+けど一歩どこかに足を運べばそこには自分が求めている世界、環境があるのと改めて実感した。 また近いうちに YYPHP へ参加したいと思う
+他の方の議題 アーキテクチャや Vue に関してが多かった 個人的には、クリーンアーキテクチャなどに関して関心があって興味のある議題であったがこれも自分の中でもやもやしてた部分が解消された。
+簡単に言うとアーキテクチャは、何かを解決するためのものであった銀の弾丸ではないということ
+そもそも設計や方法に銀の弾丸は存在してなくてケースバイケースでいいと思われる設計を目指す。
+けどその設計も息が長いわけでなく数ヶ月後、数年後には、これあかんわってなると思う。</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201904/20190402/>Vuexに挑戦3</a><div class=post-meta><span>2019年4月2日</span>
+<span>Tags: Vuex, 入門</span></div><p class=post-summary>前回までのあらすじ HeadComp.vue に mapGetters を導入したところまでは、やったはず。
+今回は、Form.vue に mapGetters の記述を追加から進めます。
+mapGetters には、書き方が色々？ お手本の書き方
+computed: mapGetters("Form", { button: "getButton" }) このように書いている。ただ mapGetters について調べているとどうもこの書き方は見かけないぞ・・・？ということになり mapGetters とより仲良くなるために調べました。 ちなみに公式サイト
+ES6 の書き方を使用して(spread operator)の書き方が紹介されている。
+調べ物をしてて最終的に気づくのってやっぱ公式サイトやリファレンスって最強じゃね？って話。さらにいうと実装されている中身をみるのが一番さいつよです。ただいろんなところに記載されているコードは、良くも悪くも書き方の参考として頭の片隅に入れておくのを忘れずに。
+さて実際に自分がこの場面でいいなって思った書き方は以下です。 小さな規模ならわざわざ別名でマッピングする必要もないでしょうと考えました
+computed: { ...mapGetters( 'Form', ['button'] ) } ただこのファイルで Form という文字が二回出てくる時点でどうなのって思うのも正直なところ。ただしこの書き方をした場合同時にstore/index.jsの方も書き方を変更しないといけない
+例えば下記のように
+getters: { button: (state, getters, rootState) => state.button[rootState.stepCount] } getters って必要なのか。。。？ちらっと最後まで見たが現状他のゲッターを受け取るようなことは書いてなかったが。。。ただ root の state へアクセスしたくまた使用したいから使わないけど第二引数に getters を書いていると言うことなのか。
+引数を表にしている人がいた【Vuex】Store の各プロパティ引数メモ
+ちなみに第 4 引数もあってrootGettersとかけるらしい
+root の getters を使用できるってことかな。今その事案が頭に浮かばないから一旦そういうものとして先に進む
+Form の制御 最初は、まず見本通りに進めます。
+ここも面白い箇所かなと個人的には感じてます。
+先ほどと同様な書き方で進めます。</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201904/20190401/>Vuexに挑戦2</a><div class=post-meta><span>2019年4月1日</span>
+<span>Tags: Vue, Vuex, 入門</span></div><p class=post-summary>前回の続編 テキストエリアを作成する。ここは、大きく変更はなくお手本の通りに進める。 どうやらエラー文言を出力するように記述するみたですね。
+さっさ先に進めます。 次は、StringComp.vueの作成
+src/components/modules/以下に作成したら、Form.vueで import, components, template に追加を行う。
+今回は、src/components/modules/以下に作成したものは、Form.vueで使うので忘れずに追記ですな。
+イベント ボタンの作成、イベントを発火させるためにv-onディレクティブを使う。
+そのまま写経するのは、簡単だがちゃんと理解は必要だね。
+vue のメソッドを使用するみたですね。なぜ使うの、何が実現できるかくらいは把握すべきなのでちょっと調べます。
+調べているうちにmapActionとmapGettersは、Vuex の学習でかなーーーり重要とわかる。
+コンポーネント内のアクションのディスパッチ 正攻法のやりかたthis.$store.dispatch('xxx')で可能だがちゃーーーんと便利なヘルパーを用意してくれているのが Vuex のようですな。それが今回学ぶものの一つmapActionsである。(公式サイト)
+よは、簡単にコンポーネント内のアクションを使おうぜ！と今は、把握しておく。 これを利用する際、必ず Vue インスタンスにstoreを追加しないといけない
+mapGetters も同様 この編集では、mapGetters が使われていないように見えるがこのあとちゃんと使用している。 this.$store.getters['SOME']
+store の作成 mapActions を使用するので store を追加する必要がある。先にmain.jsの修正を行うようだ。
+この時点は、storeフォルダすら存在していないため保存したらエラーが発生する。フォルダと index.js を作成した段階でエラーが消える。
+作成の順番が本当に正しいのか不明だけどここでふと思ったのは、mapActions の第一引数は、namespaced になっている。store の index.js で作成している const 名であるわけで、最初に store を作成すべきでは・・・？と思ったが結果動くなら順番なんて関係ないけどもふと気になった。
+すべての実装を行い終わったら画面の確認ボタンを押下すると console にbuttonActionが出力される。なんと！！！！
+実装してて、公式の解説を読んだりしてたけどもなるほどねー感覚的には理解しているがあくまで感覚なのでさらに深めたいですね。何個も作成して
+Vuex 今回の大本命。ここまでの Vuex 自体は、出てはきているがなぜ必要なのか、何をするものなのかって言うのがここで解説をしてくださっている。
+若干疑問なのは、HeadComp の title を computed で mapGetters？別にキャッシュする必要なくない？って思って公式見たらどうやらお作法っぽい
+あと mapgetters の記述が人によって結構異なっている。おおよそは。module-typeってフォルダ以下にファイルを作成してそれらを import してッシ要している感じ。作成したファイルには、export defaultで const を export している感じ</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201903/20190331/>英語学習の方針</a><div class=post-meta><span>2019年3月31日</span>
+<span>Tags: 英語学習</span></div><p class=post-summary>なぜするのか？ 今している仕事で英語は、最悪英語がわからなくてもどうにかなるのが事実。だけどより高度な内容だったり、新たなツール、最新の情報のキャッチアップ、そもそものコードを読むにあたり、OSS 活動を行う上でなどでとても重要なスキルだから学習をする
+方針・方法は？ これまた単純で 0 から学習を始めるのでまずは、えっそんなことから？って思う人がいるかもしれないことから始める。
+生活の一部に英語を取り込む。 もちろんこれは、仕事以外の私生活での話 好きな映画を英語字幕てひたすら鑑賞する 通勤時などは、洋書を読む。読む洋書は、童話など 1.を具体的に言うと自宅では、幼児向けの動画(歌)をひたすら流す。 アニメを見る時間は別ですがね！ 2.に慣れてきたら好きな歌手の歌詞を和訳したりして遊ぶ。子供向け新聞や英字新聞を読んでみるようにしてみる 行うにあたって まず、英語を勉強しているんだという概念をどこかに置いてくることにする。その圧が発生した時点で長く続かなくなる。なので上にあげてことはいきなりやり始めるのではなく、少しずつ少しずつ取り入れていく
+2.とかであげている点は、まぁー自分が好きなものを読んだり見たりするから飽きは来なそうだけども。好きなことで自然と継続して身近なものにすると言うのが今回の目標ではある。
+なぜこれを書いたのか メモする癖はあれどどこになにを書いたかを忘れるときがある。もしくは、そこにたどり着くまでがめんどくさくて諦めるってことが多いのでこのブログ(?)に記載しこれをいつでも振り返るようにする。もちろん追記もしていくことでしょう。
+さて近いうちに何かしらの洋書をブックオフに買いに行こうと思う。
+それとこのブログにて進捗報告等は、気が向けばしていく。</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201903/20190330/>Vuexに挑戦！！</a><div class=post-meta><span>2019年3月30日</span>
+<span>Tags: Vue, Vuex, 入門</span></div><p class=post-summary>何事も手を動かすことが大事 Qiita の記事(下記記載)では、いきなりVuexの導入から始まっているがリンクにある gist のページを見るとVueの環境構築から手順があるのでわからない人は参考にしましょう。
+例によって Linter は、今回も抜きます。というのも今回は、構文に敏感に注意するより手を動かして Vue と仲良くなるのが目的なのでそこは、捨てます。実際の開発では、大切な要素であることは忘れずに進めます。
+自分は以下のように設定しました。
+? Project name your_app_name ? Project description A Vue.js project ? Author hironeko &lt;xxxxxxxx@exsample.com> ? Vue build standalone ? Install vue-router? Yes ? Use ESLint to lint your code? No ? Set up unit tests No ? Setup e2e tests with Nightwatch? No ? Should we run `npm install` for you after the project has been created? (recommended) yarn Vuex を install さっそく install するみたいですね。待ってました。</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201903/20190329/>Vueで1ページアプリ</a><div class=post-meta><span>2019年3月29日</span>
+<span>Tags: Vue, Vuex</span></div><p class=post-summary>Vue.js だけでひとまず何かを作成 今回は、時計のアプリケーションを写経。Linter は使用せずです。
+進め方は参考サイトを元に進めました。
+CSS はコピペしたがそれ以外は写経、手に馴染めば何も考えなくても手が勝手に動くようになるものなので。戦地の道も一歩からですね。
+今回のアプリの写経での学び computedの挙動 ただし年月日時分の箇所すかね。
+秒は、method でもいいわけですね。
+例えば、このコードでは、computed にsecondsを methods に移動させます。
+seconds() { return zeroPadding(this.date.getSeconds(), 2) } としtemplateの方は、seconds > seconds()に変更し再起動しても変化がありません。
+値に変化が起きない限り再計算処理が走らないのが computed です。 computed の使うポイントとしては、キャッシュしたい何かを返す必要がある(再計算する必要が低い)場合に適任
+methods に関しては、算出(計算)結果のキャッシュはされません。
+日本語で説明を書くには、ちょっと通じにくい文章になりますな。
+大雑把に基礎の学習を終えひとまず何かしら作って手に馴染ませる ということで次は、vuex を使用しての学習。以前 component についは、重要と言う話だったがここで実際に手を動かし学習を進める。
+下記参考サイトのvue.js＋Vuexチュートリアルを参考に進める。(1 年前のものなので必要に応じて適宜変更を加えながら進める)
+参考サイト 第一回 Vue.js で Web アプリをつくろう！
+vue.js ＋ Vuex チュートリアル</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201903/20190328/>Jenkinsのハマりポイントとanyenvを入れた</a><div class=post-meta><span>2019年3月28日</span>
+<span>Tags: Jenkins, 初期設定, anyenv</span></div><p class=post-summary>Jenkins でのハマった箇所の備忘録 今回困ったポイント
+蓋を開けたらそうだよねって話だったけど
+Jenkins ユーザーで job に必要なものを準備 Jenkins を導入したあとに job で使うために言語の Version 管理ツールを入れる必要があった。Jenkins 初心者の自分は、さてはてどう切り替えるんだ？ ひとまずぐぐる。結果まず最初に行うこと
+root で操作
+cat /etc/passwd passwdは、一般ユーザーでも見れるから root である必要はないんだが。。。 以下のように出力される。
+.... jenkins:x:996:994:Jenkins Automation Server:/var/lib/jenkins:/bin/false この結果の/bin/falseの箇所を手動で修正してもいいんだけどやるならちゃんとコマンドで実行する
+chsh jenkins -s /bin/bash 自分が導入した際の Jenkins の shell の path が/bin/bashだったので合わせた(正しいのか・・・？)
+shell を変更したあとに下記コマンドでユーザーを切り替える
+sudo su - jenkins ここにたどり着くのに少々時間がかかってしまった&mldr;&mldr;
+anyenv をいれる Githubのページにある README を読めば導入はできるが注意点が必要
+git clone https://github.com/anyenv/anyenv ~/.anyenv echo 'export PATH="$HOME/.anyenv/bin:$PATH"' >> ~/.anyenv echo 'eval "$(anyenv init -)"' >> ~/.your_profile exec $SHELL -l この導入の後が問題、README だとそのままanyenvが使えるようになっているんだけど下記コマンドが必要 anyenv install --init これでやっと使えるようになる</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201903/20190327/>Jenkinsを入れてみる</a><div class=post-meta><span>2019年3月27日</span>
+<span>Tags: Jenkins, 導入</span></div><p class=post-summary>なぜ Jenkins なのか 今いる職場で使用してた Jenkins が謎に動作不能に陥ったため選択肢としてひとまずの Jenkins となったから
+並行している管理画面のリプレイスの環境は、比較的にモダンな感じで CircleCi を使用している。
+言うても現状は、push の際に PHPUnit が走るようにしてあるだけであるが。
+そこで知見をためたら全部に適用させていきたいとは思っているが、現状 CircleCi に対しての知見がたまっておらず、今まで使用してた Jenkins でいいよねって話になったためである。
+前置きはこれにておしまい
+CentOS への Install これも何番煎じかわからないけどここに書けばいざという時に自分で振り返れるから。
+Install から自動起動までのコマンドは下記
+sudo -y install java-1.8.0-openjdk wget -0 /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key sudo -y install jenkins sudo systemctl start jenkins sudo chkconfig jenkins on さぁーあとは、IP:8080 でブラウザからアクセスして確認です。
+ここから設定をおこなっていくのだが下記コマンドで初期パスワードを確認せねば
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+出力された文字列をぺぺぺって貼り付けてボタン押下
+これ終わり。
+あとは普段入れている plugin などを導入して完了
+なぜ Jenkins が動作不能になったのか不明 実際自分が設定したわけでもなく管理してたわけでもなくっていう状況なのでまさに秘伝のタレ化してたのですわ。Jenkis の悪いところでもある属人化という負債ですね。
+運用方法を改善すればそんなことなく Jenkins と仲良く年をとっていけるわけですがね。まぁーそんあ甘くないと言うことですね。
+そもそもこのタイミングで CircleCi に変えろって話ではありますが。</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201903/20190326/>Vueに入門してみよう</a><div class=post-meta><span>2019年3月26日</span>
+<span>Tags: Vue, 入門</span></div><p class=post-summary>Vue をちゃんと入門 触ったことある。けど業務では未使用だし本格的には触っていない。だもんでちゃんと入門してみることにした(復習の意味も込めて)
+参考にするもの 本家を参考にしつつ、無料で実装動画が見れるのでそれを写経をしていこうかと
+Vue はでっかい object？ var app = new Vue({ el: "#app", data: { message: "Hello Vue!" } }) 例えばこれのmessageを変更する場合app.message = 'change value';のようにすれば変更ができる
+でかい object にしか見えない&mldr;..
+ループ 例えばこんな配列があったとします。これを順に表示する場合
+var app = new Vue({ el: "#app", data: { todos: [ { text: "frist text" }, { text: "second text" }, { text: "thead text" } ] } }) &lt;div id="app"> &lt;ol> &lt;li v-for="todo in todos"> {{ todo.text }} &lt;/li> &lt;/ol> &lt;/div> こんな感じになります。んー PHP のテンプレートエンジンみたい&mldr;for ... in ...これは、けっして真新しくもなくもともと JS で存在しているfor inと同じ挙動してますね。(あっているのか？)</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201903/20190325/>ReactでイベントとStateの再入門してみた</a><div class=post-meta><span>2019年3月25日</span>
+<span>Tags: JavaScript, React, 入門, Event, State</span></div><p class=post-summary>イベント入門 import React from "react" class App extends React.Component { render() { retrun() /* ここに描く処理 */ } } 大枠は上記に記載している内容。以降は、フォーカスして復習をする
+&lt;button onClick={() => { console.log("First Event!!") }} > 初めてのイベント &lt;/button> するとブラウザの developer tools の console で確認ができる
+State 入門 何かの動作にたいして何かを変えるようにする動作がアプリケーションには必須。
+この動作に合わせて変更される値のことを React だと State と呼ばれる。
+React は、classを作成する際にReact.Componentをextendsして作成します。その際constructor(props) { ....}を記述し、stateを定義します
+定義したstateをrender内にて使用する際は、this.stateで代入したオブジェクトを使用できます(ただこの使用方法は基本しないと思います)
+this.state.定義したプロパティ名の形で使用すると認識しておく
+では、何かのイベントで state の値を更新(変更)する場合は？？ this.setSate({プロパティ名:変更する値})となります
+注意として
+this.state = {定義済みプロパティ:値}, this.state.name = '値'という方法では、行いません。
+同じイベントでクリックされるものによって更新する値が違うだけの場合 class 内にメソッドとして作成するといいことがあるなので実際に書いてみようと思う。今回は、イベントは一個だがメソッドを作成してみる
+// .... class App extends React.Component { constructor(props) { super(props); this.state = {value: 'test'}; } handleClick(value) { this.setState({value: value}); } render() { return ( &lt;div> &lt;button onClick={() => {}this.handleClick('変更')}>&lt;/button> &lt;/div> ) } } // .... 的な感じでしょうか？これに少し手を加えれば tutorial で出てくるカウントアップの作成が可能ですね</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201903/20190324/>JSの復習</a><div class=post-meta><span>2019年3月24日</span>
+<span>Tags: blog, story</span></div><p class=post-summary>React と Vue 最近は業務で使用している PHP 以外だとGoの勉強をしているがJSについてもスキルをあげたいのが正直な話だ。
+よって並行して勉強することとにする
+##　なぜするのか？
+自分のいくつかあるウィークポイントの一つにモダンな JS に対しての経験値が引くことがあげられる。
+どのように進めるのか？ 基本的にマルチタスクって生産性が低くなるので好きではないんだけども
+Goの勉強をしながら気晴らしにJSの学習をすることにする
+最終的に基礎的な概念や知識の理解、把握が追いつた段階で
+Goを API サーバーとして使用し、ReactとVue両方とも同じものを作成することにした。
+どんなものを作成するかはまだ決めてないが、よくある Todo 系は、たぶん実用的とは言えないのでそれは、学習の過程に盛り込むことにする
+最終的なゴール どちらの FW でも業務で使用したとしても問題ないレベルをゴールとする。
+次回以降 順に初歩的なことから忘備録として発信していく</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201903/20190317/>hugoに挑戦</a><div class=post-meta><span>2019年3月17日</span>
+<span>Tags: hugo</span></div><p class=post-summary>はてなブログ 最初は、はてなブログが再開したがせっかくGo の勉強を始めたのでhugo でやってみようかなとただし 0 から始めるとどうせやらなくなるからひとまず既存の theme を使用してやろうかなと思う。 今回の theme zenです。Github
+選んだ理由
+どがつくほどシンプルであるから。</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201903/20190314/>Composer でのちょっとした楽</a><div class=post-meta><span>2019年3月14日</span>
+<span>Tags: PHP, Laravel</span></div><p class=post-summary>Composer がある環境 例えばLaravelを使用している場合 環境構築ってまぁまぁめんどいことに下のコマンドのような流れのはず
+git clone https:/xxxxxxx composer install cp env-example .env php artisan key:generate php artisan migrate これすらめんどいわけで。。。 docker 環境だったとしたら docker-compose up -d &ndash;build した時点で shell が走るようにしてればいいんだけども 環境がそれぞれの PC に依存している場合とかだとまぁーめんどいし README に書くのもだるい
+めんどいコマンドは composer.json に書けばいい rails とかだと用意されているんだけど(もちろんプロジェクト単位での追記はあると思うけど)setupコマンドを作っとけばいい
+composer のscriptsって箇所に追記すればいい。例えば下記のように
+"set-up": [ "composer install", "cp .env.example .env", "php artisan key:generate" ] って書いておけば
+composer set-up 一回で済む話。
+もしまだやったことがなくコマンド都度打つような環境なら最初の段階であらかじめ追記しておいた方がいい。そうしたらドキュメントも一行で済むし、他の作業者が間違えることなく初期環境構築が終えられると思う。できる限り日々小さなことでもめんどーは避けたい。</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201903/20190313/>レガシーなPHPシステムにPHPUnitを入れてみる</a><div class=post-meta><span>2019年3月13日</span>
+<span>Tags: PHP, PHPUnit</span></div><p class=post-summary>目的 単体テストがなく、なんの動作保証もない実装がすぐにローンチされている環境をなくしたい 色々とメンテナンスされていないライブラリを消し去りたい 他にも色々と理由はあった・・・・気がするけど主にこのへん 現状 レガシーのシステムなので PHP の version はもちろんサポ外ですよ
+なので極力対象のシステムが動く環境で検証実装 既存の秘伝のタレで作成されるvagrant環境を参考にdockerの環境構築に着手した しかし大きな問題が発生。メンテされていない、ドキュメントも少ない、安全な保証なしってことで消し去りたいライブラリを入れられないって問題。あまり時間も取られたくないのでひとまず秘伝のタレでできている vagrant 環境で実装することに※実際みる限り問題なく動いてはいるはず。 単体テストを使用しようとした痕跡はあるけどもそれ自体がテストとして成立してないものなので、即全削除。0 からの実装が確定
+調査・事前準備 該当の PHP version で動く PHPUnit と DbUnit の組み合わせで検証プロトタイプの作成 その後秘伝のタレの vagrant 環境で動作確認 先々考えるとしんどい 理由 PHPUnit, DbUnit の version を PHP の version に伴ってあげると path が変わる。 そこを考慮して実装しないと世代アップにも時間が取られることになる。 次のブログで導入手順を書く PHP : 5.6.* PHPUnit : 5.5.* DbUnit : 2.0.* という環境です。</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201903/20190312/>大阪旅行2日目</a><div class=post-meta><span>2019年3月12日</span>
+<span>Tags: 旅行</span></div><p class=post-summary>2 日目 朝起きてホテルのビュッフェを食し大満足 難波 チェックアウト後に向かったのは、難波 - 着いて驚いたのは、なんちゃら筋って名の着く道がただひたすら人でごった返しててすごかった。 - そのまま心斎橋方面というか通過までしたけども歩いてみての感動は、やはりグリコ、道頓堀でした。 - んで昼は、お目当の加寿屋 法善寺店へ。 - クッソ並んだ。出入り口がものすごく狭いカウンターの店なので一定数を同時に入れ替え的な回し方なので待たざるおえない。たぶん飯でこれほど並んで待ったのは、初かも？けど結果美味しかった。 [https://tabelog.com/osaka/A2701/A270202/27045072/:embed:cite] あべのハルカス 次に向かったのがあべのハルカス。 高所恐怖症の自分には、終始屁っ放り腰でしたね。まさかトイレがあんま怖いものだったとは。。。。 あべのハルカスから次の目的地の新世界を見下ろし(くっそ小さく感じた)。前日に行ったユニバも拝めたね。ただ大阪城ってどこや！！！！！って終始言い続けていた。結果大阪城の正確な位置とか知らんというね。 新世界の前に動物園が天皇の誕生日で無料開放されていたのでせっかくだからみて回ってみることに。 大阪の人って動物に対しても普通に突っ込むんだね。聞いてていいな〜って思った。東京ってなんか人間味にかけるというか気取ってるというかそんな雰囲気がすごく強いから大阪の雰囲気はとても新鮮で居心地がよかった。 ちなみに突っ込まれていたのは、気が立っているお猿さんでしたね。 新世界 ひとまずここは、東京でいうとどこが当てはまるのかは不明だが面白い
+前日教わったエロシリーズのガチャガチャを一回やり、ひとまずみかんの網みたいなおパンティをゲット たこ焼き 塩マヨネーズ味のたこ焼きとオーソドックスなたこ焼きを食した。 どちらも美味しくて良き んで新世界の名物?である通天閣へ おっさんがただひたすら長渕剛を熱唱
+しかもオンステージは、通天閣真下の路上の真ん中。だれも気に留めず車もクラクション鳴らさず、おっさんがただひたすら熱唱しているという絵面はシュールだったけど爆笑してしまった 少し早いけど夕飯的なノリで横綱というお店にて串揚げを食す。アスパラの大きさに驚きまぁーーーー本場の串揚げを食せて満足し、電気街の日本橋へ
+まさか大阪でダッチワイフ鑑賞するとは思わなかった。
+大阪駅へ はやいもので時間はあっという間でなんだかんだ帰りの新幹線の時間が近づいてきてしまった。 551 の肉まんを一箱買い。新幹線で東京へ 最後に 初めてづくしの大阪旅行でしたが十二分に楽しめたと思う。 また大阪へ行って行けなかった新喜劇なども行ってみたい。 その前に次は、福岡や京都かなー</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201903/20190311/>初大阪旅行</a><div class=post-meta><span>2019年3月11日</span>
+<span>Tags: 旅行</span></div><p class=post-summary>人生初大阪 土曜の早朝(新幹線始発)で大阪へ
+2 時間半くらいで大阪へ到着。 新幹線乗って駅弁食べて速攻爆睡したので気づいたら大阪に到着っていう流れだった。 着いてからこれまた初のユニバへ直行
+一回乗り換えして九条まで行きユニバへ到着 道中驚いたのは、なんと朝から公園で漫才をしている芸人さんがいたこと(よしもと西梅田劇場横) 道中聞こえてくるのはひたすら関西弁。自分自身大阪は初だけども周りに大阪出身の人が多すぎて慣れていたがまぁああああああどこもかしこも関西弁で聞いてて面白かった。
+初ユニバ ユニバに着いて速攻向かったのは、お目当のハリーポッターさんです。すんげーのなんの。アトラクションで自然と手を振り、拍手したのは初体験。
+何がいいって演出やアトラクションの完成度。普通に錯覚を起こした。ここから二時間くらいはすごいすごいしかいうてなかったと思う。 この日に乗れたアトラクションは、ハリーポッター、スパイダーマン、ルパン三世、ミニオンと目玉どころを乗れたのはよかった。
+どれもアトラクションのクオリティがすごくこりゃみなさん文句言わずに並びますよと思った。 普段からテーマパーク系には、全く興味持たないし並んだりするってのが大嫌いなのだがディズニーとユニバは、並んでいいと思った。 金銭感覚 同伴者である彼女の親友さんカップルと夕飯に行ったんだが。お会計の価格に驚いた。
+関東圏だと二人で 12,000 円くらいの食事って結構頻繁に多くてあまり驚かないんだけど大人 4 人でお酒飲んでそこそこ食べて 12,000 円代で収まって驚いていたのだが関西圏の人からするとそれでも「高い」らしい・・・ 普通に考えたら一人あたり 3,000 円なのだけども、3,000 円の食事代ってたっっかいよね。普段ランチでは、600 円前後で抑えるようにしているんだから 5 日分の食事代ってことになる。 翌日には、さらに色々と驚きばかりの大阪旅行になった。
+ホテル 今回、JR 東海？のホテル + ユニバチケット + 新幹線往復のセットコースを使用したんですが二人合計で 7 万弱でした。これが安いのか高いのかはまぁーーーーわからないけどもホテルの所在地が市内に比較的に近くて駅近だった。朝食ビュッフェは別料金だったけど追加支払いしてよかったと思う。ただ初大阪だったので朝から盛大に大阪飯を狙うという選択肢を考えてもよかったかもしれない。 2 日目 別で書こうと思う。 誰も見なくても振り返りの材料としてのブログ 再開のブログが他人からすればどうでもいい大阪旅行というね。
+今後
+Laravel jp カンファレンス の内容も書こうと思う 個人で友人があったら便利だということでスロットの期待値計算システムでも作っている話でも 自分が学習がてら使用した Qiita の記事等々も紹介できたらいいかな 今在籍している会社内の研修用の Laravel の学習教材(自分が作成した)を Vue や PHPUnit を追記したら再度 GitHub で公開できたらいいなーと考えている 以上です</p></article><article class=post-item><a class=post-title href=https://hironeko.github.io/posts/201903/20190310/>ブログ再開</a><div class=post-meta><span>2019年3月10日</span></div><p class=post-summary>主に書いていくこと エンジニアっぽいこと アニメの考察や感想 趣味など ブログを再開する理由 アウトプットが少ないからブログでアウトプットしていくため 書いている人について 一応エンジニア(怠け者の極みである) アニメが好き 音楽が好き 金儲けが好き ひとまず続けてみようと思う</p></article></div></main><footer class=footer><span>© 2026 hironeko</span>
+<span class=sep>·</span>
+<a class=btn href=https://hironeko.github.io/>Home</a></footer></div><script>(function(){const e=document.documentElement,t="theme",n=window.localStorage?localStorage.getItem(t):null,o=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches;n==="light"?e.setAttribute("data-theme","light"):n==="dark"?e.removeAttribute("data-theme"):o&&e.setAttribute("data-theme","light");const s=document.getElementById("themeToggle");s&&s.addEventListener("click",()=>{const n=e.getAttribute("data-theme")==="light"?"dark":"light";n==="dark"?(e.removeAttribute("data-theme"),window.localStorage&&localStorage.setItem(t,"dark")):(e.setAttribute("data-theme","light"),window.localStorage&&localStorage.setItem(t,"light"))})})()</script></body></html>
