@@ -1,0 +1,37 @@
+{
+  "name": "hironeko-portfolio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "react-router build",
+    "check": "react-router typegen && tsc --noEmit && react-router build && wrangler deploy --dry-run",
+    "deploy": "wrangler deploy",
+    "dev": "react-router dev",
+    "preview": "npm run build && vite preview",
+    "typegen": "wrangler types && react-router typegen"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "isbot": "^5",
+    "lucide-react": "^1.30.0",
+    "radix-ui": "^1.6.7",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-icons": "^5.7.0",
+    "react-router": "^8.3.0",
+    "tailwind-merge": "^3.6.0"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.51.1",
+    "@react-router/dev": "^8.3.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.2.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.1",
+    "wrangler": "^4.120.0"
+  }
+}

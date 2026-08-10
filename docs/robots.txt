@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://hironeko.github.io/sitemap.xml
-
