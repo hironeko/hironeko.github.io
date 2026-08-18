@@ -1,10 +1,15 @@
 import {
   ArrowDown,
   ArrowUpRight,
+  BarChart3,
   CircleAlert,
+  Database,
+  Gauge,
+  GitPullRequest,
   Mail,
   RotateCcw,
   ShieldCheck,
+  Terminal,
   TimerReset,
 } from "lucide-react";
 import { SiGithub, SiX } from "react-icons/si";
@@ -66,6 +71,12 @@ const results = [
     label: "開発リードタイム",
     detail: "最長だった時期から5分の1へ短縮し、定期リリースの流れを確立",
   },
+  {
+    icon: Database,
+    value: "−50%以上",
+    label: "社内データ修正問い合わせ",
+    detail: "社内から寄せられるデータ修正の問い合わせ件数を従来比で半分以下へ",
+  },
 ];
 
 const capabilities = [
@@ -84,6 +95,29 @@ const capabilities = [
   {
     label: "マネジメント",
     content: "エンジニアリングマネジメント · テックリード · スクラムマスター · PdM / PjM",
+  },
+];
+
+const projectFeatures = [
+  {
+    icon: GitPullRequest,
+    title: "PR・レビュー分析",
+    description: "リードタイム、レビュー時間、マージ待ち、レビューカバレッジを可視化。",
+  },
+  {
+    icon: BarChart3,
+    title: "月次・年次比較",
+    description: "指定期間の集計に加え、月ごとの推移や年度間の変化を比較。",
+  },
+  {
+    icon: Gauge,
+    title: "CI/CD分析",
+    description: "GitHub Actionsの成功率や実行時間、失敗傾向を確認。",
+  },
+  {
+    icon: Terminal,
+    title: "ローカルファースト",
+    description: "外部サービスへデータを送らず、CLIとローカルダッシュボードで利用。",
   },
 ];
 
@@ -113,6 +147,7 @@ export default function Home() {
           <nav className="site-nav" aria-label="メインナビゲーション">
             <a href="#value">できること</a>
             <a href="#results">改善実績</a>
+            <a href="#projects">プロダクト</a>
             <a href="/resume/">Resume</a>
             <a href="#contact">お問い合わせ</a>
           </nav>
@@ -225,6 +260,62 @@ export default function Home() {
               );
             })}
           </dl>
+        </section>
+
+        <section id="projects" className="page-shell content-section">
+          <header className="section-header">
+            <h2>公開プロダクト</h2>
+            <p>
+              開発組織の現在地を感覚ではなくデータで捉えるためのツールを、
+              オープンソースで公開しています。
+            </p>
+          </header>
+          <article className="project-showcase">
+            <div className="project-overview">
+              <p className="project-kind">GitHub CLI Extension / Go</p>
+              <h3>gh-trends</h3>
+              <p className="project-description">
+                GitHub上のPR、リードタイム、リリース頻度、コードレビュー、CI/CDを分析し、
+                チームの開発フローとその変化を可視化するGitHub CLI拡張です。
+              </p>
+              <ul className="project-tags" aria-label="gh-trendsの特徴">
+                <li>Go</li>
+                <li>日本語・英語対応</li>
+                <li>MIT License</li>
+              </ul>
+              <div className="project-install">
+                <span>Install</span>
+                <code>gh extension install hironeko/gh-trends</code>
+              </div>
+              <a
+                className="text-link project-link"
+                href="https://github.com/hironeko/gh-trends"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <SiGithub aria-hidden="true" />
+                GitHubで見る
+                <ArrowUpRight aria-hidden="true" />
+              </a>
+            </div>
+            <ul className="project-feature-list">
+              {projectFeatures.map((feature) => {
+                const Icon = feature.icon;
+
+                return (
+                  <li key={feature.title}>
+                    <div className="project-feature-icon">
+                      <Icon aria-hidden="true" />
+                    </div>
+                    <div>
+                      <h4>{feature.title}</h4>
+                      <p>{feature.description}</p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </article>
         </section>
 
         <section className="page-shell content-section">

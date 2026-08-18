@@ -368,6 +368,123 @@ button {
   line-height: 1.65;
 }
 
+.project-showcase {
+  display: grid;
+  gap: 3rem;
+  margin-top: 3.5rem;
+  padding-block: 2.25rem;
+  border-block: 1px solid var(--border);
+}
+
+.project-kind {
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.project-overview h3 {
+  margin-top: 0.85rem;
+  font-size: clamp(2rem, 7vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+.project-description {
+  max-width: 35rem;
+  margin-top: 1.35rem;
+  color: var(--muted-foreground);
+  font-size: 0.88rem;
+  line-height: 1.85;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.project-tags li {
+  padding: 0.38rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted-foreground);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+}
+
+.project-install {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 0.9rem 1rem;
+  border-left: 2px solid var(--primary);
+  background: color-mix(in oklab, var(--primary) 6%, transparent);
+}
+
+.project-install span {
+  color: var(--muted-foreground);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.project-install code {
+  overflow-wrap: anywhere;
+  color: var(--foreground);
+  font-family: var(--font-mono);
+  font-size: 0.73rem;
+}
+
+.project-link {
+  margin-top: 1rem;
+}
+
+.project-feature-list {
+  border-top: 1px solid var(--border);
+}
+
+.project-feature-list li {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  gap: 1rem;
+  padding-block: 1.15rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.project-feature-icon {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border-radius: 0.65rem;
+  background: color-mix(in oklab, var(--primary) 9%, transparent);
+  color: var(--primary);
+}
+
+.project-feature-icon svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.project-feature-list h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.project-feature-list p {
+  margin-top: 0.35rem;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  line-height: 1.65;
+}
+
 .capability-list {
   margin-top: 3.5rem;
   border-top: 1px solid var(--border);
@@ -472,6 +589,10 @@ button {
   line-height: 2;
 }
 
+.resume-print-document {
+  display: none;
+}
+
 .resume-section {
   padding-block: clamp(4rem, 9vw, 6.5rem);
   border-top: 1px solid var(--border);
@@ -531,6 +652,41 @@ button {
   color: var(--muted-foreground);
   font-size: 0.84rem;
   line-height: 1.8;
+}
+
+.resume-approach-list {
+  display: grid;
+  margin-top: 3rem;
+  border-top: 1px solid var(--border);
+}
+
+.resume-approach-list li {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: 0.55rem 1rem;
+  padding-block: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.resume-approach-list li > span {
+  grid-row: 1 / span 2;
+  padding-top: 0.15rem;
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.resume-approach-list h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.resume-approach-list p {
+  color: var(--muted-foreground);
+  font-size: 0.8rem;
+  line-height: 1.75;
 }
 
 .resume-timeline {
@@ -605,6 +761,50 @@ button {
   font-size: 0.98rem;
   font-weight: 600;
   line-height: 1.6;
+}
+
+.resume-personal-projects {
+  margin-top: 3rem;
+  border-top: 1px solid var(--border);
+}
+
+.resume-personal-project {
+  display: grid;
+  gap: 1.25rem;
+  padding-block: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.resume-personal-project > div > p {
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.resume-personal-project h3 {
+  margin-top: 0.4rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.resume-personal-description {
+  max-width: 43rem;
+  color: var(--muted-foreground);
+  font-size: 0.84rem;
+  line-height: 1.8;
+}
+
+.resume-personal-project .resume-stack {
+  padding-block: 0;
+  border-bottom: 0;
+}
+
+.resume-personal-project .text-link {
+  width: fit-content;
 }
 
 .resume-project ul {
@@ -708,6 +908,12 @@ button {
     border-left: 1px solid var(--border);
   }
 
+  .project-showcase {
+    grid-template-columns: minmax(0, 1.05fr) minmax(17rem, 0.95fr);
+    gap: 4rem;
+    align-items: start;
+  }
+
   .capability-list > div {
     grid-template-columns: 10rem minmax(0, 1fr);
     gap: 2rem;
@@ -743,6 +949,19 @@ button {
 
   .resume-strength-list p {
     margin-top: 0;
+  }
+
+  .resume-approach-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .resume-approach-list li {
+    padding: 1.5rem;
+  }
+
+  .resume-approach-list li:nth-child(odd) {
+    padding-left: 0;
+    border-right: 1px solid var(--border);
   }
 
   .resume-timeline {
@@ -789,7 +1008,7 @@ button {
 
   @page {
     size: A4;
-    margin: 14mm;
+    margin: 12mm 13mm;
   }
 
   html {
@@ -799,73 +1018,256 @@ button {
 
   body {
     background: #ffffff;
-    font-size: 10pt;
-  }
-
-  .resume-site-header,
-  .resume-back-link,
-  .resume-contact,
-  .resume-page > .site-footer {
-    display: none;
-  }
-
-  .page-shell {
-    width: 100%;
-    max-width: none;
-  }
-
-  .resume-intro {
-    padding-block: 0 8mm;
-  }
-
-  .resume-intro .eyebrow {
-    margin-top: 0;
-  }
-
-  .resume-title-row {
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 8mm;
-  }
-
-  .resume-title-row h1 {
-    font-size: 42pt;
-  }
-
-  .resume-lead {
-    margin-top: 8mm;
+    color: #111111;
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
     font-size: 9pt;
-    line-height: 1.7;
+    line-height: 1.65;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
   }
 
-  .resume-section {
-    padding-block: 9mm;
-    scroll-margin-top: 0;
+  .resume-page > .resume-site-header,
+  .resume-page > main,
+  .resume-page > .site-footer {
+    display: none !important;
   }
 
-  .resume-section-header {
-    grid-template-columns: 48mm minmax(0, 1fr);
+  .resume-print-document {
+    display: block;
+    width: 100%;
+    color: #111111;
   }
 
-  .resume-section-header h2 {
-    font-size: 22pt;
+  .print-document-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12mm;
+    align-items: end;
+    padding-bottom: 5mm;
+    border-bottom: 2px solid #222222;
   }
 
-  .resume-strength-list,
-  .resume-timeline {
+  .print-document-header > div > p {
+    font-size: 10pt;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+  }
+
+  .print-document-header h1 {
+    margin-top: 2mm;
+    font-size: 20pt;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .print-document-header > p {
+    color: #333333;
+    font-size: 8.5pt;
+    line-height: 1.6;
+    text-align: right;
+  }
+
+  .print-document-section {
     margin-top: 7mm;
   }
 
-  .resume-job-header h3 {
-    font-size: 14pt;
+  .print-document-section > h2 {
+    margin-bottom: 3mm;
+    padding: 1.5mm 2.5mm;
+    border-left: 3px solid #1d4ed8;
+    background: #eef3fb;
+    font-size: 12pt;
+    font-weight: 700;
+    line-height: 1.35;
   }
 
-  .resume-job,
-  .resume-project,
-  .resume-strength-list li {
+  .print-summary {
+    text-align: justify;
+  }
+
+  .print-strength-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    line-height: 1.4;
+  }
+
+  .print-strength-table th,
+  .print-strength-table td {
+    padding: 1.4mm 2.5mm;
+    border: 1px solid #b9b9b9;
+    vertical-align: top;
+  }
+
+  .print-strength-table th {
+    width: 39mm;
+    background: #f4f4f4;
+    font-size: 8.5pt;
+    font-weight: 700;
+    text-align: left;
+  }
+
+  .print-strength-table td {
+    font-size: 7.8pt;
+  }
+
+  .print-personal-project {
+    border: 1px solid #999999;
     break-inside: avoid;
   }
 
-  .resume-timeline {
-    gap: 10mm;
+  .print-personal-section,
+  .print-strengths-section {
+    margin-top: 5mm;
+  }
+
+  .print-personal-project header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8mm;
+    align-items: baseline;
+    padding: 2.5mm 3mm;
+    background: #e6e6e6;
+  }
+
+  .print-personal-project h3 {
+    font-size: 10.5pt;
+    font-weight: 700;
+  }
+
+  .print-personal-project header p {
+    font-size: 7.5pt;
+  }
+
+  .print-personal-project > p {
+    padding: 2.5mm 3mm;
+    font-size: 8pt;
+  }
+
+  .print-personal-project dl {
+    display: grid;
+    grid-template-columns: 30mm minmax(0, 1fr);
+    border-top: 1px solid #aaaaaa;
+    font-size: 7.3pt;
+  }
+
+  .print-personal-project dt,
+  .print-personal-project dd {
+    padding: 1.8mm 2.5mm;
+  }
+
+  .print-personal-project dt {
+    border-right: 1px solid #aaaaaa;
+    background: #f4f4f4;
+    font-weight: 700;
+  }
+
+  .print-note {
+    margin: -1mm 0 3mm;
+    color: #555555;
+    font-size: 7.5pt;
+  }
+
+  .print-job {
+    margin-top: 5mm;
+    border: 1px solid #999999;
+  }
+
+  .print-job.print-page-break-after {
+    break-after: page;
+  }
+
+  .print-job.print-page-top {
+    margin-top: 2mm;
+  }
+
+  .print-job-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8mm;
+    align-items: start;
+    padding: 2.5mm 3mm;
+    background: #e6e6e6;
+  }
+
+  .print-job-header h3 {
+    font-size: 10.5pt;
+    font-weight: 700;
+  }
+
+  .print-job-header p,
+  .print-job-header time {
+    margin-top: 0.6mm;
+    font-size: 8pt;
+    line-height: 1.45;
+  }
+
+  .print-job-header time {
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .print-job-meta {
+    display: grid;
+    grid-template-columns: 23mm minmax(0, 1fr);
+    border-top: 1px solid #aaaaaa;
+    border-bottom: 1px solid #aaaaaa;
+    font-size: 7.5pt;
+  }
+
+  .print-job-meta dt,
+  .print-job-meta dd {
+    padding: 1.8mm 2.5mm;
+  }
+
+  .print-job-meta dt {
+    border-right: 1px solid #aaaaaa;
+    background: #f4f4f4;
+    font-weight: 700;
+  }
+
+  .print-job-projects {
+    padding: 2.6mm 3mm;
+  }
+
+  .print-job-project + .print-job-project {
+    margin-top: 2.8mm;
+    padding-top: 2.5mm;
+    border-top: 1px solid #cccccc;
+  }
+
+  .print-job-project h4 {
+    margin-bottom: 1.5mm;
+    font-size: 9pt;
+    font-weight: 700;
+  }
+
+  .print-job-project ul {
+    padding-left: 4.5mm;
+    list-style: disc;
+  }
+
+  .print-job-project li {
+    padding-left: 0.5mm;
+    font-size: 7.8pt;
+    line-height: 1.45;
+  }
+
+  .print-job-project li + li {
+    margin-top: 0.7mm;
+  }
+
+  .print-document-header,
+  .print-document-section > h2,
+  .print-strength-table tr,
+  .print-job-header,
+  .print-job-meta,
+  .print-job-project h4 {
+    break-after: avoid;
+  }
+
+  .print-strength-table tr,
+  .print-job-project {
+    break-inside: avoid;
   }
 }

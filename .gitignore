@@ -4,3 +4,5 @@ build/
 .react-router/
 .wrangler/
 worker-configuration.d.ts
+/output/
+/tmp/
